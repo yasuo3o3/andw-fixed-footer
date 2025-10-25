@@ -564,9 +564,43 @@ class ANDW_Fixed_Footer {
             ANDW_FIXED_FOOTER_VERSION
         );
 
-        // CSS変数として設定値を出力
+        // CSS変数として設定値を出力（ブラウザ互換性強化）
         $max_width = !empty($options['max_screen_width']) ? absint($options['max_screen_width']) : 768;
-        $custom_css = ":root { --andw-max-width: {$max_width}px; }";
+        $custom_css = "
+        /* andW Fixed Footer 動的設定 */
+        :root {
+            --andw-max-width: {$max_width}px;
+        }
+
+        /* デバッグ用：CSS変数が適用されているかの確認 */
+        .andw-fixed-footer-wrapper::before {
+            content: 'MaxWidth: {$max_width}px';
+            position: absolute;
+            top: -20px;
+            left: 10px;
+            font-size: 10px;
+            color: #666;
+            background: rgba(255,255,255,0.8);
+            padding: 2px 4px;
+            border-radius: 2px;
+            z-index: 10001;
+        }
+
+        /* 緊急フォールバック：CSS変数が効かない場合の基本表示 */
+        @media (max-width: {$max_width}px) {
+            .andw-fixed-footer-wrapper.andw-emergency-fallback {
+                position: fixed !important;
+                bottom: 0 !important;
+                left: 0 !important;
+                right: 0 !important;
+                z-index: 9999 !important;
+                display: flex !important;
+                flex-direction: column !important;
+                background: #ffffff !important;
+                box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1) !important;
+            }
+        }
+        ";
         wp_add_inline_style('andw-fixed-footer-style', $custom_css);
 
         wp_enqueue_script(

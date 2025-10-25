@@ -42,6 +42,9 @@
             return;
         }
 
+        // CSS変数の動作確認とフォールバック適用
+        checkCSSVariablesAndApplyFallback();
+
         // 初期表示状態の設定
         footerWrapper.classList.add('andw-loaded');
         footerWrapper.classList.add('andw-show');
@@ -57,6 +60,35 @@
 
         // リサイズイベントの設定
         setupResizeEvent();
+    }
+
+    /**
+     * CSS変数の動作確認とフォールバック適用
+     */
+    function checkCSSVariablesAndApplyFallback() {
+        // CSS変数の対応チェック
+        const supportsCSS = window.CSS && CSS.supports && CSS.supports('(--fake-var: 0)');
+
+        if (!supportsCSS) {
+            console.warn('andW Fixed Footer: CSS Variables not supported, applying emergency fallback');
+            footerWrapper.classList.add('andw-emergency-fallback');
+            return;
+        }
+
+        // CSS変数が実際に適用されているかチェック
+        const computedStyle = window.getComputedStyle(footerWrapper);
+        const position = computedStyle.getPropertyValue('position');
+
+        // 100ms後に位置をチェック（CSS読み込み完了待ち）
+        setTimeout(function() {
+            const recomputedStyle = window.getComputedStyle(footerWrapper);
+            const newPosition = recomputedStyle.getPropertyValue('position');
+
+            if (newPosition !== 'fixed') {
+                console.warn('andW Fixed Footer: CSS not applying correctly, activating emergency fallback');
+                footerWrapper.classList.add('andw-emergency-fallback');
+            }
+        }, 100);
     }
 
     /**
@@ -263,9 +295,33 @@
     });
 
     /**
+     * デバッグ情報の出力
+     */
+    function logDebugInfo() {
+        if (footerWrapper) {
+            const computedStyle = window.getComputedStyle(footerWrapper);
+            const position = computedStyle.getPropertyValue('position');
+            const display = computedStyle.getPropertyValue('display');
+            const maxWidth = (typeof andwFooterSettings !== 'undefined' && andwFooterSettings.maxWidth) ? andwFooterSettings.maxWidth : 768;
+
+            console.log('andW Fixed Footer Debug Info:', {
+                'Window Width': window.innerWidth,
+                'Max Width Setting': maxWidth,
+                'Position': position,
+                'Display': display,
+                'CSS Classes': footerWrapper.className,
+                'CSS Variables Support': window.CSS && CSS.supports && CSS.supports('(--fake-var: 0)')
+            });
+        }
+    }
+
+    /**
      * モジュールの初期化実行
      */
     init();
+
+    // デバッグ情報を3秒後に出力（読み込み完了後）
+    setTimeout(logDebugInfo, 3000);
 
     /**
      * 外部から制御するためのAPI（必要に応じて）

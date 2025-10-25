@@ -1,6 +1,78 @@
 /* andW Fixed Footer CSS */
 
-/* 設定値以下でのみ表示 */
+/* フォールバック：CSS変数が効かない場合の基本表示（768px固定） */
+@media (max-width: 768px) {
+    .andw-fixed-footer-wrapper {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        z-index: 9999;
+        display: flex;
+        flex-direction: column;
+        background: #ffffff;
+        box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s ease;
+        transform: translateY(0);
+    }
+
+    .andw-footer-buttons {
+        display: flex;
+        flex-direction: row;
+        min-height: 50px;
+    }
+
+    .andw-footer-button {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-decoration: none;
+        color: inherit;
+        padding: 8px 4px;
+        border: none;
+        cursor: pointer;
+        transition: opacity 0.2s ease;
+        font-size: 14px;
+        line-height: 1.2;
+        text-align: center;
+        gap: 4px;
+        flex-direction: column;
+    }
+
+    /* フォールバック用Font Awesomeアイコン */
+    .andw-button-icon {
+        font-family: "Font Awesome 6 Free", "Font Awesome 6 Pro", FontAwesome, sans-serif;
+        font-weight: 900;
+        font-size: 16px;
+        line-height: 1;
+    }
+
+    .andw-button-icon::before {
+        content: var(--icon-content, '');
+    }
+
+    .andw-button-label {
+        font-size: 12px;
+        line-height: 1.1;
+        word-break: break-all;
+        overflow-wrap: break-word;
+    }
+
+    /* スライド状態の制御 */
+    .andw-fixed-footer-wrapper.andw-hide {
+        transform: translateY(100%);
+    }
+
+    .andw-fixed-footer-wrapper.andw-show {
+        transform: translateY(0);
+    }
+
+    .andw-fixed-footer-wrapper.andw-closed {
+        display: none !important;
+    }
+}
+
+/* 設定値以下でのみ表示（CSS変数使用） */
 @media (max-width: var(--andw-max-width, 768px)) {
     .andw-fixed-footer-wrapper {
         position: fixed;
