@@ -221,19 +221,24 @@ class ANDW_Fixed_Footer {
     }
 
     private function andw_fixed_footer_add_button_fields($button_num) {
+        /* translators: %d is button number */
         $button_label = sprintf(__('ボタン%d', 'andw-fixed-footer'), $button_num);
 
         add_settings_field(
             "button_{$button_num}_enabled",
+            /* translators: %s is button label */
             sprintf(__('%s 有効/無効', 'andw-fixed-footer'), $button_label),
             array($this, 'andw_fixed_footer_checkbox_callback'),
             'andw_fixed_footer',
             'andw_fixed_footer_buttons_section',
-            array('field' => "button_{$button_num}_enabled", 'description' => sprintf(__('%sを表示する', 'andw-fixed-footer'), $button_label))
+            array('field' => "button_{$button_num}_enabled", 'description' =>
+                /* translators: %s is button label */
+                sprintf(__('%sを表示する', 'andw-fixed-footer'), $button_label))
         );
 
         add_settings_field(
             "button_{$button_num}_bg_color",
+            /* translators: %s is button label */
             sprintf(__('%s 背景色', 'andw-fixed-footer'), $button_label),
             array($this, 'andw_fixed_footer_color_callback'),
             'andw_fixed_footer',
