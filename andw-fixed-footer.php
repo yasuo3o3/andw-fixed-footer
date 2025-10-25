@@ -115,6 +115,15 @@ class ANDW_Fixed_Footer {
         );
 
         add_settings_field(
+            'max_screen_width',
+            __('表示画面幅上限 (px)', 'andw-fixed-footer'),
+            array($this, 'andw_fixed_footer_number_callback'),
+            'andw_fixed_footer',
+            'andw_fixed_footer_general_section',
+            array('field' => 'max_screen_width', 'min' => 320, 'max' => 1200, 'description' => __('この画面幅以下でフッターを表示します', 'andw-fixed-footer'))
+        );
+
+        add_settings_field(
             'button_width_right_2',
             __('2分割時 右側ボタン幅 (%)', 'andw-fixed-footer'),
             array($this, 'andw_fixed_footer_number_callback'),
@@ -304,6 +313,9 @@ class ANDW_Fixed_Footer {
         if (isset($args['min'])) echo ' min="' . esc_attr($args['min']) . '"';
         if (isset($args['max'])) echo ' max="' . esc_attr($args['max']) . '"';
         echo ' />';
+        if (isset($args['description'])) {
+            echo '<p class="description">' . esc_html($args['description']) . '</p>';
+        }
     }
 
     public function andw_fixed_footer_color_callback($args) {
@@ -342,6 +354,7 @@ class ANDW_Fixed_Footer {
         $sanitized['enabled'] = isset($input['enabled']) ? 1 : 0;
         $sanitized['display_mode'] = in_array($input['display_mode'], array('2', '3', '4', '5', '6')) ? $input['display_mode'] : '2';
         $sanitized['button_height'] = absint($input['button_height']);
+        $sanitized['max_screen_width'] = max(320, min(1200, absint($input['max_screen_width'])));
         $sanitized['button_width_right_2'] = max(1, min(99, absint($input['button_width_right_2'])));
         $sanitized['button_width_left_3'] = max(1, min(98, absint($input['button_width_left_3'])));
         $sanitized['button_width_right_3'] = max(1, min(98, absint($input['button_width_right_3'])));
@@ -385,6 +398,7 @@ class ANDW_Fixed_Footer {
             'enabled' => 1,
             'display_mode' => '2',
             'button_height' => 50,
+            'max_screen_width' => 768,
             'button_width_right_2' => 50,
             'button_width_left_3' => 33,
             'button_width_right_3' => 33,
@@ -487,6 +501,58 @@ class ANDW_Fixed_Footer {
             ANDW_FIXED_FOOTER_VERSION,
             true
         );
+
+        // JavaScriptに設定値を渡す
+        wp_localize_script('andw-fixed-footer-script', 'andwFooterSettings', array(
+            'maxWidth' => absint($options['max_screen_width'])
+        ));
+
+        // 動的CSS出力
+        $this->andw_fixed_footer_output_inline_css();
+    }
+
+    public function andw_fixed_footer_output_inline_css() {
+        $options = get_option($this->option_name, $this->andw_fixed_footer_get_default_options());
+        $max_width = absint($options['max_screen_width']);
+
+        $css = "
+        <style id='andw-fixed-footer-dynamic-css'>
+        @media (max-width: {$max_width}px) {
+            .andw-fixed-footer-wrapper {
+                position: fixed;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                z-index: 9999;
+                display: flex;
+                flex-direction: column;
+                background: #ffffff;
+                box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+                transition: transform 0.3s ease;
+                transform: translateY(0);
+            }
+
+            .andw-fixed-footer-wrapper.andw-hide {
+                transform: translateY(100%);
+            }
+
+            .andw-fixed-footer-wrapper.andw-show {
+                transform: translateY(0);
+            }
+
+            .andw-fixed-footer-wrapper.andw-closed {
+                display: none !important;
+            }
+        }
+
+        @media (min-width: " . ($max_width + 1) . "px) {
+            .andw-fixed-footer-wrapper {
+                display: none !important;
+            }
+        }
+        </style>";
+
+        echo $css;
     }
 
     public function andw_fixed_footer_output() {

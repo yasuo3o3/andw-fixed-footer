@@ -36,8 +36,10 @@
             return;
         }
 
-        // 画面幅チェック（480px以下でのみ動作）
-        if (window.innerWidth > 480) {
+        // 画面幅チェック（設定値以下でのみ動作）
+        var maxWidth = (typeof andwFooterSettings !== 'undefined' && andwFooterSettings.maxWidth) ?
+                       andwFooterSettings.maxWidth : 768; // フォールバック値
+        if (window.innerWidth > maxWidth) {
             return;
         }
 
@@ -119,8 +121,10 @@
      */
     function setupResizeEvent() {
         window.addEventListener('resize', debounce(function() {
-            // 画面幅が480pxを超えた場合は非表示
-            if (window.innerWidth > 480) {
+            // 画面幅が設定値を超えた場合は非表示
+            var maxWidth = (typeof andwFooterSettings !== 'undefined' && andwFooterSettings.maxWidth) ?
+                           andwFooterSettings.maxWidth : 768;
+            if (window.innerWidth > maxWidth) {
                 if (footerWrapper) {
                     footerWrapper.style.display = 'none';
                 }
