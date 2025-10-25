@@ -37,8 +37,18 @@
         }
 
         // 画面幅チェック（設定値以下でのみ動作）
-        var maxWidth = (typeof andwFooterSettings !== 'undefined' && andwFooterSettings.maxWidth) ?
-                       andwFooterSettings.maxWidth : 768; // フォールバック値
+        var maxWidth = 768; // 安全なデフォルト値
+
+        // 設定値の妥当性チェック
+        if (typeof andwFooterSettings !== 'undefined' &&
+            typeof andwFooterSettings.maxWidth === 'number' &&
+            andwFooterSettings.maxWidth >= 320 &&
+            andwFooterSettings.maxWidth <= 1200) {
+            maxWidth = andwFooterSettings.maxWidth;
+        } else if (typeof console !== 'undefined') {
+            console.warn('andW Fixed Footer: 無効な設定値をデフォルト768pxで動作');
+        }
+
         if (window.innerWidth > maxWidth) {
             return;
         }
@@ -121,9 +131,15 @@
      */
     function setupResizeEvent() {
         window.addEventListener('resize', debounce(function() {
-            // 画面幅が設定値を超えた場合は非表示
-            var maxWidth = (typeof andwFooterSettings !== 'undefined' && andwFooterSettings.maxWidth) ?
-                           andwFooterSettings.maxWidth : 768;
+            // 安全な設定値取得
+            var maxWidth = 768; // 安全なデフォルト値
+
+            if (typeof andwFooterSettings !== 'undefined' &&
+                typeof andwFooterSettings.maxWidth === 'number' &&
+                andwFooterSettings.maxWidth >= 320 &&
+                andwFooterSettings.maxWidth <= 1200) {
+                maxWidth = andwFooterSettings.maxWidth;
+            }
             if (window.innerWidth > maxWidth) {
                 if (footerWrapper) {
                     footerWrapper.style.display = 'none';
