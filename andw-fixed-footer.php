@@ -21,9 +21,17 @@ define('ANDW_FIXED_FOOTER_PLUGIN_PATH', plugin_dir_path(__FILE__));
 
 class ANDW_Fixed_Footer {
 
+    private static $instance = null;
     private $option_name = 'andw_fixed_footer_options';
 
-    public function __construct() {
+    public static function get_instance() {
+        if (self::$instance === null) {
+            self::$instance = new self();
+        }
+        return self::$instance;
+    }
+
+    private function __construct() {
         add_action('init', array($this, 'andw_fixed_footer_init'));
         add_action('admin_menu', array($this, 'andw_fixed_footer_add_admin_menu'));
         add_action('admin_init', array($this, 'andw_fixed_footer_settings_init'));
@@ -449,8 +457,7 @@ class ANDW_Fixed_Footer {
             wp_die(__('このページにアクセスする権限がありません。', 'andw-fixed-footer'));
         }
 
-        // WordPress標準のメッセージを表示
-        settings_errors();
+        // WordPressが自動でメッセージを表示するため、手動呼び出しは不要
         ?>
         <div class="wrap">
             <h1><?php echo esc_html(get_admin_page_title()); ?></h1>
@@ -622,4 +629,4 @@ class ANDW_Fixed_Footer {
     }
 }
 
-new ANDW_Fixed_Footer();
+ANDW_Fixed_Footer::get_instance();
