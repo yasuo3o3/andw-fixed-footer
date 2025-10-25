@@ -32,15 +32,10 @@ class ANDW_Fixed_Footer {
     }
 
     private function __construct() {
-        add_action('init', array($this, 'andw_fixed_footer_init'));
         add_action('admin_menu', array($this, 'andw_fixed_footer_add_admin_menu'));
         add_action('admin_init', array($this, 'andw_fixed_footer_settings_init'));
         add_action('wp_footer', array($this, 'andw_fixed_footer_output'));
         add_action('wp_enqueue_scripts', array($this, 'andw_fixed_footer_enqueue_scripts'));
-    }
-
-    public function andw_fixed_footer_init() {
-        load_plugin_textdomain('andw-fixed-footer', false, dirname(plugin_basename(__FILE__)) . '/languages');
     }
 
     public function andw_fixed_footer_add_admin_menu() {
