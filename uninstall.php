@@ -41,55 +41,9 @@ function andw_fixed_footer_uninstall_cleanup() {
  * 当プラグイン関連のtransientsを削除
  */
 function andw_fixed_footer_delete_transients() {
-    global $wpdb;
+    // トランジェント削除: このプラグインではトランジェントを使用していないため削除不要
 
-    // andw_fixed_footer プレフィックスのtransientsを検索・削除
-    $transient_keys = $wpdb->get_col(
-        $wpdb->prepare(
-            "SELECT option_name FROM $wpdb->options WHERE option_name LIKE %s OR option_name LIKE %s",
-            '_transient_andw_fixed_footer_%',
-            '_transient_timeout_andw_fixed_footer_%'
-        )
-    );
-
-    foreach ($transient_keys as $key) {
-        if (strpos($key, '_transient_timeout_') === 0) {
-            $transient_name = str_replace('_transient_timeout_', '', $key);
-        } else {
-            $transient_name = str_replace('_transient_', '', $key);
-        }
-
-        delete_transient($transient_name);
-    }
-
-    // マルチサイト対応
-    if (is_multisite()) {
-        $blog_ids = $wpdb->get_col("SELECT blog_id FROM $wpdb->blogs");
-
-        foreach ($blog_ids as $blog_id) {
-            switch_to_blog($blog_id);
-
-            $site_transient_keys = $wpdb->get_col(
-                $wpdb->prepare(
-                    "SELECT option_name FROM $wpdb->options WHERE option_name LIKE %s OR option_name LIKE %s",
-                    '_transient_andw_fixed_footer_%',
-                    '_transient_timeout_andw_fixed_footer_%'
-                )
-            );
-
-            foreach ($site_transient_keys as $key) {
-                if (strpos($key, '_transient_timeout_') === 0) {
-                    $transient_name = str_replace('_transient_timeout_', '', $key);
-                } else {
-                    $transient_name = str_replace('_transient_', '', $key);
-                }
-
-                delete_transient($transient_name);
-            }
-
-            restore_current_blog();
-        }
-    }
+    // マルチサイト対応: このプラグインではトランジェントを使用していないため削除処理なし
 }
 
 /**
