@@ -49,11 +49,8 @@ class ANDW_Fixed_Footer {
         // 新しいキーを既存オプションにマージ（既存値は保持）
         $updated_options = array_merge($default_options, $existing_options);
 
-        // 重要な設定値の妥当性チェック
-        if (!isset($updated_options['max_screen_width']) ||
-            !is_numeric($updated_options['max_screen_width']) ||
-            $updated_options['max_screen_width'] < 320 ||
-            $updated_options['max_screen_width'] > 1200) {
+        // max_screen_widthが未設定の場合のみデフォルト値設定
+        if (!isset($updated_options['max_screen_width'])) {
             $updated_options['max_screen_width'] = 768;
         }
 
@@ -538,17 +535,12 @@ class ANDW_Fixed_Footer {
             true
         );
 
-        // 安全な設定値を取得（JavaScript用）
-        $safe_max_width = isset($options['max_screen_width']) &&
-                         is_numeric($options['max_screen_width']) &&
-                         $options['max_screen_width'] >= 320 &&
-                         $options['max_screen_width'] <= 1200
-                         ? absint($options['max_screen_width'])
-                         : 768;
+        // 設定値を取得（JavaScript用）
+        $max_width = !empty($options['max_screen_width']) ? absint($options['max_screen_width']) : 768;
 
-        // JavaScriptに検証済み設定値を渡す
+        // JavaScriptに設定値を渡す
         wp_localize_script('andw-fixed-footer-script', 'andwFooterSettings', array(
-            'maxWidth' => $safe_max_width
+            'maxWidth' => $max_width
         ));
     }
 
@@ -560,35 +552,8 @@ class ANDW_Fixed_Footer {
             return;
         }
 
-        // 堅牢なデフォルト値強制適用
-        $max_width = isset($options['max_screen_width']) &&
-                     is_numeric($options['max_screen_width']) &&
-                     $options['max_screen_width'] >= 320 &&
-                     $options['max_screen_width'] <= 1200
-                     ? absint($options['max_screen_width'])
-                     : 768; // 強制デフォルト
-
-        // 異常値検出時の自動修正
-        if (!isset($options['max_screen_width']) ||
-            !is_numeric($options['max_screen_width']) ||
-            $options['max_screen_width'] < 320 ||
-            $options['max_screen_width'] > 1200) {
-
-            // 異常値を検出したら正常値で更新
-            $options['max_screen_width'] = 768;
-            update_option($this->option_name, $options);
-
-            // デバッグログ出力
-            if (defined('WP_DEBUG') && WP_DEBUG && defined('WP_DEBUG_LOG') && WP_DEBUG_LOG) {
-                error_log('andW Fixed Footer: 異常なmax_screen_width値を768にリセットしました');
-            }
-        }
-
-        // 詳細デバッグ情報出力（開発時のみ）
-        if (defined('WP_DEBUG') && WP_DEBUG) {
-            $original_value = $options['max_screen_width'] ?? 'undefined';
-            echo '<!-- andW Fixed Footer Debug: originalValue=' . $original_value . ', safeMaxWidth=' . $max_width . ', enabled=' . ($options['enabled'] ? 'true' : 'false') . ' -->' . "\n";
-        }
+        // 設定値取得（デフォルト768px）
+        $max_width = !empty($options['max_screen_width']) ? absint($options['max_screen_width']) : 768;
 
         // 表示制御に特化した動的CSS（!important で確実に適用）
         echo '<style id="andw-fixed-footer-dynamic-css">
