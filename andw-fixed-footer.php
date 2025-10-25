@@ -115,6 +115,15 @@ class ANDW_Fixed_Footer {
         );
 
         add_settings_field(
+            'max_screen_width',
+            __('表示画面幅 (px)', 'andw-fixed-footer'),
+            array($this, 'andw_fixed_footer_number_callback'),
+            'andw_fixed_footer',
+            'andw_fixed_footer_general_section',
+            array('field' => 'max_screen_width', 'min' => 200, 'max' => 2000, 'description' => 'この幅以下でフッターを表示します（デフォルト: 768px）')
+        );
+
+        add_settings_field(
             'button_width_right_2',
             __('2分割時 右側ボタン幅 (%)', 'andw-fixed-footer'),
             array($this, 'andw_fixed_footer_number_callback'),
@@ -342,6 +351,7 @@ class ANDW_Fixed_Footer {
         $sanitized['enabled'] = isset($input['enabled']) ? 1 : 0;
         $sanitized['display_mode'] = in_array($input['display_mode'], array('2', '3', '4', '5', '6')) ? $input['display_mode'] : '2';
         $sanitized['button_height'] = absint($input['button_height']);
+        $sanitized['max_screen_width'] = absint($input['max_screen_width']);
         $sanitized['button_width_right_2'] = max(1, min(99, absint($input['button_width_right_2'])));
         $sanitized['button_width_left_3'] = max(1, min(98, absint($input['button_width_left_3'])));
         $sanitized['button_width_right_3'] = max(1, min(98, absint($input['button_width_right_3'])));
@@ -385,6 +395,7 @@ class ANDW_Fixed_Footer {
             'enabled' => 1,
             'display_mode' => '2',
             'button_height' => 50,
+            'max_screen_width' => 768,
             'button_width_right_2' => 50,
             'button_width_left_3' => 33,
             'button_width_right_3' => 33,
