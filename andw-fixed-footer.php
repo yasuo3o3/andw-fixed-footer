@@ -354,6 +354,14 @@ class ANDW_Fixed_Footer {
     }
 
     public function andw_fixed_footer_sanitize_options($input) {
+        // 重複メッセージ防止: 既存の設定エラーをクリア
+        global $wp_settings_errors;
+        if (isset($wp_settings_errors)) {
+            $wp_settings_errors = array_filter($wp_settings_errors, function($error) {
+                return $error['setting'] !== 'general' || $error['code'] !== 'settings_updated';
+            });
+        }
+
         $sanitized = array();
 
         $sanitized['enabled'] = isset($input['enabled']) ? 1 : 0;
