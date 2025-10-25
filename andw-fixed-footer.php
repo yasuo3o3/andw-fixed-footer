@@ -2,7 +2,7 @@
 /**
  * Plugin Name: andW Fixed Footer
  * Description: スマホ向けの固定フッターバーを表示・管理するプラグイン。スクロール方向に応じてスライド表示されます。
- * Version: 0.0.2
+ * Version: 0.0.3
  * Author: yasuo3o3
  * Author URI: https://yasuo-o.xyz/
  * License: GPLv2 or later
@@ -66,6 +66,13 @@ class ANDW_Fixed_Footer {
             'andw_fixed_footer_buttons_section',
             __('ボタン設定', 'andw-fixed-footer'),
             array($this, 'andw_fixed_footer_buttons_section_callback'),
+            'andw_fixed_footer'
+        );
+
+        add_settings_section(
+            'andw_fixed_footer_fontawesome_section',
+            __('Font Awesomeについて', 'andw-fixed-footer'),
+            array($this, 'andw_fixed_footer_fontawesome_section_callback'),
             'andw_fixed_footer'
         );
 
@@ -177,14 +184,6 @@ class ANDW_Fixed_Footer {
             )
         );
 
-        add_settings_field(
-            'load_fontawesome',
-            __('Font Awesomeを読み込む', 'andw-fixed-footer'),
-            array($this, 'andw_fixed_footer_checkbox_callback'),
-            'andw_fixed_footer',
-            'andw_fixed_footer_general_section',
-            array('field' => 'load_fontawesome', 'description' => __('Font AwesomeのCSSを読み込む', 'andw-fixed-footer'))
-        );
 
         // 下段設定フィールド
         add_settings_field(
@@ -295,6 +294,64 @@ class ANDW_Fixed_Footer {
         echo '<p>' . esc_html__('各ボタンの設定を行います。', 'andw-fixed-footer') . '</p>';
     }
 
+    public function andw_fixed_footer_fontawesome_section_callback() {
+        // Font Awesomeの読み込み状況を検出
+        $fontawesome_detected = $this->detect_fontawesome();
+
+        if ($fontawesome_detected) {
+            echo '<div class="notice notice-success inline">';
+            echo '<p><strong>✓ ' . esc_html__('Font Awesomeが検出されました', 'andw-fixed-footer') . '</strong></p>';
+            echo '<p>' . esc_html__('Font Awesomeが正常に読み込まれているため、アイコンが表示されます。', 'andw-fixed-footer') . '</p>';
+            echo '</div>';
+        } else {
+            echo '<div class="notice notice-warning inline">';
+            echo '<p><strong>⚠ ' . esc_html__('Font Awesomeが検出されませんでした', 'andw-fixed-footer') . '</strong></p>';
+            echo '<p>' . esc_html__('このプラグインではボタンにFont Awesomeアイコンを使用します。', 'andw-fixed-footer') . '</p>';
+            echo '<p>' . esc_html__('以下のいずれかの方法でFont Awesomeを読み込んでください：', 'andw-fixed-footer') . '</p>';
+            echo '<ul>';
+            echo '<li>' . sprintf(
+                esc_html__('%s（推奨）', 'andw-fixed-footer'),
+                '<a href="https://ja.wordpress.org/plugins/font-awesome/" target="_blank">' . esc_html__('Font Awesome公式プラグイン', 'andw-fixed-footer') . '</a>'
+            ) . '</li>';
+            echo '<li>' . esc_html__('他のテーマやプラグインでFont Awesomeが既に読み込まれている場合は不要です', 'andw-fixed-footer') . '</li>';
+            echo '</ul>';
+            echo '</div>';
+        }
+    }
+
+    private function detect_fontawesome() {
+        global $wp_styles;
+
+        if (!isset($wp_styles) || !is_object($wp_styles)) {
+            return false;
+        }
+
+        // 登録されているスタイルをチェック
+        if (isset($wp_styles->registered)) {
+            foreach ($wp_styles->registered as $handle => $style) {
+                if (isset($style->src)) {
+                    // Font Awesomeのパターンをチェック
+                    if (preg_match('/font-?awesome/i', $style->src) ||
+                        preg_match('/fa\.(min\.)?css/i', $style->src) ||
+                        preg_match('/fontawesome/i', $handle)) {
+                        return true;
+                    }
+                }
+            }
+        }
+
+        // エンキューされているスタイルもチェック
+        if (isset($wp_styles->queue)) {
+            foreach ($wp_styles->queue as $handle) {
+                if (preg_match('/font-?awesome/i', $handle) || preg_match('/fa$/i', $handle)) {
+                    return true;
+                }
+            }
+        }
+
+        return false;
+    }
+
     public function andw_fixed_footer_bottom_section_callback() {
         echo '<p>' . esc_html__('下段の住所帯の設定を行います。', 'andw-fixed-footer') . '</p>';
     }
@@ -377,7 +434,6 @@ class ANDW_Fixed_Footer {
         $sanitized['button_width_right_3'] = max(1, min(98, absint($input['button_width_right_3'])));
         $sanitized['show_close_button'] = isset($input['show_close_button']) ? 1 : 0;
         $sanitized['close_button_position'] = in_array($input['close_button_position'], array('left', 'right')) ? $input['close_button_position'] : 'right';
-        $sanitized['load_fontawesome'] = isset($input['load_fontawesome']) ? 1 : 0;
 
         $sanitized['bottom_bg_color'] = sanitize_hex_color($input['bottom_bg_color']);
         $sanitized['bottom_text_color'] = sanitize_hex_color($input['bottom_text_color']);
@@ -421,7 +477,6 @@ class ANDW_Fixed_Footer {
             'button_width_right_3' => 33,
             'show_close_button' => 1,
             'close_button_position' => 'right',
-            'load_fontawesome' => 1,
             'bottom_bg_color' => '#333333',
             'bottom_text_color' => '#ffffff',
             'bottom_text' => '',
@@ -491,14 +546,6 @@ class ANDW_Fixed_Footer {
             return;
         }
 
-        if ($options['load_fontawesome']) {
-            wp_enqueue_style(
-                'font-awesome',
-                ANDW_FIXED_FOOTER_PLUGIN_URL . 'assets/vendor/fontawesome/css/all.min.css',
-                array(),
-                '6.5.0'
-            );
-        }
 
         wp_enqueue_style(
             'andw-fixed-footer-style',

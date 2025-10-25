@@ -4,7 +4,7 @@ Tags: footer, mobile, fixed, responsive, sticky
 Requires at least: 5.0
 Tested up to: 6.8
 Requires PHP: 7.4
-Stable tag: 0.0.2
+Stable tag: 0.0.3
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -21,7 +21,7 @@ andW Fixed Footerは、設定可能な画面幅以下で固定フッターバー
 * **2段構成**: 上段ボタンエリア、下段住所テキストエリア
 * **柔軟なレイアウト**: 2〜6分割ボタンレイアウト
 * **カスタマイズ**: 色、アイコン、リンク先を自由に設定
-* **Font Awesome対応**: アイコン表示をサポート
+* **Font Awesome対応**: アイコン表示をサポート（別途Font Awesomeプラグインが必要）
 * **閉じるボタン**: ユーザーが一時的に非表示にできる機能
 
 = 設定項目 =
@@ -33,7 +33,7 @@ andW Fixed Footerは、設定可能な画面幅以下で固定フッターバー
 * 表示画面幅上限（320〜1200px、デフォルト768px）
 * ボタン幅配分
 * 閉じるボタンの表示・位置
-* Font Awesomeの読み込み設定
+* Font Awesomeの検出状況表示
 
 **ボタン設定（最大6個）**
 * 有効/無効
@@ -62,10 +62,13 @@ andW Fixed Footerは、設定可能な画面幅以下で固定フッターバー
 
 == Installation ==
 
-1. プラグインをアップロードし、有効化してください
-2. 管理画面の「設定 > 固定フッター」から設定を行います
-3. 各ボタンの色、アイコン、リンク先を設定します
-4. モバイル端末で表示を確認してください
+1. Font Awesomeプラグインを先にインストールします（推奨）:
+   https://ja.wordpress.org/plugins/font-awesome/
+2. andW Fixed Footerプラグインをアップロードし、有効化してください
+3. 管理画面の「設定 > 固定フッター」から設定を行います
+4. Font Awesomeの検出状況を確認します
+5. 各ボタンの色、アイコン、リンク先を設定します
+6. モバイル端末で表示を確認してください
 
 == Frequently Asked Questions ==
 
@@ -73,9 +76,13 @@ andW Fixed Footerは、設定可能な画面幅以下で固定フッターバー
 
 管理画面で設定した「表示画面幅上限」以下のデバイスで表示されます。デフォルトは768px以下で、320px〜1200pxの範囲で自由に設定できます。
 
-= Font Awesomeを既に使用している場合は？ =
+= Font Awesomeが必要ですか？ =
 
-設定画面で「Font Awesomeを読み込む」をOFFにすることで、重複読み込みを防げます。
+はい。このプラグインはアイコン表示にFont Awesomeを使用します。以下の方法で導入してください：
+1. Font Awesome公式プラグイン（推奨）: https://ja.wordpress.org/plugins/font-awesome/
+2. 他のテーマやプラグインで既に読み込まれている場合は不要です
+
+管理画面でFont Awesomeの検出状況を確認できます。
 
 = アイコンコードの形式は？ =
 
@@ -94,16 +101,35 @@ Font Awesomeのunicodeを使用します。例：`\f095`（電話アイコン）
 
 == Changelog ==
 
+= 0.0.3 =
+* Font Awesome依存関係の変更
+* ローカルFont Awesomeファイルを削除
+* Font Awesome公式プラグイン使用に変更
+* Font Awesome検出機能を追加
+* 管理画面にFont Awesome検出状況表示
+* 設定メッセージの重複表示問題を修正
+
+= 0.0.2 =
+* WordPress.org Plugin Check対応
+* セキュリティ強化
+* コーディング規約準拠
+
 = 0.0.1 =
 * 初回リリース
 * 基本的な固定フッター機能
 * 2〜6分割ボタンレイアウト
 * スクロール連動表示/非表示
-* Font Awesome対応
+* Font Awesome対応（別途プラグイン必要）
 * 閉じるボタン機能
 * レスポンシブ対応強化
 
 == Upgrade Notice ==
+
+= 0.0.3 =
+Font Awesome依存関係が変更されました。Font Awesome公式プラグインのインストールが推奨されます。
+
+= 0.0.2 =
+WordPress.org Plugin Check対応版です。
 
 = 0.0.1 =
 初回リリースです。
