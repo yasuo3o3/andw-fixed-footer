@@ -457,7 +457,7 @@ class ANDW_Fixed_Footer {
 
     public function andw_fixed_footer_options_page() {
         if (!current_user_can('manage_options')) {
-            wp_die(__('このページにアクセスする権限がありません。', 'andw-fixed-footer'));
+            wp_die(esc_html__('このページにアクセスする権限がありません。', 'andw-fixed-footer'));
         }
 
         // WordPressが自動でメッセージを表示するため、手動呼び出しは不要
