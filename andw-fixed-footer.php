@@ -420,7 +420,8 @@ class ANDW_Fixed_Footer {
 
     public function andw_fixed_footer_sanitize_options($input) {
         // nonce検証（CSRF攻撃対策）
-        if (!isset($_POST['_wpnonce']) || !wp_verify_nonce($_POST['_wpnonce'], 'andw_fixed_footer-options')) {
+        $nonce = isset($_POST['_wpnonce']) ? sanitize_text_field(wp_unslash($_POST['_wpnonce'])) : '';
+        if (empty($nonce) || !wp_verify_nonce($nonce, 'andw_fixed_footer-options')) {
             wp_die(esc_html__('セキュリティチェックに失敗しました。', 'andw-fixed-footer'));
         }
 
