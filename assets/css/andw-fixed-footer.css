@@ -76,7 +76,7 @@
     }
 
     .andw-button-icon::before {
-        content: attr(data-icon);
+        content: var(--icon-content, '');
     }
 
     /* ボタンラベル */

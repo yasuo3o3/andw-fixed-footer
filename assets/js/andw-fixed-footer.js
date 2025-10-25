@@ -45,6 +45,9 @@
         footerWrapper.classList.add('andw-loaded');
         footerWrapper.classList.add('andw-show');
 
+        // アイコンの設定
+        setupIcons();
+
         // 閉じるボタンの設定
         setupCloseButton();
 
@@ -53,6 +56,23 @@
 
         // リサイズイベントの設定
         setupResizeEvent();
+    }
+
+    /**
+     * Font Awesomeアイコンの設定
+     */
+    function setupIcons() {
+        const iconElements = footerWrapper.querySelectorAll('.andw-button-icon');
+
+        iconElements.forEach(function(element) {
+            const iconCode = element.getAttribute('data-icon');
+            if (iconCode && iconCode.trim()) {
+                // \f095 形式のアイコンコードをCSS変数に設定
+                // バックスラッシュを適切にエスケープしてCSS contentで使用可能な形式に変換
+                const cssContent = '"' + iconCode + '"';
+                element.style.setProperty('--icon-content', cssContent);
+            }
+        });
     }
 
     /**
