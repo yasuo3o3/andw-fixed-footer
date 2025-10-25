@@ -555,19 +555,7 @@ class ANDW_Fixed_Footer {
         // 設定値取得（デフォルト768px）
         $max_width = !empty($options['max_screen_width']) ? absint($options['max_screen_width']) : 768;
 
-        // 表示制御に特化した動的CSS（!important で確実に適用）
-        echo '<style id="andw-fixed-footer-dynamic-css">
-        @media (max-width: ' . $max_width . 'px) {
-            .andw-fixed-footer-wrapper {
-                display: flex !important;
-            }
-        }
-        @media (min-width: ' . ($max_width + 1) . 'px) {
-            .andw-fixed-footer-wrapper {
-                display: none !important;
-            }
-        }
-        </style>' . "\n";
+        // JavaScript側で画面幅制御を行うため、動的CSSは不要
     }
 
     public function andw_fixed_footer_output() {
