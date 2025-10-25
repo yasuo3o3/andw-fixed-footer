@@ -69,11 +69,10 @@ function andw_fixed_footer_delete_cache() {
 
 /**
  * ログの書き込み（デバッグ用）
+ * WordPress.org審査のためerror_log削除、将来的にはフック提供を検討
  */
 function andw_fixed_footer_log_uninstall() {
-    if (defined('WP_DEBUG') && WP_DEBUG && defined('WP_DEBUG_LOG') && WP_DEBUG_LOG) {
-        error_log('andW Fixed Footer: プラグインが正常にアンインストールされました');
-    }
+    // ログ出力なし（WordPress.org審査対応）
 }
 
 // アンインストール処理を実行
@@ -82,7 +81,5 @@ try {
     andw_fixed_footer_delete_cache();
     andw_fixed_footer_log_uninstall();
 } catch (Exception $e) {
-    if (defined('WP_DEBUG') && WP_DEBUG && defined('WP_DEBUG_LOG') && WP_DEBUG_LOG) {
-        error_log('andW Fixed Footer アンインストールエラー: ' . $e->getMessage());
-    }
+    // エラーハンドリング（WordPress.org審査のためerror_log削除）
 }
