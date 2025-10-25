@@ -29,42 +29,10 @@ class ANDW_Fixed_Footer {
         add_action('admin_init', array($this, 'andw_fixed_footer_settings_init'));
         add_action('wp_footer', array($this, 'andw_fixed_footer_output'));
         add_action('wp_enqueue_scripts', array($this, 'andw_fixed_footer_enqueue_scripts'));
-
-        // プラグイン有効化フック
-        register_activation_hook(__FILE__, array($this, 'andw_fixed_footer_activation'));
     }
 
     public function andw_fixed_footer_init() {
         load_plugin_textdomain('andw-fixed-footer', false, dirname(plugin_basename(__FILE__)) . '/languages');
-    }
-
-    public function andw_fixed_footer_activation() {
-        // 既存オプションを取得
-        $existing_options = get_option($this->option_name, array());
-
-        // デフォルト値を取得
-        $default_options = $this->andw_fixed_footer_get_default_options();
-
-        // 新しいキーを既存オプションにマージ（既存値は保持）
-        $updated_options = array_merge($default_options, $existing_options);
-
-        // max_screen_widthが未設定の場合のみデフォルト値設定
-        if (!isset($updated_options['max_screen_width'])) {
-            $updated_options['max_screen_width'] = 768;
-        }
-
-        // enabledが未設定の場合は有効にする
-        if (!isset($updated_options['enabled'])) {
-            $updated_options['enabled'] = true;
-        }
-
-        // オプション更新
-        update_option($this->option_name, $updated_options);
-
-        // デバッグログ
-        if (defined('WP_DEBUG') && WP_DEBUG && defined('WP_DEBUG_LOG') && WP_DEBUG_LOG) {
-            error_log('andW Fixed Footer: プラグイン有効化時にオプション初期化完了');
-        }
     }
 
     public function andw_fixed_footer_add_admin_menu() {
@@ -144,15 +112,6 @@ class ANDW_Fixed_Footer {
             'andw_fixed_footer',
             'andw_fixed_footer_general_section',
             array('field' => 'button_height', 'min' => 30, 'max' => 100)
-        );
-
-        add_settings_field(
-            'max_screen_width',
-            __('表示画面幅上限 (px)', 'andw-fixed-footer'),
-            array($this, 'andw_fixed_footer_number_callback'),
-            'andw_fixed_footer',
-            'andw_fixed_footer_general_section',
-            array('field' => 'max_screen_width', 'min' => 320, 'max' => 1200, 'description' => __('この画面幅以下でフッターを表示します', 'andw-fixed-footer'))
         );
 
         add_settings_field(
@@ -345,9 +304,6 @@ class ANDW_Fixed_Footer {
         if (isset($args['min'])) echo ' min="' . esc_attr($args['min']) . '"';
         if (isset($args['max'])) echo ' max="' . esc_attr($args['max']) . '"';
         echo ' />';
-        if (isset($args['description'])) {
-            echo '<p class="description">' . esc_html($args['description']) . '</p>';
-        }
     }
 
     public function andw_fixed_footer_color_callback($args) {
@@ -386,7 +342,6 @@ class ANDW_Fixed_Footer {
         $sanitized['enabled'] = isset($input['enabled']) ? 1 : 0;
         $sanitized['display_mode'] = in_array($input['display_mode'], array('2', '3', '4', '5', '6')) ? $input['display_mode'] : '2';
         $sanitized['button_height'] = absint($input['button_height']);
-        $sanitized['max_screen_width'] = max(320, min(1200, absint($input['max_screen_width'])));
         $sanitized['button_width_right_2'] = max(1, min(99, absint($input['button_width_right_2'])));
         $sanitized['button_width_left_3'] = max(1, min(98, absint($input['button_width_left_3'])));
         $sanitized['button_width_right_3'] = max(1, min(98, absint($input['button_width_right_3'])));
@@ -430,7 +385,6 @@ class ANDW_Fixed_Footer {
             'enabled' => 1,
             'display_mode' => '2',
             'button_height' => 50,
-            'max_screen_width' => 768,
             'button_width_right_2' => 50,
             'button_width_left_3' => 33,
             'button_width_right_3' => 33,
@@ -533,16 +487,7 @@ class ANDW_Fixed_Footer {
             ANDW_FIXED_FOOTER_VERSION,
             true
         );
-
-        // 設定値を取得（JavaScript用）
-        $max_width = !empty($options['max_screen_width']) ? absint($options['max_screen_width']) : 768;
-
-        // JavaScriptに設定値を渡す
-        wp_localize_script('andw-fixed-footer-script', 'andwFooterSettings', array(
-            'maxWidth' => $max_width
-        ));
     }
-
 
     public function andw_fixed_footer_output() {
         $options = get_option($this->option_name, $this->andw_fixed_footer_get_default_options());

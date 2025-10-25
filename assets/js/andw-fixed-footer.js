@@ -36,10 +36,8 @@
             return;
         }
 
-        // 画面幅チェック（設定値以下でのみ動作）
-        var maxWidth = (andwFooterSettings && andwFooterSettings.maxWidth) ? andwFooterSettings.maxWidth : 768;
-
-        if (window.innerWidth > maxWidth) {
+        // 画面幅チェック（480px以下でのみ動作）
+        if (window.innerWidth > 480) {
             return;
         }
 
@@ -121,9 +119,8 @@
      */
     function setupResizeEvent() {
         window.addEventListener('resize', debounce(function() {
-            // 設定値取得
-            var maxWidth = (andwFooterSettings && andwFooterSettings.maxWidth) ? andwFooterSettings.maxWidth : 768;
-            if (window.innerWidth > maxWidth) {
+            // 画面幅が480pxを超えた場合は非表示
+            if (window.innerWidth > 480) {
                 if (footerWrapper) {
                     footerWrapper.style.display = 'none';
                 }
