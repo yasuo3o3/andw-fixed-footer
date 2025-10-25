@@ -487,6 +487,11 @@ class ANDW_Fixed_Footer {
             ANDW_FIXED_FOOTER_VERSION,
             true
         );
+
+        // JavaScriptに設定値を渡す
+        wp_localize_script('andw-fixed-footer-script', 'andwFooterSettings', array(
+            'maxWidth' => !empty($options['max_screen_width']) ? absint($options['max_screen_width']) : 768
+        ));
     }
 
     public function andw_fixed_footer_output() {
