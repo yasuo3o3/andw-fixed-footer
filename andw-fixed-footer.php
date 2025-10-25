@@ -310,6 +310,7 @@ class ANDW_Fixed_Footer {
             echo '<p>' . esc_html__('以下のいずれかの方法でFont Awesomeを読み込んでください：', 'andw-fixed-footer') . '</p>';
             echo '<ul>';
             echo '<li>' . sprintf(
+                /* translators: %s: Link to Font Awesome plugin */
                 esc_html__('%s（推奨）', 'andw-fixed-footer'),
                 '<a href="https://ja.wordpress.org/plugins/font-awesome/" target="_blank">' . esc_html__('Font Awesome公式プラグイン', 'andw-fixed-footer') . '</a>'
             ) . '</li>';
