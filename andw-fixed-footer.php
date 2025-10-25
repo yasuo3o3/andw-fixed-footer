@@ -29,6 +29,7 @@ class ANDW_Fixed_Footer {
         add_action('admin_init', array($this, 'andw_fixed_footer_settings_init'));
         add_action('wp_footer', array($this, 'andw_fixed_footer_output'));
         add_action('wp_enqueue_scripts', array($this, 'andw_fixed_footer_enqueue_scripts'));
+        add_action('wp_head', array($this, 'andw_fixed_footer_output_inline_css'));
     }
 
     public function andw_fixed_footer_init() {
@@ -506,53 +507,31 @@ class ANDW_Fixed_Footer {
         wp_localize_script('andw-fixed-footer-script', 'andwFooterSettings', array(
             'maxWidth' => absint($options['max_screen_width'])
         ));
-
-        // 動的CSS出力
-        $this->andw_fixed_footer_output_inline_css();
     }
 
     public function andw_fixed_footer_output_inline_css() {
         $options = get_option($this->option_name, $this->andw_fixed_footer_get_default_options());
+
+        // プラグインが無効の場合は何も出力しない
+        if (!$options['enabled']) {
+            return;
+        }
+
         $max_width = absint($options['max_screen_width']);
 
-        $css = "
-        <style id='andw-fixed-footer-dynamic-css'>
-        @media (max-width: {$max_width}px) {
+        // 表示制御のみに特化した動的CSS
+        echo '<style id="andw-fixed-footer-dynamic-css">
+        @media (max-width: ' . $max_width . 'px) {
             .andw-fixed-footer-wrapper {
-                position: fixed;
-                bottom: 0;
-                left: 0;
-                right: 0;
-                z-index: 9999;
                 display: flex;
-                flex-direction: column;
-                background: #ffffff;
-                box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
-                transition: transform 0.3s ease;
-                transform: translateY(0);
-            }
-
-            .andw-fixed-footer-wrapper.andw-hide {
-                transform: translateY(100%);
-            }
-
-            .andw-fixed-footer-wrapper.andw-show {
-                transform: translateY(0);
-            }
-
-            .andw-fixed-footer-wrapper.andw-closed {
-                display: none !important;
             }
         }
-
-        @media (min-width: " . ($max_width + 1) . "px) {
+        @media (min-width: ' . ($max_width + 1) . 'px) {
             .andw-fixed-footer-wrapper {
                 display: none !important;
             }
         }
-        </style>";
-
-        echo $css;
+        </style>';
     }
 
     public function andw_fixed_footer_output() {
