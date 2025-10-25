@@ -154,6 +154,38 @@
             padding: 6px 8px;
             font-size: 11px;
         }
+
+        /* 5-6分割時の特別調整 */
+        .andw-footer-buttons:has(.andw-footer-button:nth-child(5)) .andw-footer-button {
+            padding: 4px 1px;
+            font-size: 10px;
+        }
+
+        .andw-footer-buttons:has(.andw-footer-button:nth-child(5)) .andw-button-icon {
+            font-size: 12px;
+        }
+
+        .andw-footer-buttons:has(.andw-footer-button:nth-child(5)) .andw-button-label {
+            font-size: 9px;
+        }
+    }
+
+    /* 超小画面での6分割対応 */
+    @media (max-width: 320px) {
+        .andw-footer-buttons:has(.andw-footer-button:nth-child(6)) .andw-footer-button {
+            padding: 3px 1px;
+            font-size: 9px;
+            gap: 2px;
+        }
+
+        .andw-footer-buttons:has(.andw-footer-button:nth-child(6)) .andw-button-icon {
+            font-size: 10px;
+        }
+
+        .andw-footer-buttons:has(.andw-footer-button:nth-child(6)) .andw-button-label {
+            font-size: 8px;
+            line-height: 1;
+        }
     }
 
     /* 横向きでボタンを横並びに */

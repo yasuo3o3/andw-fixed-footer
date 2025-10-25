@@ -97,7 +97,10 @@ class ANDW_Fixed_Footer {
                 'field' => 'display_mode',
                 'options' => array(
                     '2' => __('2分割', 'andw-fixed-footer'),
-                    '3' => __('3分割', 'andw-fixed-footer')
+                    '3' => __('3分割', 'andw-fixed-footer'),
+                    '4' => __('4分割', 'andw-fixed-footer'),
+                    '5' => __('5分割', 'andw-fixed-footer'),
+                    '6' => __('6分割', 'andw-fixed-footer')
                 )
             )
         );
@@ -200,7 +203,7 @@ class ANDW_Fixed_Footer {
         );
 
         // ボタン設定フィールド
-        for ($i = 1; $i <= 3; $i++) {
+        for ($i = 1; $i <= 6; $i++) {
             $this->andw_fixed_footer_add_button_fields($i);
         }
     }
@@ -337,7 +340,7 @@ class ANDW_Fixed_Footer {
         $sanitized = array();
 
         $sanitized['enabled'] = isset($input['enabled']) ? 1 : 0;
-        $sanitized['display_mode'] = in_array($input['display_mode'], array('2', '3')) ? $input['display_mode'] : '2';
+        $sanitized['display_mode'] = in_array($input['display_mode'], array('2', '3', '4', '5', '6')) ? $input['display_mode'] : '2';
         $sanitized['button_height'] = absint($input['button_height']);
         $sanitized['button_width_right_2'] = max(1, min(99, absint($input['button_width_right_2'])));
         $sanitized['button_width_left_3'] = max(1, min(98, absint($input['button_width_left_3'])));
@@ -350,7 +353,7 @@ class ANDW_Fixed_Footer {
         $sanitized['bottom_text_color'] = sanitize_hex_color($input['bottom_text_color']);
         $sanitized['bottom_text'] = sanitize_textarea_field($input['bottom_text']);
 
-        for ($i = 1; $i <= 3; $i++) {
+        for ($i = 1; $i <= 6; $i++) {
             $sanitized["button_{$i}_enabled"] = isset($input["button_{$i}_enabled"]) ? 1 : 0;
             $sanitized["button_{$i}_bg_color"] = sanitize_hex_color($input["button_{$i}_bg_color"]);
             $sanitized["button_{$i}_text_color"] = sanitize_hex_color($input["button_{$i}_text_color"]);
@@ -409,6 +412,24 @@ class ANDW_Fixed_Footer {
             'button_3_icon' => '\\f041',
             'button_3_label' => __('地図', 'andw-fixed-footer'),
             'button_3_url' => 'https://example.com/map',
+            'button_4_enabled' => 0,
+            'button_4_bg_color' => '#dc3545',
+            'button_4_text_color' => '#ffffff',
+            'button_4_icon' => '\\f015',
+            'button_4_label' => __('ホーム', 'andw-fixed-footer'),
+            'button_4_url' => 'https://example.com',
+            'button_5_enabled' => 0,
+            'button_5_bg_color' => '#6f42c1',
+            'button_5_text_color' => '#ffffff',
+            'button_5_icon' => '\\f0d6',
+            'button_5_label' => __('予約', 'andw-fixed-footer'),
+            'button_5_url' => 'https://example.com/booking',
+            'button_6_enabled' => 0,
+            'button_6_bg_color' => '#fd7e14',
+            'button_6_text_color' => '#ffffff',
+            'button_6_icon' => '\\f1ad',
+            'button_6_label' => __('ニュース', 'andw-fixed-footer'),
+            'button_6_url' => 'https://example.com/news',
         );
     }
 
@@ -517,7 +538,7 @@ class ANDW_Fixed_Footer {
 
     private function andw_fixed_footer_get_active_buttons($options, $display_mode) {
         $buttons = array();
-        $max_buttons = ($display_mode == '2') ? 2 : 3;
+        $max_buttons = intval($display_mode);
 
         for ($i = 1; $i <= $max_buttons; $i++) {
             if (!empty($options["button_{$i}_enabled"])) {
@@ -539,15 +560,26 @@ class ANDW_Fixed_Footer {
             return array();
         }
 
-        if ($display_mode == '2') {
+        $mode = intval($display_mode);
+
+        // 2分割と3分割は既存の幅設定を使用（下位互換性）
+        if ($mode == 2) {
             $right_width = absint($options['button_width_right_2']);
             $left_width = 100 - $right_width;
             return array($left_width, $right_width);
-        } else {
+        } elseif ($mode == 3) {
             $left_width = absint($options['button_width_left_3']);
             $right_width = absint($options['button_width_right_3']);
             $center_width = 100 - $left_width - $right_width;
             return array($left_width, $center_width, $right_width);
+        } else {
+            // 4分割以上は均等分割
+            $equal_width = 100 / $mode;
+            $widths = array();
+            for ($i = 0; $i < $mode; $i++) {
+                $widths[] = $equal_width;
+            }
+            return $widths;
         }
     }
 
