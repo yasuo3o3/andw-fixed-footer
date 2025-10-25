@@ -248,6 +248,7 @@ class ANDW_Fixed_Footer {
 
         add_settings_field(
             "button_{$button_num}_text_color",
+            /* translators: %s is button label */
             sprintf(__('%s 文字色', 'andw-fixed-footer'), $button_label),
             array($this, 'andw_fixed_footer_color_callback'),
             'andw_fixed_footer',
@@ -257,6 +258,7 @@ class ANDW_Fixed_Footer {
 
         add_settings_field(
             "button_{$button_num}_icon",
+            /* translators: %s is button label */
             sprintf(__('%s アイコンコード', 'andw-fixed-footer'), $button_label),
             array($this, 'andw_fixed_footer_text_callback'),
             'andw_fixed_footer',
@@ -266,6 +268,7 @@ class ANDW_Fixed_Footer {
 
         add_settings_field(
             "button_{$button_num}_label",
+            /* translators: %s is button label */
             sprintf(__('%s ラベルテキスト', 'andw-fixed-footer'), $button_label),
             array($this, 'andw_fixed_footer_text_callback'),
             'andw_fixed_footer',
@@ -275,6 +278,7 @@ class ANDW_Fixed_Footer {
 
         add_settings_field(
             "button_{$button_num}_url",
+            /* translators: %s is button label */
             sprintf(__('%s リンクURL', 'andw-fixed-footer'), $button_label),
             array($this, 'andw_fixed_footer_url_callback'),
             'andw_fixed_footer',
