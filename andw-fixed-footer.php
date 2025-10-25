@@ -29,7 +29,6 @@ class ANDW_Fixed_Footer {
         add_action('admin_init', array($this, 'andw_fixed_footer_settings_init'));
         add_action('wp_footer', array($this, 'andw_fixed_footer_output'));
         add_action('wp_enqueue_scripts', array($this, 'andw_fixed_footer_enqueue_scripts'));
-        add_action('wp_head', array($this, 'andw_fixed_footer_output_inline_css'));
 
         // プラグイン有効化フック
         register_activation_hook(__FILE__, array($this, 'andw_fixed_footer_activation'));
@@ -544,19 +543,6 @@ class ANDW_Fixed_Footer {
         ));
     }
 
-    public function andw_fixed_footer_output_inline_css() {
-        $options = get_option($this->option_name, $this->andw_fixed_footer_get_default_options());
-
-        // プラグインが無効の場合は何も出力しない
-        if (!$options['enabled']) {
-            return;
-        }
-
-        // 設定値取得（デフォルト768px）
-        $max_width = !empty($options['max_screen_width']) ? absint($options['max_screen_width']) : 768;
-
-        // JavaScript側で画面幅制御を行うため、動的CSSは不要
-    }
 
     public function andw_fixed_footer_output() {
         $options = get_option($this->option_name, $this->andw_fixed_footer_get_default_options());
