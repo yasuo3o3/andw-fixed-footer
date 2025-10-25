@@ -30,10 +30,27 @@ class ANDW_Fixed_Footer {
         add_action('wp_footer', array($this, 'andw_fixed_footer_output'));
         add_action('wp_enqueue_scripts', array($this, 'andw_fixed_footer_enqueue_scripts'));
         add_action('wp_head', array($this, 'andw_fixed_footer_output_inline_css'));
+
+        // プラグイン有効化フック
+        register_activation_hook(__FILE__, array($this, 'andw_fixed_footer_activation'));
     }
 
     public function andw_fixed_footer_init() {
         load_plugin_textdomain('andw-fixed-footer', false, dirname(plugin_basename(__FILE__)) . '/languages');
+    }
+
+    public function andw_fixed_footer_activation() {
+        // 既存オプションを取得
+        $existing_options = get_option($this->option_name, array());
+
+        // デフォルト値を取得
+        $default_options = $this->andw_fixed_footer_get_default_options();
+
+        // 新しいキーを既存オプションにマージ（既存値は保持）
+        $updated_options = array_merge($default_options, $existing_options);
+
+        // オプション更新
+        update_option($this->option_name, $updated_options);
     }
 
     public function andw_fixed_footer_add_admin_menu() {
@@ -519,11 +536,30 @@ class ANDW_Fixed_Footer {
 
         $max_width = absint($options['max_screen_width']);
 
-        // 表示制御のみに特化した動的CSS
+        // 異常値チェックとフォールバック処理
+        if ($max_width < 320 || $max_width > 1200) {
+            $max_width = 768; // 安全なデフォルト値にフォールバック
+
+            // 異常値を検出したら正常値で更新
+            $options['max_screen_width'] = 768;
+            update_option($this->option_name, $options);
+
+            // デバッグログ出力
+            if (defined('WP_DEBUG') && WP_DEBUG && defined('WP_DEBUG_LOG') && WP_DEBUG_LOG) {
+                error_log('andW Fixed Footer: 異常なmax_screen_width値を768にリセットしました');
+            }
+        }
+
+        // デバッグ情報出力（開発時のみ）
+        if (defined('WP_DEBUG') && WP_DEBUG) {
+            echo '<!-- andW Fixed Footer Debug: maxWidth=' . $max_width . ', enabled=' . ($options['enabled'] ? 'true' : 'false') . ' -->' . "\n";
+        }
+
+        // 表示制御に特化した動的CSS（!important で確実に適用）
         echo '<style id="andw-fixed-footer-dynamic-css">
         @media (max-width: ' . $max_width . 'px) {
             .andw-fixed-footer-wrapper {
-                display: flex;
+                display: flex !important;
             }
         }
         @media (min-width: ' . ($max_width + 1) . 'px) {
@@ -531,7 +567,7 @@ class ANDW_Fixed_Footer {
                 display: none !important;
             }
         }
-        </style>';
+        </style>' . "\n";
     }
 
     public function andw_fixed_footer_output() {
