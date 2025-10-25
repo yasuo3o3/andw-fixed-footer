@@ -397,9 +397,9 @@ class ANDW_Fixed_Footer {
         }
 
         $allowed_schemes = array('tel', 'mailto', 'http', 'https');
-        $parsed_url = parse_url($url);
+        $parsed_url = wp_parse_url($url);
 
-        if (isset($parsed_url['scheme']) && in_array($parsed_url['scheme'], $allowed_schemes)) {
+        if (is_array($parsed_url) && isset($parsed_url['scheme']) && in_array($parsed_url['scheme'], $allowed_schemes)) {
             return esc_url_raw($url);
         }
 
