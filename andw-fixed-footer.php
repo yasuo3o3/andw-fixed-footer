@@ -449,11 +449,8 @@ class ANDW_Fixed_Footer {
             wp_die(__('このページにアクセスする権限がありません。', 'andw-fixed-footer'));
         }
 
-        if (isset($_GET['settings-updated'])) {
-            add_settings_error('andw_fixed_footer_messages', 'andw_fixed_footer_message', __('設定を保存しました。', 'andw-fixed-footer'), 'updated');
-        }
-
-        settings_errors('andw_fixed_footer_messages');
+        // WordPress標準のメッセージを表示
+        settings_errors();
         ?>
         <div class="wrap">
             <h1><?php echo esc_html(get_admin_page_title()); ?></h1>
