@@ -80,6 +80,13 @@ class ANDW_Fixed_Footer {
         );
 
         add_settings_section(
+            'andw_fixed_footer_exclusion_section',
+            __('表示ページ設定', 'andw-fixed-footer'),
+            array($this, 'andw_fixed_footer_exclusion_section_callback'),
+            'andw_fixed_footer'
+        );
+
+        add_settings_section(
             'andw_fixed_footer_bottom_section',
             __('下段住所帯設定', 'andw-fixed-footer'),
             array($this, 'andw_fixed_footer_bottom_section_callback'),
@@ -187,6 +194,84 @@ class ANDW_Fixed_Footer {
             )
         );
 
+        // 除外設定フィールド
+        add_settings_field(
+            'exclusion_mode',
+            __('除外モード', 'andw-fixed-footer'),
+            array($this, 'andw_fixed_footer_radio_callback'),
+            'andw_fixed_footer',
+            'andw_fixed_footer_exclusion_section',
+            array(
+                'field' => 'exclusion_mode',
+                'options' => array(
+                    'blacklist' => __('指定ページで非表示', 'andw-fixed-footer'),
+                    'whitelist' => __('指定ページのみ表示', 'andw-fixed-footer')
+                )
+            )
+        );
+
+        add_settings_field(
+            'exclude_home',
+            __('ホームページで非表示', 'andw-fixed-footer'),
+            array($this, 'andw_fixed_footer_checkbox_callback'),
+            'andw_fixed_footer',
+            'andw_fixed_footer_exclusion_section',
+            array('field' => 'exclude_home', 'description' => __('ホームページ（トップページ）で非表示にする', 'andw-fixed-footer'))
+        );
+
+        add_settings_field(
+            'exclude_pages',
+            __('固定ページで非表示', 'andw-fixed-footer'),
+            array($this, 'andw_fixed_footer_checkbox_callback'),
+            'andw_fixed_footer',
+            'andw_fixed_footer_exclusion_section',
+            array('field' => 'exclude_pages', 'description' => __('すべての固定ページで非表示にする', 'andw-fixed-footer'))
+        );
+
+        add_settings_field(
+            'exclude_posts',
+            __('投稿ページで非表示', 'andw-fixed-footer'),
+            array($this, 'andw_fixed_footer_checkbox_callback'),
+            'andw_fixed_footer',
+            'andw_fixed_footer_exclusion_section',
+            array('field' => 'exclude_posts', 'description' => __('すべての投稿ページで非表示にする', 'andw-fixed-footer'))
+        );
+
+        add_settings_field(
+            'exclude_categories',
+            __('カテゴリページで非表示', 'andw-fixed-footer'),
+            array($this, 'andw_fixed_footer_checkbox_callback'),
+            'andw_fixed_footer',
+            'andw_fixed_footer_exclusion_section',
+            array('field' => 'exclude_categories', 'description' => __('すべてのカテゴリページで非表示にする', 'andw-fixed-footer'))
+        );
+
+        add_settings_field(
+            'exclude_search',
+            __('検索結果ページで非表示', 'andw-fixed-footer'),
+            array($this, 'andw_fixed_footer_checkbox_callback'),
+            'andw_fixed_footer',
+            'andw_fixed_footer_exclusion_section',
+            array('field' => 'exclude_search', 'description' => __('検索結果ページで非表示にする', 'andw-fixed-footer'))
+        );
+
+        add_settings_field(
+            'excluded_page_ids',
+            __('除外ページID', 'andw-fixed-footer'),
+            array($this, 'andw_fixed_footer_text_callback'),
+            'andw_fixed_footer',
+            'andw_fixed_footer_exclusion_section',
+            array('field' => 'excluded_page_ids', 'description' => __('除外する固定ページ・投稿のIDをカンマ区切りで入力（例: 1,5,12）', 'andw-fixed-footer'))
+        );
+
+        add_settings_field(
+            'excluded_url_patterns',
+            __('除外URLパターン', 'andw-fixed-footer'),
+            array($this, 'andw_fixed_footer_textarea_callback'),
+            'andw_fixed_footer',
+            'andw_fixed_footer_exclusion_section',
+            array('field' => 'excluded_url_patterns', 'description' => __('除外するURLパターンを1行ずつ入力（例: /contact/, /privacy/）', 'andw-fixed-footer'))
+        );
 
         // 下段設定フィールド
         add_settings_field(
@@ -356,6 +441,73 @@ class ANDW_Fixed_Footer {
         return false;
     }
 
+    private function should_exclude_current_page($options) {
+        $mode = isset($options['exclusion_mode']) ? $options['exclusion_mode'] : 'blacklist';
+        $is_excluded = false;
+
+        // ページタイプによる除外判定
+        if (!empty($options['exclude_home']) && is_home()) {
+            $is_excluded = true;
+        }
+
+        if (!empty($options['exclude_pages']) && is_page()) {
+            $is_excluded = true;
+        }
+
+        if (!empty($options['exclude_posts']) && is_single()) {
+            $is_excluded = true;
+        }
+
+        if (!empty($options['exclude_categories']) && is_category()) {
+            $is_excluded = true;
+        }
+
+        if (!empty($options['exclude_search']) && is_search()) {
+            $is_excluded = true;
+        }
+
+        // 個別ページIDによる除外判定
+        if (!empty($options['excluded_page_ids'])) {
+            $excluded_ids = array_map('intval', array_filter(explode(',', $options['excluded_page_ids'])));
+            if (!empty($excluded_ids)) {
+                $current_id = get_queried_object_id();
+                if (in_array($current_id, $excluded_ids)) {
+                    $is_excluded = true;
+                }
+            }
+        }
+
+        // URLパターンによる除外判定
+        if (!empty($options['excluded_url_patterns'])) {
+            $current_url = $_SERVER['REQUEST_URI'];
+            $patterns = array_filter(explode("\n", $options['excluded_url_patterns']));
+
+            foreach ($patterns as $pattern) {
+                $pattern = trim($pattern);
+                if (!empty($pattern)) {
+                    // シンプルな部分一致判定（ワイルドカード的動作）
+                    if (strpos($current_url, $pattern) !== false) {
+                        $is_excluded = true;
+                        break;
+                    }
+                }
+            }
+        }
+
+        // モードに応じて結果を返す
+        if ($mode === 'whitelist') {
+            // ホワイトリストモード：除外されていない場合のみ表示
+            return !$is_excluded;
+        } else {
+            // ブラックリストモード：除外されている場合は非表示
+            return $is_excluded;
+        }
+    }
+
+    public function andw_fixed_footer_exclusion_section_callback() {
+        echo '<p>' . esc_html__('固定フッターを表示するページ・非表示にするページを設定します。', 'andw-fixed-footer') . '</p>';
+    }
+
     public function andw_fixed_footer_bottom_section_callback() {
         echo '<p>' . esc_html__('下段の住所帯の設定を行います。', 'andw-fixed-footer') . '</p>';
     }
@@ -445,6 +597,33 @@ class ANDW_Fixed_Footer {
         $sanitized['show_close_button'] = isset($input['show_close_button']) ? 1 : 0;
         $sanitized['close_button_position'] = in_array($input['close_button_position'], array('left', 'right')) ? $input['close_button_position'] : 'right';
 
+        // 除外設定のサニタイズ
+        $sanitized['exclusion_mode'] = in_array($input['exclusion_mode'], array('blacklist', 'whitelist')) ? $input['exclusion_mode'] : 'blacklist';
+        $sanitized['exclude_home'] = isset($input['exclude_home']) ? 1 : 0;
+        $sanitized['exclude_pages'] = isset($input['exclude_pages']) ? 1 : 0;
+        $sanitized['exclude_posts'] = isset($input['exclude_posts']) ? 1 : 0;
+        $sanitized['exclude_categories'] = isset($input['exclude_categories']) ? 1 : 0;
+        $sanitized['exclude_search'] = isset($input['exclude_search']) ? 1 : 0;
+
+        // ページIDのバリデーション（数値のカンマ区切りのみ許可）
+        $page_ids = isset($input['excluded_page_ids']) ? sanitize_text_field($input['excluded_page_ids']) : '';
+        if (!empty($page_ids)) {
+            $ids = explode(',', $page_ids);
+            $valid_ids = array();
+            foreach ($ids as $id) {
+                $id = trim($id);
+                if (is_numeric($id) && intval($id) > 0) {
+                    $valid_ids[] = intval($id);
+                }
+            }
+            $sanitized['excluded_page_ids'] = implode(',', $valid_ids);
+        } else {
+            $sanitized['excluded_page_ids'] = '';
+        }
+
+        // URLパターンのサニタイズ
+        $sanitized['excluded_url_patterns'] = isset($input['excluded_url_patterns']) ? sanitize_textarea_field($input['excluded_url_patterns']) : '';
+
         $sanitized['bottom_bg_color'] = sanitize_hex_color($input['bottom_bg_color']);
         $sanitized['bottom_text_color'] = sanitize_hex_color($input['bottom_text_color']);
         $sanitized['bottom_text'] = sanitize_textarea_field($input['bottom_text']);
@@ -526,6 +705,16 @@ class ANDW_Fixed_Footer {
             'button_6_icon' => '\\f1ad',
             'button_6_label' => __('ニュース', 'andw-fixed-footer'),
             'button_6_url' => 'https://example.com/news',
+
+            // 除外設定のデフォルト値
+            'exclusion_mode' => 'blacklist',
+            'exclude_home' => 0,
+            'exclude_pages' => 0,
+            'exclude_posts' => 0,
+            'exclude_categories' => 0,
+            'exclude_search' => 0,
+            'excluded_page_ids' => '',
+            'excluded_url_patterns' => '',
         );
     }
 
@@ -553,6 +742,11 @@ class ANDW_Fixed_Footer {
         $options = get_option($this->option_name, $this->andw_fixed_footer_get_default_options());
 
         if (!$options['enabled']) {
+            return;
+        }
+
+        // 除外ページ判定
+        if ($this->should_exclude_current_page($options)) {
             return;
         }
 
@@ -621,6 +815,11 @@ class ANDW_Fixed_Footer {
         $options = get_option($this->option_name, $this->andw_fixed_footer_get_default_options());
 
         if (!$options['enabled']) {
+            return;
+        }
+
+        // 除外ページ判定
+        if ($this->should_exclude_current_page($options)) {
             return;
         }
 
