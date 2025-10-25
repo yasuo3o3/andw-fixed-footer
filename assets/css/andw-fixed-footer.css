@@ -1,7 +1,7 @@
 /* andW Fixed Footer CSS */
 
-/* 480px以下でのみ表示 */
-@media (max-width: 480px) {
+/* 設定値以下でのみ表示 */
+@media (max-width: var(--andw-max-width, 768px)) {
     .andw-fixed-footer-wrapper {
         position: fixed;
         bottom: 0;
@@ -189,7 +189,7 @@
     }
 
     /* 横向きでボタンを横並びに */
-    @media (max-width: 480px) and (orientation: landscape) {
+    @media (max-width: var(--andw-max-width, 768px)) and (orientation: landscape) {
         .andw-footer-button {
             flex-direction: row;
             gap: 6px;
@@ -201,8 +201,8 @@
     }
 }
 
-/* 480pxより大きい画面では完全に非表示 */
-@media (min-width: 481px) {
+/* 設定値より大きい画面では完全に非表示 */
+@media (min-width: calc(var(--andw-max-width, 768px) + 1px)) {
     .andw-fixed-footer-wrapper {
         display: none !important;
     }
@@ -232,7 +232,7 @@
 }
 
 /* フォーカス時の可視性向上 */
-@media (max-width: 480px) {
+@media (max-width: var(--andw-max-width, 768px)) {
     .andw-footer-button:focus-visible {
         outline: 3px solid #005a9c;
         outline-offset: -1px;
@@ -246,7 +246,7 @@
 }
 
 /* ボタンが1つだけの場合の調整 */
-@media (max-width: 480px) {
+@media (max-width: var(--andw-max-width, 768px)) {
     .andw-footer-buttons .andw-footer-button:only-child {
         flex-basis: 100% !important;
     }

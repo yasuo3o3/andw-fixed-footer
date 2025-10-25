@@ -15,7 +15,7 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
-define('ANDW_FIXED_FOOTER_VERSION', '0.0.1');
+define('ANDW_FIXED_FOOTER_VERSION', '0.0.3');
 define('ANDW_FIXED_FOOTER_PLUGIN_URL', plugin_dir_url(__FILE__));
 define('ANDW_FIXED_FOOTER_PLUGIN_PATH', plugin_dir_path(__FILE__));
 
@@ -52,7 +52,10 @@ class ANDW_Fixed_Footer {
         register_setting(
             'andw_fixed_footer',
             $this->option_name,
-            array($this, 'andw_fixed_footer_sanitize_options')
+            array(
+                'sanitize_callback' => array($this, 'andw_fixed_footer_sanitize_options'),
+                'autoload' => false
+            )
         );
 
         add_settings_section(
@@ -312,7 +315,7 @@ class ANDW_Fixed_Footer {
             echo '<li>' . sprintf(
                 /* translators: %s: Link to Font Awesome plugin */
                 esc_html__('%s（推奨）', 'andw-fixed-footer'),
-                '<a href="https://ja.wordpress.org/plugins/font-awesome/" target="_blank">' . esc_html__('Font Awesome公式プラグイン', 'andw-fixed-footer') . '</a>'
+                '<a href="https://ja.wordpress.org/plugins/font-awesome/" target="_blank" rel="noopener noreferrer">' . esc_html__('Font Awesome公式プラグイン', 'andw-fixed-footer') . '</a>'
             ) . '</li>';
             echo '<li>' . esc_html__('他のテーマやプラグインでFont Awesomeが既に読み込まれている場合は不要です', 'andw-fixed-footer') . '</li>';
             echo '</ul>';
@@ -416,6 +419,11 @@ class ANDW_Fixed_Footer {
     }
 
     public function andw_fixed_footer_sanitize_options($input) {
+        // nonce検証（CSRF攻撃対策）
+        if (!isset($_POST['_wpnonce']) || !wp_verify_nonce($_POST['_wpnonce'], 'andw_fixed_footer-options')) {
+            wp_die(esc_html__('セキュリティチェックに失敗しました。', 'andw-fixed-footer'));
+        }
+
         // 重複メッセージ防止: 既存の設定エラーをクリア
         global $wp_settings_errors;
         if (isset($wp_settings_errors)) {
@@ -554,6 +562,11 @@ class ANDW_Fixed_Footer {
             array(),
             ANDW_FIXED_FOOTER_VERSION
         );
+
+        // CSS変数として設定値を出力
+        $max_width = !empty($options['max_screen_width']) ? absint($options['max_screen_width']) : 768;
+        $custom_css = ":root { --andw-max-width: {$max_width}px; }";
+        wp_add_inline_style('andw-fixed-footer-style', $custom_css);
 
         wp_enqueue_script(
             'andw-fixed-footer-script',
