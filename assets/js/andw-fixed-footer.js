@@ -55,6 +55,8 @@
         // 初期表示状態の設定（非表示で開始）
         footerWrapper.classList.add('andw-loaded');
         footerWrapper.classList.add('andw-hide');
+        console.log('DEBUG: Footer initialized with classes:', footerWrapper.className);
+        console.log('DEBUG: Scroll threshold:', scrollRevealThreshold);
 
         // アイコンの設定
         setupIcons();
@@ -204,14 +206,17 @@
         // 初回表示判定（設定された閾値でフッターを初回表示）
         if (!hasBeenRevealed && currentScrollTop >= scrollRevealThreshold) {
             hasBeenRevealed = true;
+            console.log('DEBUG: First reveal triggered at scroll:', currentScrollTop);
             showFooter();
         } else if (hasBeenRevealed) {
             // 初回表示後は上下スクロールで制御
             if (currentScrollTop > lastScrollTop) {
                 // 下方向スクロール → 表示（アクション促進）
+                console.log('DEBUG: Down scroll - showing footer');
                 showFooter();
             } else {
                 // 上方向スクロール → 非表示（コンテンツ閲覧優先）
+                console.log('DEBUG: Up scroll - hiding footer');
                 hideFooter();
             }
         }
@@ -227,6 +232,7 @@
         if (footerWrapper && !footerWrapper.classList.contains('andw-closed')) {
             footerWrapper.classList.remove('andw-hide');
             footerWrapper.classList.add('andw-show');
+            console.log('DEBUG: Footer shown, classes:', footerWrapper.className);
         }
     }
 
@@ -237,6 +243,7 @@
         if (footerWrapper && !footerWrapper.classList.contains('andw-closed')) {
             footerWrapper.classList.remove('andw-show');
             footerWrapper.classList.add('andw-hide');
+            console.log('DEBUG: Footer hidden, classes:', footerWrapper.className);
         }
     }
 
