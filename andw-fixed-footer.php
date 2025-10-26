@@ -479,7 +479,10 @@ class ANDW_Fixed_Footer {
 
         // URLパターンによる除外判定
         if (!empty($options['excluded_url_patterns'])) {
-            $current_url = $_SERVER['REQUEST_URI'];
+            if (!isset($_SERVER['REQUEST_URI'])) {
+                return false;
+            }
+            $current_url = sanitize_text_field(wp_unslash($_SERVER['REQUEST_URI']));
             $patterns = array_filter(explode("\n", $options['excluded_url_patterns']));
 
             foreach ($patterns as $pattern) {
