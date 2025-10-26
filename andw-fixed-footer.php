@@ -797,6 +797,84 @@ class ANDW_Fixed_Footer {
                 box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1) !important;
             }
         }
+
+        /* 重要なスタイルを確実に適用するための動的メディアクエリ */
+        @media (max-width: {$max_width}px) {
+            /* 下段住所エリア */
+            .andw-footer-bottom {
+                padding: 8px 12px;
+                font-size: 12px;
+                line-height: 1.4;
+                text-align: center;
+                background-color: #333333;
+                color: #ffffff;
+            }
+
+            /* 閉じるボタンのスタイル */
+            #andw-fixed-footer-wrapper .andw-close-button {
+                position: absolute;
+                top: 4px;
+                width: 24px;
+                height: 24px;
+                min-width: 24px;
+                max-width: 24px;
+                background: rgba(0, 0, 0, 0.5);
+                color: #ffffff;
+                border: none;
+                border-radius: 50%;
+                cursor: pointer;
+                font-size: 16px;
+                line-height: 1;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                z-index: 10000;
+                transition: background-color 0.2s ease;
+                box-sizing: border-box;
+                flex-shrink: 0;
+                padding: 0;
+                margin: 0;
+                flex-grow: 0;
+                flex-basis: auto;
+            }
+
+            #andw-fixed-footer-wrapper .andw-close-button:hover {
+                background: rgba(0, 0, 0, 0.7);
+            }
+
+            #andw-fixed-footer-wrapper .andw-close-button:focus {
+                outline: 2px solid #005a9c;
+                outline-offset: 2px;
+            }
+
+            /* 閉じるボタンの位置 */
+            .andw-close-left .andw-close-button {
+                left: 8px;
+            }
+
+            .andw-close-right .andw-close-button {
+                right: 8px;
+            }
+
+            #andw-fixed-footer-wrapper.andw-close-left .andw-close-button {
+                left: 8px;
+            }
+
+            #andw-fixed-footer-wrapper.andw-close-right .andw-close-button {
+                right: 8px;
+            }
+
+            #andw-fixed-footer-wrapper.andw-close-left .andw-close-button:hover,
+            #andw-fixed-footer-wrapper.andw-close-right .andw-close-button:hover {
+                background: rgba(0, 0, 0, 0.7);
+            }
+
+            #andw-fixed-footer-wrapper.andw-close-left .andw-close-button:focus,
+            #andw-fixed-footer-wrapper.andw-close-right .andw-close-button:focus {
+                outline: 2px solid #005a9c;
+                outline-offset: 2px;
+            }
+        }
         ";
         wp_add_inline_style('andw-fixed-footer-style', $custom_css);
 
