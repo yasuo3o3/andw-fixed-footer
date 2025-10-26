@@ -715,6 +715,9 @@ class ANDW_Fixed_Footer {
             'exclude_search' => 0,
             'excluded_page_ids' => '',
             'excluded_url_patterns' => '',
+
+            // スクロール動作設定のデフォルト値
+            'scroll_reveal_threshold' => 150,
         );
     }
 
@@ -807,7 +810,8 @@ class ANDW_Fixed_Footer {
 
         // JavaScriptに設定値を渡す
         wp_localize_script('andw-fixed-footer-script', 'andwFooterSettings', array(
-            'maxWidth' => !empty($options['max_screen_width']) ? absint($options['max_screen_width']) : 768
+            'maxWidth' => !empty($options['max_screen_width']) ? absint($options['max_screen_width']) : 768,
+            'scrollRevealThreshold' => !empty($options['scroll_reveal_threshold']) ? absint($options['scroll_reveal_threshold']) : 150
         ));
     }
 

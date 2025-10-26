@@ -13,6 +13,8 @@
     let scrollThreshold = 5; // スクロール感度
     let isScrolling = false;
     let scrollTimer = null;
+    let hasBeenRevealed = false; // 初回表示フラグ
+    let scrollRevealThreshold = 150; // 初回表示開始位置（デフォルト値）
 
     /**
      * 初期化処理
@@ -42,12 +44,17 @@
             return;
         }
 
+        // スクロール設定値を読み込み
+        if (typeof andwFooterSettings !== 'undefined' && andwFooterSettings.scrollRevealThreshold) {
+            scrollRevealThreshold = parseInt(andwFooterSettings.scrollRevealThreshold, 10);
+        }
+
         // CSS変数の動作確認とフォールバック適用
         checkCSSVariablesAndApplyFallback();
 
-        // 初期表示状態の設定
+        // 初期表示状態の設定（非表示で開始）
         footerWrapper.classList.add('andw-loaded');
-        footerWrapper.classList.add('andw-show');
+        footerWrapper.classList.add('andw-hide');
 
         // アイコンの設定
         setupIcons();
@@ -194,17 +201,18 @@
             return;
         }
 
-        // ページトップ付近では常に表示
-        if (currentScrollTop < 50) {
+        // 初回表示判定（設定された閾値でフッターを初回表示）
+        if (!hasBeenRevealed && currentScrollTop >= scrollRevealThreshold) {
+            hasBeenRevealed = true;
             showFooter();
-        } else {
-            // スクロール方向による表示制御
+        } else if (hasBeenRevealed) {
+            // 初回表示後は上下スクロールで制御
             if (currentScrollTop > lastScrollTop) {
-                // 下方向スクロール → 非表示
-                hideFooter();
-            } else {
-                // 上方向スクロール → 表示
+                // 下方向スクロール → 表示（アクション促進）
                 showFooter();
+            } else {
+                // 上方向スクロール → 非表示（コンテンツ閲覧優先）
+                hideFooter();
             }
         }
 
