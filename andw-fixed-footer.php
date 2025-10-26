@@ -598,20 +598,39 @@ class ANDW_Fixed_Footer {
             });
         }
 
+        // 既存の設定値を取得（未送信フィールドの保持用）
+        $existing_options = get_option($this->option_name, $this->andw_fixed_footer_get_default_options());
         $sanitized = array();
 
+        // 全体設定フィールド（送信されなかった場合は既存値を保持）
         $sanitized['enabled'] = isset($input['enabled']) ? 1 : 0;
-        $sanitized['display_mode'] = in_array($input['display_mode'], array('2', '3', '4', '5', '6')) ? $input['display_mode'] : '2';
-        $sanitized['button_height'] = absint($input['button_height']);
-        $sanitized['max_screen_width'] = absint($input['max_screen_width']);
-        $sanitized['button_width_right_2'] = max(1, min(99, absint($input['button_width_right_2'])));
-        $sanitized['button_width_left_3'] = max(1, min(98, absint($input['button_width_left_3'])));
-        $sanitized['button_width_right_3'] = max(1, min(98, absint($input['button_width_right_3'])));
+        $sanitized['display_mode'] = isset($input['display_mode']) && in_array($input['display_mode'], array('2', '3', '4', '5', '6'))
+            ? $input['display_mode']
+            : $existing_options['display_mode'];
+        $sanitized['button_height'] = isset($input['button_height'])
+            ? absint($input['button_height'])
+            : $existing_options['button_height'];
+        $sanitized['max_screen_width'] = isset($input['max_screen_width'])
+            ? absint($input['max_screen_width'])
+            : $existing_options['max_screen_width'];
+        $sanitized['button_width_right_2'] = isset($input['button_width_right_2'])
+            ? max(1, min(99, absint($input['button_width_right_2'])))
+            : $existing_options['button_width_right_2'];
+        $sanitized['button_width_left_3'] = isset($input['button_width_left_3'])
+            ? max(1, min(98, absint($input['button_width_left_3'])))
+            : $existing_options['button_width_left_3'];
+        $sanitized['button_width_right_3'] = isset($input['button_width_right_3'])
+            ? max(1, min(98, absint($input['button_width_right_3'])))
+            : $existing_options['button_width_right_3'];
         $sanitized['show_close_button'] = isset($input['show_close_button']) ? 1 : 0;
-        $sanitized['close_button_position'] = in_array($input['close_button_position'], array('left', 'right')) ? $input['close_button_position'] : 'right';
+        $sanitized['close_button_position'] = isset($input['close_button_position']) && in_array($input['close_button_position'], array('left', 'right'))
+            ? $input['close_button_position']
+            : $existing_options['close_button_position'];
 
-        // 除外設定のサニタイズ
-        $sanitized['exclusion_mode'] = in_array($input['exclusion_mode'], array('blacklist', 'whitelist')) ? $input['exclusion_mode'] : 'blacklist';
+        // 表示ページ設定フィールド（送信されなかった場合は既存値を保持）
+        $sanitized['exclusion_mode'] = isset($input['exclusion_mode']) && in_array($input['exclusion_mode'], array('blacklist', 'whitelist'))
+            ? $input['exclusion_mode']
+            : $existing_options['exclusion_mode'];
         $sanitized['exclude_home'] = isset($input['exclude_home']) ? 1 : 0;
         $sanitized['exclude_pages'] = isset($input['exclude_pages']) ? 1 : 0;
         $sanitized['exclude_posts'] = isset($input['exclude_posts']) ? 1 : 0;
@@ -619,35 +638,58 @@ class ANDW_Fixed_Footer {
         $sanitized['exclude_search'] = isset($input['exclude_search']) ? 1 : 0;
 
         // ページIDのバリデーション（数値のカンマ区切りのみ許可）
-        $page_ids = isset($input['excluded_page_ids']) ? sanitize_text_field($input['excluded_page_ids']) : '';
-        if (!empty($page_ids)) {
-            $ids = explode(',', $page_ids);
-            $valid_ids = array();
-            foreach ($ids as $id) {
-                $id = trim($id);
-                if (is_numeric($id) && intval($id) > 0) {
-                    $valid_ids[] = intval($id);
+        if (isset($input['excluded_page_ids'])) {
+            $page_ids = sanitize_text_field($input['excluded_page_ids']);
+            if (!empty($page_ids)) {
+                $ids = explode(',', $page_ids);
+                $valid_ids = array();
+                foreach ($ids as $id) {
+                    $id = trim($id);
+                    if (is_numeric($id) && intval($id) > 0) {
+                        $valid_ids[] = intval($id);
+                    }
                 }
+                $sanitized['excluded_page_ids'] = implode(',', $valid_ids);
+            } else {
+                $sanitized['excluded_page_ids'] = '';
             }
-            $sanitized['excluded_page_ids'] = implode(',', $valid_ids);
         } else {
-            $sanitized['excluded_page_ids'] = '';
+            $sanitized['excluded_page_ids'] = $existing_options['excluded_page_ids'];
         }
 
         // URLパターンのサニタイズ
-        $sanitized['excluded_url_patterns'] = isset($input['excluded_url_patterns']) ? sanitize_textarea_field($input['excluded_url_patterns']) : '';
+        $sanitized['excluded_url_patterns'] = isset($input['excluded_url_patterns'])
+            ? sanitize_textarea_field($input['excluded_url_patterns'])
+            : $existing_options['excluded_url_patterns'];
 
-        $sanitized['bottom_bg_color'] = sanitize_hex_color($input['bottom_bg_color']);
-        $sanitized['bottom_text_color'] = sanitize_hex_color($input['bottom_text_color']);
-        $sanitized['bottom_text'] = sanitize_textarea_field($input['bottom_text']);
+        // ボタン設定と下段設定フィールド（送信されなかった場合は既存値を保持）
+        $sanitized['bottom_bg_color'] = isset($input['bottom_bg_color'])
+            ? sanitize_hex_color($input['bottom_bg_color'])
+            : $existing_options['bottom_bg_color'];
+        $sanitized['bottom_text_color'] = isset($input['bottom_text_color'])
+            ? sanitize_hex_color($input['bottom_text_color'])
+            : $existing_options['bottom_text_color'];
+        $sanitized['bottom_text'] = isset($input['bottom_text'])
+            ? sanitize_textarea_field($input['bottom_text'])
+            : $existing_options['bottom_text'];
 
         for ($i = 1; $i <= 6; $i++) {
             $sanitized["button_{$i}_enabled"] = isset($input["button_{$i}_enabled"]) ? 1 : 0;
-            $sanitized["button_{$i}_bg_color"] = sanitize_hex_color($input["button_{$i}_bg_color"]);
-            $sanitized["button_{$i}_text_color"] = sanitize_hex_color($input["button_{$i}_text_color"]);
-            $sanitized["button_{$i}_icon"] = sanitize_text_field($input["button_{$i}_icon"]);
-            $sanitized["button_{$i}_label"] = sanitize_text_field($input["button_{$i}_label"]);
-            $sanitized["button_{$i}_url"] = $this->andw_fixed_footer_sanitize_url($input["button_{$i}_url"]);
+            $sanitized["button_{$i}_bg_color"] = isset($input["button_{$i}_bg_color"])
+                ? sanitize_hex_color($input["button_{$i}_bg_color"])
+                : $existing_options["button_{$i}_bg_color"];
+            $sanitized["button_{$i}_text_color"] = isset($input["button_{$i}_text_color"])
+                ? sanitize_hex_color($input["button_{$i}_text_color"])
+                : $existing_options["button_{$i}_text_color"];
+            $sanitized["button_{$i}_icon"] = isset($input["button_{$i}_icon"])
+                ? sanitize_text_field($input["button_{$i}_icon"])
+                : $existing_options["button_{$i}_icon"];
+            $sanitized["button_{$i}_label"] = isset($input["button_{$i}_label"])
+                ? sanitize_text_field($input["button_{$i}_label"])
+                : $existing_options["button_{$i}_label"];
+            $sanitized["button_{$i}_url"] = isset($input["button_{$i}_url"])
+                ? $this->andw_fixed_footer_sanitize_url($input["button_{$i}_url"])
+                : $existing_options["button_{$i}_url"];
         }
 
         return $sanitized;
