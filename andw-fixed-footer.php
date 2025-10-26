@@ -9,6 +9,9 @@
  * Text Domain: andw-fixed-footer
  * Requires at least: 5.0
  * Requires PHP: 7.4
+ *
+ * @todo 次期メジャーバージョン（v1.0.0）でプレフィックスをandw→andwffに変更予定
+ *       WordPress.NamingConventions.PrefixAllGlobals 準拠のため5文字以上推奨
  */
 
 if (!defined('ABSPATH')) {
@@ -480,18 +483,22 @@ class ANDW_Fixed_Footer {
         // URLパターンによる除外判定
         if (!empty($options['excluded_url_patterns'])) {
             if (!isset($_SERVER['REQUEST_URI'])) {
-                return false;
+                $current_url = '';
+            } else {
+                $current_url = sanitize_text_field(wp_unslash($_SERVER['REQUEST_URI']));
             }
-            $current_url = sanitize_text_field(wp_unslash($_SERVER['REQUEST_URI']));
-            $patterns = array_filter(explode("\n", $options['excluded_url_patterns']));
 
-            foreach ($patterns as $pattern) {
-                $pattern = trim($pattern);
-                if (!empty($pattern)) {
-                    // シンプルな部分一致判定（ワイルドカード的動作）
-                    if (strpos($current_url, $pattern) !== false) {
-                        $is_excluded = true;
-                        break;
+            if (!empty($current_url)) {
+                $patterns = array_filter(explode("\n", $options['excluded_url_patterns']));
+
+                foreach ($patterns as $pattern) {
+                    $pattern = trim($pattern);
+                    if (!empty($pattern)) {
+                        // シンプルな部分一致判定（ワイルドカード的動作）
+                        if (strpos($current_url, $pattern) !== false) {
+                            $is_excluded = true;
+                            break;
+                        }
                     }
                 }
             }
@@ -745,6 +752,11 @@ class ANDW_Fixed_Footer {
     }
 
     public function andw_fixed_footer_enqueue_scripts() {
+        // 管理画面では読み込まない
+        if (is_admin()) {
+            return;
+        }
+
         $options = get_option($this->option_name, $this->andw_fixed_footer_get_default_options());
 
         if (!$options['enabled']) {
@@ -772,19 +784,6 @@ class ANDW_Fixed_Footer {
             --andw-max-width: {$max_width}px;
         }
 
-        /* デバッグ用：CSS変数が適用されているかの確認 */
-        .andw-fixed-footer-wrapper::before {
-            content: 'MaxWidth: {$max_width}px';
-            position: absolute;
-            top: -20px;
-            left: 10px;
-            font-size: 10px;
-            color: #666;
-            background: rgba(255,255,255,0.8);
-            padding: 2px 4px;
-            border-radius: 2px;
-            z-index: 10001;
-        }
 
         /* 緊急フォールバック：CSS変数が効かない場合の基本表示 */
         @media (max-width: {$max_width}px) {
