@@ -2,7 +2,7 @@
 
 /* フォールバック：CSS変数が効かない場合の基本表示（768px固定） */
 @media (max-width: 768px) {
-    .andw-fixed-footer-wrapper {
+    #andw-fixed-footer-wrapper {
         position: fixed;
         bottom: 0;
         left: 0;
@@ -59,22 +59,22 @@
     }
 
     /* スライド状態の制御 */
-    .andw-fixed-footer-wrapper.andw-hide {
+    #andw-fixed-footer-wrapper.andw-hide {
         transform: translateY(100%) !important;
     }
 
-    .andw-fixed-footer-wrapper.andw-show {
+    #andw-fixed-footer-wrapper.andw-show {
         transform: translateY(0) !important;
     }
 
-    .andw-fixed-footer-wrapper.andw-closed {
+    #andw-fixed-footer-wrapper.andw-closed {
         display: none !important;
     }
 }
 
 /* 設定値以下でのみ表示（CSS変数使用） */
 @media (max-width: var(--andw-max-width, 768px)) {
-    .andw-fixed-footer-wrapper {
+    #andw-fixed-footer-wrapper {
         position: fixed;
         bottom: 0;
         left: 0;
@@ -89,17 +89,17 @@
     }
 
     /* スライドアウト状態（隠れている） */
-    .andw-fixed-footer-wrapper.andw-hide {
+    #andw-fixed-footer-wrapper.andw-hide {
         transform: translateY(100%) !important;
     }
 
     /* スライドイン状態（表示） */
-    .andw-fixed-footer-wrapper.andw-show {
+    #andw-fixed-footer-wrapper.andw-show {
         transform: translateY(0) !important;
     }
 
     /* 閉じられた状態 */
-    .andw-fixed-footer-wrapper.andw-closed {
+    #andw-fixed-footer-wrapper.andw-closed {
         display: none !important;
     }
 
@@ -170,7 +170,7 @@
     }
 
     /* 閉じるボタン */
-    .andw-fixed-footer-wrapper .andw-close-button {
+    #andw-fixed-footer-wrapper .andw-close-button {
         position: absolute;
         top: 4px;
         width: 24px;
@@ -197,11 +197,11 @@
         flex-basis: auto;
     }
 
-    .andw-fixed-footer-wrapper .andw-close-button:hover {
+    #andw-fixed-footer-wrapper .andw-close-button:hover {
         background: rgba(0, 0, 0, 0.7);
     }
 
-    .andw-fixed-footer-wrapper .andw-close-button:focus {
+    #andw-fixed-footer-wrapper .andw-close-button:focus {
         outline: 2px solid #005a9c;
         outline-offset: 2px;
     }
@@ -283,14 +283,14 @@
 
 /* 設定値より大きい画面では完全に非表示 */
 @media (min-width: calc(var(--andw-max-width, 768px) + 1px)) {
-    .andw-fixed-footer-wrapper {
+    #andw-fixed-footer-wrapper {
         display: none !important;
     }
 }
 
 /* アクセシビリティ: 動的効果を無効にしたユーザー向け */
 @media (prefers-reduced-motion: reduce) {
-    .andw-fixed-footer-wrapper {
+    #andw-fixed-footer-wrapper {
         transition: none;
     }
 
@@ -298,14 +298,14 @@
         transition: none;
     }
 
-    .andw-fixed-footer-wrapper .andw-close-button {
+    #andw-fixed-footer-wrapper .andw-close-button {
         transition: none;
     }
 }
 
 /* ダークモード対応 */
 @media (prefers-color-scheme: dark) {
-    .andw-fixed-footer-wrapper {
+    #andw-fixed-footer-wrapper {
         background: #1a1a1a;
         box-shadow: 0 -2px 10px rgba(255, 255, 255, 0.1);
     }
@@ -333,14 +333,14 @@
 }
 
 /* ローディング時のスムーズな表示 */
-.andw-fixed-footer-wrapper {
+#andw-fixed-footer-wrapper {
     transform: translateY(100%);
 }
 
 /* 閉じるボタンの最終スタイル（高い特異性で確実に適用） */
 @media (max-width: var(--andw-max-width, 768px)) {
-    .andw-fixed-footer-wrapper.andw-close-left .andw-close-button,
-    .andw-fixed-footer-wrapper.andw-close-right .andw-close-button {
+    #andw-fixed-footer-wrapper.andw-close-left .andw-close-button,
+    #andw-fixed-footer-wrapper.andw-close-right .andw-close-button {
         position: absolute;
         top: 4px;
         width: 24px;
@@ -367,26 +367,26 @@
         flex-basis: auto;
     }
 
-    .andw-fixed-footer-wrapper.andw-close-left .andw-close-button {
+    #andw-fixed-footer-wrapper.andw-close-left .andw-close-button {
         left: 8px;
     }
 
-    .andw-fixed-footer-wrapper.andw-close-right .andw-close-button {
+    #andw-fixed-footer-wrapper.andw-close-right .andw-close-button {
         right: 8px;
     }
 
-    .andw-fixed-footer-wrapper.andw-close-left .andw-close-button:hover,
-    .andw-fixed-footer-wrapper.andw-close-right .andw-close-button:hover {
+    #andw-fixed-footer-wrapper.andw-close-left .andw-close-button:hover,
+    #andw-fixed-footer-wrapper.andw-close-right .andw-close-button:hover {
         background: rgba(0, 0, 0, 0.7);
     }
 
-    .andw-fixed-footer-wrapper.andw-close-left .andw-close-button:focus,
-    .andw-fixed-footer-wrapper.andw-close-right .andw-close-button:focus {
+    #andw-fixed-footer-wrapper.andw-close-left .andw-close-button:focus,
+    #andw-fixed-footer-wrapper.andw-close-right .andw-close-button:focus {
         outline: 2px solid #005a9c;
         outline-offset: 2px;
     }
 }
 
-.andw-fixed-footer-wrapper.andw-loaded {
+#andw-fixed-footer-wrapper.andw-loaded {
     transform: translateY(0);
 }
