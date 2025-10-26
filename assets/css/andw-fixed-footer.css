@@ -170,17 +170,17 @@
     }
 
     /* 閉じるボタン */
-    .andw-close-button {
+    .andw-fixed-footer-wrapper .andw-close-button {
         position: absolute;
         top: 4px;
-        width: 24px !important;
-        height: 24px !important;
-        min-width: 24px !important;
-        max-width: 24px !important;
+        width: 24px;
+        height: 24px;
+        min-width: 24px;
+        max-width: 24px;
         background: rgba(0, 0, 0, 0.5);
         color: #ffffff;
         border: none;
-        border-radius: 50% !important;
+        border-radius: 50%;
         cursor: pointer;
         font-size: 16px;
         line-height: 1;
@@ -189,15 +189,19 @@
         justify-content: center;
         z-index: 10000;
         transition: background-color 0.2s ease;
-        box-sizing: border-box !important;
-        flex-shrink: 0 !important;
+        box-sizing: border-box;
+        flex-shrink: 0;
+        padding: 0;
+        margin: 0;
+        flex-grow: 0;
+        flex-basis: auto;
     }
 
-    .andw-close-button:hover {
+    .andw-fixed-footer-wrapper .andw-close-button:hover {
         background: rgba(0, 0, 0, 0.7);
     }
 
-    .andw-close-button:focus {
+    .andw-fixed-footer-wrapper .andw-close-button:focus {
         outline: 2px solid #005a9c;
         outline-offset: 2px;
     }
@@ -294,7 +298,7 @@
         transition: none;
     }
 
-    .andw-close-button {
+    .andw-fixed-footer-wrapper .andw-close-button {
         transition: none;
     }
 }
@@ -331,6 +335,56 @@
 /* ローディング時のスムーズな表示 */
 .andw-fixed-footer-wrapper {
     transform: translateY(100%);
+}
+
+/* 閉じるボタンの最終スタイル（高い特異性で確実に適用） */
+@media (max-width: var(--andw-max-width, 768px)) {
+    .andw-fixed-footer-wrapper.andw-close-left .andw-close-button,
+    .andw-fixed-footer-wrapper.andw-close-right .andw-close-button {
+        position: absolute;
+        top: 4px;
+        width: 24px;
+        height: 24px;
+        min-width: 24px;
+        max-width: 24px;
+        background: rgba(0, 0, 0, 0.5);
+        color: #ffffff;
+        border: none;
+        border-radius: 50%;
+        cursor: pointer;
+        font-size: 16px;
+        line-height: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 10000;
+        transition: background-color 0.2s ease;
+        box-sizing: border-box;
+        flex-shrink: 0;
+        padding: 0;
+        margin: 0;
+        flex-grow: 0;
+        flex-basis: auto;
+    }
+
+    .andw-fixed-footer-wrapper.andw-close-left .andw-close-button {
+        left: 8px;
+    }
+
+    .andw-fixed-footer-wrapper.andw-close-right .andw-close-button {
+        right: 8px;
+    }
+
+    .andw-fixed-footer-wrapper.andw-close-left .andw-close-button:hover,
+    .andw-fixed-footer-wrapper.andw-close-right .andw-close-button:hover {
+        background: rgba(0, 0, 0, 0.7);
+    }
+
+    .andw-fixed-footer-wrapper.andw-close-left .andw-close-button:focus,
+    .andw-fixed-footer-wrapper.andw-close-right .andw-close-button:focus {
+        outline: 2px solid #005a9c;
+        outline-offset: 2px;
+    }
 }
 
 .andw-fixed-footer-wrapper.andw-loaded {
