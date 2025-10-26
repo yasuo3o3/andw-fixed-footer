@@ -815,12 +815,12 @@ class ANDW_Fixed_Footer {
             /* 閉じるボタンのスタイル */
             #andw-fixed-footer-wrapper .andw-close-button {
                 position: absolute;
-                top: 4px;
+                top: -12px;
                 width: 24px;
                 height: 24px;
                 min-width: 24px;
                 max-width: 24px;
-                background: rgba(0, 0, 0, 0.5);
+                background: rgba(0, 0, 0, 0.7);
                 color: #ffffff;
                 border: none;
                 border-radius: 50%;
@@ -841,7 +841,7 @@ class ANDW_Fixed_Footer {
             }
 
             #andw-fixed-footer-wrapper .andw-close-button:hover {
-                background: rgba(0, 0, 0, 0.7);
+                background: rgba(0, 0, 0, 0.5);
             }
 
             #andw-fixed-footer-wrapper .andw-close-button:focus {
@@ -851,7 +851,7 @@ class ANDW_Fixed_Footer {
 
             /* 閉じるボタンの位置 */
             .andw-close-left .andw-close-button {
-                left: 8px;
+                left: 2px;
             }
 
             .andw-close-right .andw-close-button {
@@ -859,7 +859,7 @@ class ANDW_Fixed_Footer {
             }
 
             #andw-fixed-footer-wrapper.andw-close-left .andw-close-button {
-                left: 8px;
+                left: 2px;
             }
 
             #andw-fixed-footer-wrapper.andw-close-right .andw-close-button {
@@ -868,7 +868,7 @@ class ANDW_Fixed_Footer {
 
             #andw-fixed-footer-wrapper.andw-close-left .andw-close-button:hover,
             #andw-fixed-footer-wrapper.andw-close-right .andw-close-button:hover {
-                background: rgba(0, 0, 0, 0.7);
+                background: rgba(0, 0, 0, 0.5);
             }
 
             #andw-fixed-footer-wrapper.andw-close-left .andw-close-button:focus,
