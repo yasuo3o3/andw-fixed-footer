@@ -4,7 +4,7 @@ Tags: footer, mobile, fixed, responsive, sticky
 Requires at least: 5.0
 Tested up to: 6.8
 Requires PHP: 7.4
-Stable tag: 0.0.4
+Stable tag: 0.1.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -101,6 +101,15 @@ Font Awesomeのunicodeを使用します。例：`\f095`（電話アイコン）
 
 == Changelog ==
 
+= 0.1.0 =
+* WordPress本番前レビュー実施・対応完了
+* CSS表示問題の根本修正（メディアクエリ内CSS変数問題解決）
+* セキュリティ強化（REQUEST_URI適切なサニタイズ）
+* パフォーマンス改善（管理画面での不要リソース読み込み除外）
+* 閉じるボタンUI改善（位置調整・透明度最適化）
+* デバッグコード削除・本番環境クリーンアップ
+* WordPress.org審査基準準拠
+
 = 0.0.3 =
 * Font Awesome依存関係の変更
 * ローカルFont Awesomeファイルを削除
@@ -124,6 +133,9 @@ Font Awesomeのunicodeを使用します。例：`\f095`（電話アイコン）
 * レスポンシブ対応強化
 
 == Upgrade Notice ==
+
+= 0.1.0 =
+WordPress本番運用に向けた重要な修正版です。CSS表示問題の根本解決、セキュリティ強化、パフォーマンス改善が含まれます。
 
 = 0.0.3 =
 Font Awesome依存関係が変更されました。Font Awesome公式プラグインのインストールが推奨されます。

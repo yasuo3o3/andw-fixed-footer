@@ -2,7 +2,7 @@
 /**
  * Plugin Name: andW Fixed Footer
  * Description: スマホ向けの固定フッターバーを表示・管理するプラグイン。スクロール方向に応じてスライド表示されます。
- * Version: 0.0.4
+ * Version: 0.1.0
  * Author: yasuo3o3
  * Author URI: https://yasuo-o.xyz/
  * License: GPLv2 or later
@@ -18,7 +18,7 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
-define('ANDW_FIXED_FOOTER_VERSION', '0.0.4');
+define('ANDW_FIXED_FOOTER_VERSION', '0.1.0');
 define('ANDW_FIXED_FOOTER_PLUGIN_URL', plugin_dir_url(__FILE__));
 define('ANDW_FIXED_FOOTER_PLUGIN_PATH', plugin_dir_path(__FILE__));
 
