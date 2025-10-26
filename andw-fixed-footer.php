@@ -61,39 +61,42 @@ class ANDW_Fixed_Footer {
             )
         );
 
+        // 全体設定タブのセクション
         add_settings_section(
             'andw_fixed_footer_general_section',
             __('全体設定', 'andw-fixed-footer'),
             array($this, 'andw_fixed_footer_general_section_callback'),
-            'andw_fixed_footer'
-        );
-
-        add_settings_section(
-            'andw_fixed_footer_buttons_section',
-            __('ボタン設定', 'andw-fixed-footer'),
-            array($this, 'andw_fixed_footer_buttons_section_callback'),
-            'andw_fixed_footer'
+            'andw_fixed_footer_general'
         );
 
         add_settings_section(
             'andw_fixed_footer_fontawesome_section',
             __('Font Awesomeについて', 'andw-fixed-footer'),
             array($this, 'andw_fixed_footer_fontawesome_section_callback'),
-            'andw_fixed_footer'
+            'andw_fixed_footer_general'
         );
 
+        // ボタン設定タブのセクション
         add_settings_section(
-            'andw_fixed_footer_exclusion_section',
-            __('表示ページ設定', 'andw-fixed-footer'),
-            array($this, 'andw_fixed_footer_exclusion_section_callback'),
-            'andw_fixed_footer'
+            'andw_fixed_footer_buttons_section',
+            __('ボタン設定', 'andw-fixed-footer'),
+            array($this, 'andw_fixed_footer_buttons_section_callback'),
+            'andw_fixed_footer_buttons'
         );
 
         add_settings_section(
             'andw_fixed_footer_bottom_section',
-            __('下段住所帯設定', 'andw-fixed-footer'),
+            __('下段帯設定', 'andw-fixed-footer'),
             array($this, 'andw_fixed_footer_bottom_section_callback'),
-            'andw_fixed_footer'
+            'andw_fixed_footer_buttons'
+        );
+
+        // 表示ページ設定タブのセクション
+        add_settings_section(
+            'andw_fixed_footer_exclusion_section',
+            __('表示ページ設定', 'andw-fixed-footer'),
+            array($this, 'andw_fixed_footer_exclusion_section_callback'),
+            'andw_fixed_footer_pages'
         );
 
         $this->andw_fixed_footer_add_settings_fields();
@@ -105,7 +108,7 @@ class ANDW_Fixed_Footer {
             'enabled',
             __('プラグイン有効/無効', 'andw-fixed-footer'),
             array($this, 'andw_fixed_footer_checkbox_callback'),
-            'andw_fixed_footer',
+            'andw_fixed_footer_general',
             'andw_fixed_footer_general_section',
             array('field' => 'enabled', 'description' => __('固定フッターを表示する', 'andw-fixed-footer'))
         );
@@ -114,7 +117,7 @@ class ANDW_Fixed_Footer {
             'display_mode',
             __('表示モード', 'andw-fixed-footer'),
             array($this, 'andw_fixed_footer_radio_callback'),
-            'andw_fixed_footer',
+            'andw_fixed_footer_general',
             'andw_fixed_footer_general_section',
             array(
                 'field' => 'display_mode',
@@ -132,7 +135,7 @@ class ANDW_Fixed_Footer {
             'button_height',
             __('上段ボタン高さ (px)', 'andw-fixed-footer'),
             array($this, 'andw_fixed_footer_number_callback'),
-            'andw_fixed_footer',
+            'andw_fixed_footer_general',
             'andw_fixed_footer_general_section',
             array('field' => 'button_height', 'min' => 30, 'max' => 100)
         );
@@ -141,7 +144,7 @@ class ANDW_Fixed_Footer {
             'max_screen_width',
             __('表示画面幅 (px)', 'andw-fixed-footer'),
             array($this, 'andw_fixed_footer_number_callback'),
-            'andw_fixed_footer',
+            'andw_fixed_footer_general',
             'andw_fixed_footer_general_section',
             array('field' => 'max_screen_width', 'min' => 200, 'max' => 2000, 'description' => 'この幅以下でフッターを表示します（デフォルト: 768px）')
         );
@@ -150,7 +153,7 @@ class ANDW_Fixed_Footer {
             'button_width_right_2',
             __('2分割時 右側ボタン幅 (%)', 'andw-fixed-footer'),
             array($this, 'andw_fixed_footer_number_callback'),
-            'andw_fixed_footer',
+            'andw_fixed_footer_general',
             'andw_fixed_footer_general_section',
             array('field' => 'button_width_right_2', 'min' => 1, 'max' => 99)
         );
@@ -159,7 +162,7 @@ class ANDW_Fixed_Footer {
             'button_width_left_3',
             __('3分割時 左側ボタン幅 (%)', 'andw-fixed-footer'),
             array($this, 'andw_fixed_footer_number_callback'),
-            'andw_fixed_footer',
+            'andw_fixed_footer_general',
             'andw_fixed_footer_general_section',
             array('field' => 'button_width_left_3', 'min' => 1, 'max' => 98)
         );
@@ -168,7 +171,7 @@ class ANDW_Fixed_Footer {
             'button_width_right_3',
             __('3分割時 右側ボタン幅 (%)', 'andw-fixed-footer'),
             array($this, 'andw_fixed_footer_number_callback'),
-            'andw_fixed_footer',
+            'andw_fixed_footer_general',
             'andw_fixed_footer_general_section',
             array('field' => 'button_width_right_3', 'min' => 1, 'max' => 98)
         );
@@ -177,7 +180,7 @@ class ANDW_Fixed_Footer {
             'show_close_button',
             __('閉じるボタンを表示', 'andw-fixed-footer'),
             array($this, 'andw_fixed_footer_checkbox_callback'),
-            'andw_fixed_footer',
+            'andw_fixed_footer_general',
             'andw_fixed_footer_general_section',
             array('field' => 'show_close_button', 'description' => __('閉じるボタンを表示する', 'andw-fixed-footer'))
         );
@@ -186,7 +189,7 @@ class ANDW_Fixed_Footer {
             'close_button_position',
             __('閉じるボタンの位置', 'andw-fixed-footer'),
             array($this, 'andw_fixed_footer_radio_callback'),
-            'andw_fixed_footer',
+            'andw_fixed_footer_general',
             'andw_fixed_footer_general_section',
             array(
                 'field' => 'close_button_position',
@@ -202,7 +205,7 @@ class ANDW_Fixed_Footer {
             'exclusion_mode',
             __('除外モード', 'andw-fixed-footer'),
             array($this, 'andw_fixed_footer_radio_callback'),
-            'andw_fixed_footer',
+            'andw_fixed_footer_pages',
             'andw_fixed_footer_exclusion_section',
             array(
                 'field' => 'exclusion_mode',
@@ -217,7 +220,7 @@ class ANDW_Fixed_Footer {
             'exclude_home',
             __('ホームページで非表示', 'andw-fixed-footer'),
             array($this, 'andw_fixed_footer_checkbox_callback'),
-            'andw_fixed_footer',
+            'andw_fixed_footer_pages',
             'andw_fixed_footer_exclusion_section',
             array('field' => 'exclude_home', 'description' => __('ホームページ（トップページ）で非表示にする', 'andw-fixed-footer'))
         );
@@ -226,7 +229,7 @@ class ANDW_Fixed_Footer {
             'exclude_pages',
             __('固定ページで非表示', 'andw-fixed-footer'),
             array($this, 'andw_fixed_footer_checkbox_callback'),
-            'andw_fixed_footer',
+            'andw_fixed_footer_pages',
             'andw_fixed_footer_exclusion_section',
             array('field' => 'exclude_pages', 'description' => __('すべての固定ページで非表示にする', 'andw-fixed-footer'))
         );
@@ -235,7 +238,7 @@ class ANDW_Fixed_Footer {
             'exclude_posts',
             __('投稿ページで非表示', 'andw-fixed-footer'),
             array($this, 'andw_fixed_footer_checkbox_callback'),
-            'andw_fixed_footer',
+            'andw_fixed_footer_pages',
             'andw_fixed_footer_exclusion_section',
             array('field' => 'exclude_posts', 'description' => __('すべての投稿ページで非表示にする', 'andw-fixed-footer'))
         );
@@ -244,7 +247,7 @@ class ANDW_Fixed_Footer {
             'exclude_categories',
             __('カテゴリページで非表示', 'andw-fixed-footer'),
             array($this, 'andw_fixed_footer_checkbox_callback'),
-            'andw_fixed_footer',
+            'andw_fixed_footer_pages',
             'andw_fixed_footer_exclusion_section',
             array('field' => 'exclude_categories', 'description' => __('すべてのカテゴリページで非表示にする', 'andw-fixed-footer'))
         );
@@ -253,7 +256,7 @@ class ANDW_Fixed_Footer {
             'exclude_search',
             __('検索結果ページで非表示', 'andw-fixed-footer'),
             array($this, 'andw_fixed_footer_checkbox_callback'),
-            'andw_fixed_footer',
+            'andw_fixed_footer_pages',
             'andw_fixed_footer_exclusion_section',
             array('field' => 'exclude_search', 'description' => __('検索結果ページで非表示にする', 'andw-fixed-footer'))
         );
@@ -262,7 +265,7 @@ class ANDW_Fixed_Footer {
             'excluded_page_ids',
             __('除外ページID', 'andw-fixed-footer'),
             array($this, 'andw_fixed_footer_text_callback'),
-            'andw_fixed_footer',
+            'andw_fixed_footer_pages',
             'andw_fixed_footer_exclusion_section',
             array('field' => 'excluded_page_ids', 'description' => __('除外する固定ページ・投稿のIDをカンマ区切りで入力（例: 1,5,12）', 'andw-fixed-footer'))
         );
@@ -271,7 +274,7 @@ class ANDW_Fixed_Footer {
             'excluded_url_patterns',
             __('除外URLパターン', 'andw-fixed-footer'),
             array($this, 'andw_fixed_footer_textarea_callback'),
-            'andw_fixed_footer',
+            'andw_fixed_footer_pages',
             'andw_fixed_footer_exclusion_section',
             array('field' => 'excluded_url_patterns', 'description' => __('除外するURLパターンを1行ずつ入力（例: /contact/, /privacy/）', 'andw-fixed-footer'))
         );
@@ -281,7 +284,7 @@ class ANDW_Fixed_Footer {
             'bottom_bg_color',
             __('下段背景色', 'andw-fixed-footer'),
             array($this, 'andw_fixed_footer_color_callback'),
-            'andw_fixed_footer',
+            'andw_fixed_footer_buttons',
             'andw_fixed_footer_bottom_section',
             array('field' => 'bottom_bg_color')
         );
@@ -290,7 +293,7 @@ class ANDW_Fixed_Footer {
             'bottom_text_color',
             __('下段文字色', 'andw-fixed-footer'),
             array($this, 'andw_fixed_footer_color_callback'),
-            'andw_fixed_footer',
+            'andw_fixed_footer_buttons',
             'andw_fixed_footer_bottom_section',
             array('field' => 'bottom_text_color')
         );
@@ -299,7 +302,7 @@ class ANDW_Fixed_Footer {
             'bottom_text',
             __('下段テキスト', 'andw-fixed-footer'),
             array($this, 'andw_fixed_footer_textarea_callback'),
-            'andw_fixed_footer',
+            'andw_fixed_footer_buttons',
             'andw_fixed_footer_bottom_section',
             array('field' => 'bottom_text', 'description' => __('改行は自動で&lt;br&gt;に変換されます', 'andw-fixed-footer'))
         );
@@ -319,7 +322,7 @@ class ANDW_Fixed_Footer {
             /* translators: %s is button label */
             sprintf(__('%s 有効/無効', 'andw-fixed-footer'), $button_label),
             array($this, 'andw_fixed_footer_checkbox_callback'),
-            'andw_fixed_footer',
+            'andw_fixed_footer_buttons',
             'andw_fixed_footer_buttons_section',
             array('field' => "button_{$button_num}_enabled", 'description' =>
                 /* translators: %s is button label */
@@ -331,7 +334,7 @@ class ANDW_Fixed_Footer {
             /* translators: %s is button label */
             sprintf(__('%s 背景色', 'andw-fixed-footer'), $button_label),
             array($this, 'andw_fixed_footer_color_callback'),
-            'andw_fixed_footer',
+            'andw_fixed_footer_buttons',
             'andw_fixed_footer_buttons_section',
             array('field' => "button_{$button_num}_bg_color")
         );
@@ -341,7 +344,7 @@ class ANDW_Fixed_Footer {
             /* translators: %s is button label */
             sprintf(__('%s 文字色', 'andw-fixed-footer'), $button_label),
             array($this, 'andw_fixed_footer_color_callback'),
-            'andw_fixed_footer',
+            'andw_fixed_footer_buttons',
             'andw_fixed_footer_buttons_section',
             array('field' => "button_{$button_num}_text_color")
         );
@@ -351,7 +354,7 @@ class ANDW_Fixed_Footer {
             /* translators: %s is button label */
             sprintf(__('%s アイコンコード', 'andw-fixed-footer'), $button_label),
             array($this, 'andw_fixed_footer_text_callback'),
-            'andw_fixed_footer',
+            'andw_fixed_footer_buttons',
             'andw_fixed_footer_buttons_section',
             array('field' => "button_{$button_num}_icon", 'description' => __('例: \\f095', 'andw-fixed-footer'))
         );
@@ -361,7 +364,7 @@ class ANDW_Fixed_Footer {
             /* translators: %s is button label */
             sprintf(__('%s ラベルテキスト', 'andw-fixed-footer'), $button_label),
             array($this, 'andw_fixed_footer_text_callback'),
-            'andw_fixed_footer',
+            'andw_fixed_footer_buttons',
             'andw_fixed_footer_buttons_section',
             array('field' => "button_{$button_num}_label")
         );
@@ -371,7 +374,7 @@ class ANDW_Fixed_Footer {
             /* translators: %s is button label */
             sprintf(__('%s リンクURL', 'andw-fixed-footer'), $button_label),
             array($this, 'andw_fixed_footer_url_callback'),
-            'andw_fixed_footer',
+            'andw_fixed_footer_buttons',
             'andw_fixed_footer_buttons_section',
             array('field' => "button_{$button_num}_url")
         );
@@ -519,7 +522,7 @@ class ANDW_Fixed_Footer {
     }
 
     public function andw_fixed_footer_bottom_section_callback() {
-        echo '<p>' . esc_html__('下段の住所帯の設定を行います。', 'andw-fixed-footer') . '</p>';
+        echo '<p>' . esc_html__('下段帯の設定を行います。', 'andw-fixed-footer') . '</p>';
     }
 
     public function andw_fixed_footer_checkbox_callback($args) {
@@ -736,18 +739,62 @@ class ANDW_Fixed_Footer {
             wp_die(esc_html__('このページにアクセスする権限がありません。', 'andw-fixed-footer'));
         }
 
-        // WordPressが自動でメッセージを表示するため、手動呼び出しは不要
+        // 現在のタブを取得（デフォルト: general）
+        $current_tab = isset($_GET['tab']) ? sanitize_text_field($_GET['tab']) : 'general';
+        $valid_tabs = array('general', 'buttons', 'pages');
+        if (!in_array($current_tab, $valid_tabs)) {
+            $current_tab = 'general';
+        }
+
         ?>
         <div class="wrap">
             <h1><?php echo esc_html(get_admin_page_title()); ?></h1>
+
+            <!-- タブナビゲーション -->
+            <nav class="nav-tab-wrapper">
+                <a href="?page=andw-fixed-footer&tab=general" class="nav-tab <?php echo $current_tab === 'general' ? 'nav-tab-active' : ''; ?>">
+                    <?php echo esc_html__('全体設定', 'andw-fixed-footer'); ?>
+                </a>
+                <a href="?page=andw-fixed-footer&tab=buttons" class="nav-tab <?php echo $current_tab === 'buttons' ? 'nav-tab-active' : ''; ?>">
+                    <?php echo esc_html__('ボタン設定', 'andw-fixed-footer'); ?>
+                </a>
+                <a href="?page=andw-fixed-footer&tab=pages" class="nav-tab <?php echo $current_tab === 'pages' ? 'nav-tab-active' : ''; ?>">
+                    <?php echo esc_html__('表示ページ設定', 'andw-fixed-footer'); ?>
+                </a>
+            </nav>
+
+            <!-- タブコンテンツ -->
             <form action="options.php" method="post">
-                <?php
-                settings_fields('andw_fixed_footer');
-                do_settings_sections('andw_fixed_footer');
-                submit_button(__('設定を保存', 'andw-fixed-footer'));
-                ?>
+                <?php settings_fields('andw_fixed_footer'); ?>
+
+                <div class="tab-content tab-content-<?php echo esc_attr($current_tab); ?>">
+                    <?php
+                    switch ($current_tab) {
+                        case 'general':
+                            do_settings_sections('andw_fixed_footer_general');
+                            break;
+                        case 'buttons':
+                            do_settings_sections('andw_fixed_footer_buttons');
+                            break;
+                        case 'pages':
+                            do_settings_sections('andw_fixed_footer_pages');
+                            break;
+                    }
+                    ?>
+                </div>
+
+                <?php submit_button(__('設定を保存', 'andw-fixed-footer')); ?>
             </form>
         </div>
+
+        <style>
+            .tab-content {
+                margin-top: 20px;
+            }
+            .nav-tab-wrapper {
+                margin-bottom: 0;
+            }
+        </style>
         <?php
     }
 
@@ -1021,3 +1068,34 @@ class ANDW_Fixed_Footer {
 }
 
 ANDW_Fixed_Footer::get_instance();
+
+/*
+ * タブ化実装確認手順メモ
+ *
+ * WordPressの管理画面で以下を確認すること：
+ *
+ * 1. 「全体設定」タブ
+ *    - プラグイン有効/無効チェックボックス
+ *    - 表示モード（2分割〜6分割）ラジオボタン
+ *    - 上段ボタン高さ入力フィールド
+ *    - Font Awesomeについてのセクション
+ *
+ * 2. 「ボタン設定」タブ
+ *    - ボタン1〜6の各設定フィールド（有効/無効、色、アイコン、ラベル、URL）
+ *    - 下段帯設定（名前変更確認）
+ *    - 下段背景色、文字色、テキストフィールド
+ *
+ * 3. 「表示ページ設定」タブ
+ *    - 除外モード（指定ページで非表示/指定ページのみ表示）
+ *    - 各ページタイプの除外チェックボックス
+ *    - 除外ページID、除外URLパターンフィールド
+ *
+ * 4. 機能確認
+ *    - 各タブ間の切り替えが正常に動作する
+ *    - 設定保存後、入力値が保持される
+ *    - フロントエンドでの表示に影響がない
+ *
+ * 5. 文言確認
+ *    - 「下段住所帯設定」が「下段帯設定」に変更されている
+ *    - 説明文から"住所"関連の文言が削除されている
+ */
