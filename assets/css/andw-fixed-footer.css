@@ -32,7 +32,6 @@
         border: none;
         cursor: pointer;
         transition: opacity 0.2s ease;
-        font-size: 14px;
         line-height: 1.2;
         text-align: center;
         gap: 4px;
@@ -52,7 +51,6 @@
     }
 
     .andw-button-label {
-        font-size: 12px;
         line-height: 1.1;
         word-break: break-all;
         overflow-wrap: break-word;

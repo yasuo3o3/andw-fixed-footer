@@ -968,6 +968,10 @@ class ANDW_Fixed_Footer {
                 text-decoration: none !important;
             }
 
+            .andw-button-label {
+                font-size: {$button_label_font_size}px !important;
+            }
+
             /* スライド状態の制御 */
             #andw-fixed-footer-wrapper.andw-hide {
                 transform: translateY(100%) !important;
