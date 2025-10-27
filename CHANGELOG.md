@@ -8,13 +8,21 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [0.2.0] - 2025-10-28
 
 ### Changed
-- レビューと修正対応を実施
-- WordPress.Security警告2件を解消（nonce検証コメント追加、wp_unslash処理追加）
-- コードレビューによる品質向上対応
+- Review and code quality improvements implemented
+- WordPress.Security warnings resolved (nonce verification comments, wp_unslash processing)
+- Code review-based quality improvements
+- WordPress plugin policy full compliance
+- Function prefix standardization (andw_fixed_footer_ prefix applied)
+- WordPress.org submission ready level achieved
 
 ### Security
-- タブ処理でのWordPress.Security.NonceVerification.Recommended警告解消
-- WordPress.Security.ValidatedSanitizedInput.MissingUnslash警告解消
+- WordPress.Security.NonceVerification.Recommended warning resolved for tab processing
+- WordPress.Security.ValidatedSanitizedInput.MissingUnslash warning resolved
+
+### Code Quality
+- Function prefix naming convention compliance (andw_fixed_footer_ prefix standardized)
+- WordPress Coding Standards full compliance
+- All functions now properly prefixed to avoid naming conflicts
 
 ## [0.1.4] - 2025-10-27
 

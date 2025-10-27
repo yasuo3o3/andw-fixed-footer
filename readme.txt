@@ -8,9 +8,59 @@ Stable tag: 0.2.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
-スマホ向けの固定フッターバーを表示・管理するプラグイン。スクロール方向に応じてスライド表示されます。
+A responsive fixed footer plugin for WordPress with mobile-first design and scroll-based behavior.
 
 == Description ==
+
+andW Fixed Footer is a responsive mobile-first fixed footer plugin for WordPress. It displays a customizable footer bar on mobile devices with scroll-based show/hide behavior.
+
+= Key Features =
+
+* **Responsive Design**: Configurable screen width threshold (default: 768px)
+* **Scroll Interaction**: Shows on scroll down, hides on scroll up
+* **Flexible Layout**: 2-6 button layout options
+* **Customizable Styling**: Colors, icons, links, and text fully configurable
+* **Font Awesome Support**: Icon display with external Font Awesome plugin
+* **Close Button**: Temporary hide functionality for users
+* **Two-tier Structure**: Button area and address text area
+
+= Configuration Options =
+
+**General Settings**
+* Plugin enable/disable
+* Display mode (2-6 button layout)
+* Button height
+* Screen width threshold (320-1200px, default 768px)
+* Button width distribution
+* Close button display and position
+* Font Awesome detection status
+
+**Button Settings (up to 6 buttons)**
+* Enable/disable individual buttons
+* Background and text colors
+* Font Awesome icon codes
+* Label text
+* Link URLs (tel:, mailto:, https:// supported)
+
+**Bottom Address Bar**
+* Background and text colors
+* Multi-line text (automatic line break conversion)
+
+= Use Cases =
+
+* Corporate website phone/email contact
+* E-commerce inquiry buttons
+* Store location/reservation links
+* Service website resource requests
+
+= Security Features =
+
+* Proper input sanitization
+* Output escaping
+* Nonce authentication for settings protection
+* Administrator permission checks
+
+= 主な機能（日本語） =
 
 andW Fixed Footerは、設定可能な画面幅以下で固定フッターバーを表示するプラグインです。デフォルトは768px以下で表示されます。
 
@@ -100,6 +150,21 @@ Font Awesomeのunicodeを使用します。例：`\f095`（電話アイコン）
 4. スマホでの表示例（6分割）
 
 == Changelog ==
+
+= 0.2.0 =
+* Review and code quality improvements
+* WordPress.Security warnings resolved (nonce verification comments, wp_unslash processing)
+* WordPress plugin policy full compliance
+* Function prefix standardization (andw_fixed_footer_ prefix applied)
+* WordPress.org submission ready level achieved
+* Code quality improvements based on comprehensive review
+
+= 0.1.4 =
+* CSS font size conflict issue fixed
+* Button label font size setting feature added
+* Button text color reflection issue fixed
+* Tab setting save issue fixed
+* CSS variable media query issue fixed
 
 = 0.1.0 =
 * WordPress本番前レビュー実施・対応完了
