@@ -72,221 +72,21 @@
     }
 }
 
-/* 設定値以下でのみ表示（CSS変数使用） */
-@media (max-width: var(--andw-max-width, 768px)) {
-    #andw-fixed-footer-wrapper {
-        position: fixed;
-        bottom: 0;
-        left: 0;
-        right: 0;
-        z-index: 9999;
-        display: flex;
-        flex-direction: column;
-        background: #ffffff;
-        box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
-        transition: transform 0.3s ease;
-        transform: translateY(0);
-    }
+/* 基本スタイル（PHPのインラインCSSで画面幅制御される） */
 
-    /* スライドアウト状態（隠れている） */
-    #andw-fixed-footer-wrapper.andw-hide {
-        transform: translateY(100%) !important;
-    }
-
-    /* スライドイン状態（表示） */
-    #andw-fixed-footer-wrapper.andw-show {
-        transform: translateY(0) !important;
-    }
-
-    /* 閉じられた状態 */
-    #andw-fixed-footer-wrapper.andw-closed {
-        display: none !important;
-    }
-
-    /* 上段ボタンエリア */
-    .andw-footer-buttons {
-        display: flex;
-        flex-direction: row;
-        min-height: 50px;
-    }
-
-    /* 個別ボタン */
-    .andw-footer-button {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        text-decoration: none;
-        color: inherit;
-        padding: 8px 4px;
-        border: none;
-        cursor: pointer;
-        transition: opacity 0.2s ease;
-        font-size: 14px;
-        line-height: 1.2;
-        text-align: center;
-        gap: 4px;
-        flex-direction: column;
-    }
-
-    .andw-footer-button:hover {
-        opacity: 0.8;
-        text-decoration: none;
-        color: inherit;
-    }
-
-    .andw-footer-button:focus {
-        outline: 2px solid #005a9c;
-        outline-offset: -2px;
-    }
-
-    /* ボタンアイコン */
-    .andw-button-icon {
-        font-family: "Font Awesome 6 Free", "Font Awesome 6 Pro", FontAwesome, sans-serif;
-        font-weight: 900;
-        font-size: 16px;
-        line-height: 1;
-    }
-
-    .andw-button-icon::before {
-        content: var(--icon-content, '');
-    }
-
-    /* ボタンラベル */
-    .andw-button-label {
-        font-size: 13px;
-        line-height: 1.1;
-        word-break: break-all;
-        overflow-wrap: break-word;
-    }
-
-    /* 下段住所帯 */
-    .andw-footer-bottom {
-        padding: 8px 12px;
-        font-size: 13px;
-        line-height: 1.4;
-        text-align: center;
-        background-color: #333333;
-        color: #ffffff;
-    }
-
-    /* 閉じるボタン */
-    #andw-fixed-footer-wrapper .andw-close-button {
-        position: absolute;
-        top: -12px;
-        width: 24px;
-        height: 24px;
-        min-width: 24px;
-        max-width: 24px;
-        background: rgba(0, 0, 0, 0.7);
-        color: #ffffff;
-        border: none;
-        border-radius: 50%;
-        cursor: pointer;
-        font-size: 16px;
-        line-height: 1;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        z-index: 10000;
-        transition: background-color 0.2s ease;
-        box-sizing: border-box;
-        flex-shrink: 0;
-        padding: 0;
-        margin: 0;
-        flex-grow: 0;
-        flex-basis: auto;
-    }
-
-    #andw-fixed-footer-wrapper .andw-close-button:hover {
-        background: rgba(0, 0, 0, 0.5);
-    }
-
-    #andw-fixed-footer-wrapper .andw-close-button:focus {
-        outline: 2px solid #005a9c;
-        outline-offset: 2px;
-    }
-
-    /* 閉じるボタンの位置 */
-    .andw-close-left .andw-close-button {
-        left: 2px;
-    }
-
-    .andw-close-right .andw-close-button {
-        right: 8px;
-    }
-
-    /* レスポンシブ調整 */
-    @media (max-width: 360px) {
-        .andw-footer-button {
-            padding: 6px 2px;
-            font-size: 12px;
-        }
-
-        .andw-button-icon {
-            font-size: 14px;
-        }
-
-        .andw-button-label {
-            font-size: 11px;
-        }
-
-        .andw-footer-bottom {
-            padding: 6px 8px;
-            font-size: 11px;
-        }
-
-        /* 5-6分割時の特別調整 */
-        .andw-footer-buttons:has(.andw-footer-button:nth-child(5)) .andw-footer-button {
-            padding: 4px 1px;
-            font-size: 10px;
-        }
-
-        .andw-footer-buttons:has(.andw-footer-button:nth-child(5)) .andw-button-icon {
-            font-size: 12px;
-        }
-
-        .andw-footer-buttons:has(.andw-footer-button:nth-child(5)) .andw-button-label {
-            font-size: 9px;
-        }
-    }
-
-    /* 超小画面での6分割対応 */
-    @media (max-width: 320px) {
-        .andw-footer-buttons:has(.andw-footer-button:nth-child(6)) .andw-footer-button {
-            padding: 3px 1px;
-            font-size: 9px;
-            gap: 2px;
-        }
-
-        .andw-footer-buttons:has(.andw-footer-button:nth-child(6)) .andw-button-icon {
-            font-size: 10px;
-        }
-
-        .andw-footer-buttons:has(.andw-footer-button:nth-child(6)) .andw-button-label {
-            font-size: 8px;
-            line-height: 1;
-        }
-    }
-
-    /* 横向きでボタンを横並びに */
-    @media (max-width: var(--andw-max-width, 768px)) and (orientation: landscape) {
-        .andw-footer-button {
-            flex-direction: row;
-            gap: 6px;
-        }
-
-        .andw-button-label {
-            font-size: 11px;
-        }
-    }
+/* Font Awesomeアイコン */
+.andw-button-icon {
+    font-family: "Font Awesome 6 Free", "Font Awesome 6 Pro", FontAwesome, sans-serif;
+    font-weight: 900;
+    font-size: 16px;
+    line-height: 1;
 }
 
-/* 設定値より大きい画面では完全に非表示 */
-@media (min-width: calc(var(--andw-max-width, 768px) + 1px)) {
-    #andw-fixed-footer-wrapper {
-        display: none !important;
-    }
+.andw-button-icon::before {
+    content: var(--icon-content, '');
 }
+
+/* 設定値より大きい画面での非表示はPHPのインラインCSSで制御 */
 
 /* アクセシビリティ: 動的効果を無効にしたユーザー向け */
 @media (prefers-reduced-motion: reduce) {
@@ -311,82 +111,19 @@
     }
 }
 
-/* フォーカス時の可視性向上 */
-@media (max-width: var(--andw-max-width, 768px)) {
-    .andw-footer-button:focus-visible {
-        outline: 3px solid #005a9c;
-        outline-offset: -1px;
-        z-index: 10001;
+/* フォーカス時の可視性向上（PHPのインラインCSSで制御） */
+
+/* ボタンが1つだけの場合の調整（PHPのインラインCSSで制御） */
+
+/* ローディング時のスムーズな表示（設定幅内でのみ適用） */
+@media (max-width: 768px) {
+    #andw-fixed-footer-wrapper {
+        transform: translateY(100%);
     }
 
-    .andw-close-button:focus-visible {
-        outline: 3px solid #ffffff;
-        outline-offset: 1px;
-    }
-}
-
-/* ボタンが1つだけの場合の調整 */
-@media (max-width: var(--andw-max-width, 768px)) {
-    .andw-footer-buttons .andw-footer-button:only-child {
-        flex-basis: 100% !important;
+    #andw-fixed-footer-wrapper.andw-loaded {
+        transform: translateY(0);
     }
 }
 
-/* ローディング時のスムーズな表示 */
-#andw-fixed-footer-wrapper {
-    transform: translateY(100%);
-}
-
-/* 閉じるボタンの最終スタイル（高い特異性で確実に適用） */
-@media (max-width: var(--andw-max-width, 768px)) {
-    #andw-fixed-footer-wrapper.andw-close-left .andw-close-button,
-    #andw-fixed-footer-wrapper.andw-close-right .andw-close-button {
-        position: absolute;
-        top: -12px;
-        width: 24px;
-        height: 24px;
-        min-width: 24px;
-        max-width: 24px;
-        background: rgba(0, 0, 0, 0.7);
-        color: #ffffff;
-        border: none;
-        border-radius: 50%;
-        cursor: pointer;
-        font-size: 16px;
-        line-height: 1;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        z-index: 10000;
-        transition: background-color 0.2s ease;
-        box-sizing: border-box;
-        flex-shrink: 0;
-        padding: 0;
-        margin: 0;
-        flex-grow: 0;
-        flex-basis: auto;
-    }
-
-    #andw-fixed-footer-wrapper.andw-close-left .andw-close-button {
-        left: 2px;
-    }
-
-    #andw-fixed-footer-wrapper.andw-close-right .andw-close-button {
-        right: 8px;
-    }
-
-    #andw-fixed-footer-wrapper.andw-close-left .andw-close-button:hover,
-    #andw-fixed-footer-wrapper.andw-close-right .andw-close-button:hover {
-        background: rgba(0, 0, 0, 0.5);
-    }
-
-    #andw-fixed-footer-wrapper.andw-close-left .andw-close-button:focus,
-    #andw-fixed-footer-wrapper.andw-close-right .andw-close-button:focus {
-        outline: 2px solid #005a9c;
-        outline-offset: 2px;
-    }
-}
-
-#andw-fixed-footer-wrapper.andw-loaded {
-    transform: translateY(0);
-}
+/* 閉じるボタンの最終スタイル（PHPのインラインCSSで制御） */
