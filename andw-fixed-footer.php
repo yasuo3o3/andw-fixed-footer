@@ -2,7 +2,7 @@
 /**
  * Plugin Name: andW Fixed Footer
  * Description: スマホ向けの固定フッターバーを表示・管理するプラグイン。スクロール方向に応じてスライド表示されます。
- * Version: 0.1.3
+ * Version: 0.1.4
  * Author: yasuo3o3
  * Author URI: https://yasuo-o.xyz/
  * License: GPLv2 or later
@@ -18,7 +18,7 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
-define('ANDW_FIXED_FOOTER_VERSION', '0.1.3');
+define('ANDW_FIXED_FOOTER_VERSION', '0.1.4');
 define('ANDW_FIXED_FOOTER_PLUGIN_URL', plugin_dir_url(__FILE__));
 define('ANDW_FIXED_FOOTER_PLUGIN_PATH', plugin_dir_path(__FILE__));
 
@@ -198,6 +198,24 @@ class ANDW_Fixed_Footer {
                     'right' => __('右', 'andw-fixed-footer')
                 )
             )
+        );
+
+        add_settings_field(
+            'button_label_font_size',
+            __('ボタンラベル フォントサイズ (px)', 'andw-fixed-footer'),
+            array($this, 'andw_fixed_footer_number_callback'),
+            'andw_fixed_footer_general',
+            'andw_fixed_footer_general_section',
+            array('field' => 'button_label_font_size', 'description' => __('全ボタンのラベルテキストのフォントサイズ', 'andw-fixed-footer'))
+        );
+
+        add_settings_field(
+            'bottom_text_font_size',
+            __('下段テキスト フォントサイズ (px)', 'andw-fixed-footer'),
+            array($this, 'andw_fixed_footer_number_callback'),
+            'andw_fixed_footer_general',
+            'andw_fixed_footer_general_section',
+            array('field' => 'bottom_text_font_size', 'description' => __('下段エリアのテキストのフォントサイズ', 'andw-fixed-footer'))
         );
 
         // 除外設定フィールド
@@ -642,6 +660,14 @@ class ANDW_Fixed_Footer {
             if (isset($input['close_button_position']) && in_array($input['close_button_position'], array('left', 'right'), true)) {
                 $sanitized['close_button_position'] = $input['close_button_position'];
             }
+
+            if (isset($input['button_label_font_size'])) {
+                $sanitized['button_label_font_size'] = absint($input['button_label_font_size']);
+            }
+
+            if (isset($input['bottom_text_font_size'])) {
+                $sanitized['bottom_text_font_size'] = absint($input['bottom_text_font_size']);
+            }
         } elseif ($current_tab === 'buttons') {
             $bottom_bg_color = isset($input['bottom_bg_color']) ? sanitize_hex_color($input['bottom_bg_color']) : null;
             if ($bottom_bg_color !== null) {
@@ -796,6 +822,10 @@ class ANDW_Fixed_Footer {
 
             // スクロール動作設定のデフォルト値
             'scroll_reveal_threshold' => 150,
+
+            // フォントサイズ設定のデフォルト値
+            'button_label_font_size' => 14,
+            'bottom_text_font_size' => 12,
         );
     }
 
@@ -891,6 +921,8 @@ class ANDW_Fixed_Footer {
 
         // 設定値を取得してメディアクエリを動的生成（CSS変数を使わない）
         $max_width = !empty($options['max_screen_width']) ? absint($options['max_screen_width']) : 768;
+        $button_label_font_size = !empty($options['button_label_font_size']) ? absint($options['button_label_font_size']) : 14;
+        $bottom_text_font_size = !empty($options['bottom_text_font_size']) ? absint($options['bottom_text_font_size']) : 12;
         $custom_css = "
         /* andW Fixed Footer 動的設定 - 固定値でのメディアクエリ */
 
@@ -924,7 +956,7 @@ class ANDW_Fixed_Footer {
                 border: none !important;
                 cursor: pointer !important;
                 transition: opacity 0.2s ease !important;
-                font-size: 14px !important;
+                font-size: {$button_label_font_size}px !important;
                 line-height: 1.2 !important;
                 text-align: center !important;
                 gap: 4px !important;
@@ -952,7 +984,7 @@ class ANDW_Fixed_Footer {
             /* 下段住所エリア */
             .andw-footer-bottom {
                 padding: 8px 12px !important;
-                font-size: 12px !important;
+                font-size: {$bottom_text_font_size}px !important;
                 line-height: 1.4 !important;
                 text-align: center !important;
                 background-color: #333333 !important;
