@@ -2,7 +2,7 @@
 /**
  * Plugin Name: andW Fixed Footer
  * Description: スマホ向けの固定フッターバーを表示・管理するプラグイン。スクロール方向に応じてスライド表示されます。
- * Version: 0.1.1
+ * Version: 0.1.2
  * Author: yasuo3o3
  * Author URI: https://yasuo-o.xyz/
  * License: GPLv2 or later
@@ -18,7 +18,7 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
-define('ANDW_FIXED_FOOTER_VERSION', '0.1.1');
+define('ANDW_FIXED_FOOTER_VERSION', '0.1.2');
 define('ANDW_FIXED_FOOTER_PLUGIN_URL', plugin_dir_url(__FILE__));
 define('ANDW_FIXED_FOOTER_PLUGIN_PATH', plugin_dir_path(__FILE__));
 
@@ -584,7 +584,7 @@ class ANDW_Fixed_Footer {
     }
 
     public function andw_fixed_footer_sanitize_options($input) {
-        // nonce検証（CSRF攻撃対策）
+        // nonceチェック（CSRF対策）
         $nonce = isset($_POST['_wpnonce']) ? sanitize_text_field(wp_unslash($_POST['_wpnonce'])) : '';
         if (empty($nonce) || !wp_verify_nonce($nonce, 'andw_fixed_footer-options')) {
             wp_die(esc_html__('セキュリティチェックに失敗しました。', 'andw-fixed-footer'));
@@ -598,98 +598,121 @@ class ANDW_Fixed_Footer {
             });
         }
 
-        // 既存の設定値を取得（未送信フィールドの保持用）
+        // 既存の設定値を取得（未送信フィールド保持用）
         $existing_options = get_option($this->option_name, $this->andw_fixed_footer_get_default_options());
-        $sanitized = array();
+        $sanitized = $existing_options;
 
-        // 全体設定フィールド（送信されなかった場合は既存値を保持）
-        $sanitized['enabled'] = isset($input['enabled']) ? 1 : 0;
-        $sanitized['display_mode'] = isset($input['display_mode']) && in_array($input['display_mode'], array('2', '3', '4', '5', '6'))
-            ? $input['display_mode']
-            : $existing_options['display_mode'];
-        $sanitized['button_height'] = isset($input['button_height'])
-            ? absint($input['button_height'])
-            : $existing_options['button_height'];
-        $sanitized['max_screen_width'] = isset($input['max_screen_width'])
-            ? absint($input['max_screen_width'])
-            : $existing_options['max_screen_width'];
-        $sanitized['button_width_right_2'] = isset($input['button_width_right_2'])
-            ? max(1, min(99, absint($input['button_width_right_2'])))
-            : $existing_options['button_width_right_2'];
-        $sanitized['button_width_left_3'] = isset($input['button_width_left_3'])
-            ? max(1, min(98, absint($input['button_width_left_3'])))
-            : $existing_options['button_width_left_3'];
-        $sanitized['button_width_right_3'] = isset($input['button_width_right_3'])
-            ? max(1, min(98, absint($input['button_width_right_3'])))
-            : $existing_options['button_width_right_3'];
-        $sanitized['show_close_button'] = isset($input['show_close_button']) ? 1 : 0;
-        $sanitized['close_button_position'] = isset($input['close_button_position']) && in_array($input['close_button_position'], array('left', 'right'))
-            ? $input['close_button_position']
-            : $existing_options['close_button_position'];
-
-        // 表示ページ設定フィールド（送信されなかった場合は既存値を保持）
-        $sanitized['exclusion_mode'] = isset($input['exclusion_mode']) && in_array($input['exclusion_mode'], array('blacklist', 'whitelist'))
-            ? $input['exclusion_mode']
-            : $existing_options['exclusion_mode'];
-        $sanitized['exclude_home'] = isset($input['exclude_home']) ? 1 : 0;
-        $sanitized['exclude_pages'] = isset($input['exclude_pages']) ? 1 : 0;
-        $sanitized['exclude_posts'] = isset($input['exclude_posts']) ? 1 : 0;
-        $sanitized['exclude_categories'] = isset($input['exclude_categories']) ? 1 : 0;
-        $sanitized['exclude_search'] = isset($input['exclude_search']) ? 1 : 0;
-
-        // ページIDのバリデーション（数値のカンマ区切りのみ許可）
-        if (isset($input['excluded_page_ids'])) {
-            $page_ids = sanitize_text_field($input['excluded_page_ids']);
-            if (!empty($page_ids)) {
-                $ids = explode(',', $page_ids);
-                $valid_ids = array();
-                foreach ($ids as $id) {
-                    $id = trim($id);
-                    if (is_numeric($id) && intval($id) > 0) {
-                        $valid_ids[] = intval($id);
-                    }
-                }
-                $sanitized['excluded_page_ids'] = implode(',', $valid_ids);
-            } else {
-                $sanitized['excluded_page_ids'] = '';
-            }
-        } else {
-            $sanitized['excluded_page_ids'] = $existing_options['excluded_page_ids'];
+        // 送信元タブを判定
+        $current_tab = isset($_POST['andw_fixed_footer_current_tab'])
+            ? sanitize_key(wp_unslash($_POST['andw_fixed_footer_current_tab']))
+            : 'general';
+        if (!in_array($current_tab, array('general', 'buttons', 'pages'), true)) {
+            $current_tab = 'general';
         }
 
-        // URLパターンのサニタイズ
-        $sanitized['excluded_url_patterns'] = isset($input['excluded_url_patterns'])
-            ? sanitize_textarea_field($input['excluded_url_patterns'])
-            : $existing_options['excluded_url_patterns'];
+        if ($current_tab === 'general') {
+            $sanitized['enabled'] = isset($input['enabled']) ? 1 : 0;
 
-        // ボタン設定と下段設定フィールド（送信されなかった場合は既存値を保持）
-        $sanitized['bottom_bg_color'] = isset($input['bottom_bg_color'])
-            ? sanitize_hex_color($input['bottom_bg_color'])
-            : $existing_options['bottom_bg_color'];
-        $sanitized['bottom_text_color'] = isset($input['bottom_text_color'])
-            ? sanitize_hex_color($input['bottom_text_color'])
-            : $existing_options['bottom_text_color'];
-        $sanitized['bottom_text'] = isset($input['bottom_text'])
-            ? sanitize_textarea_field($input['bottom_text'])
-            : $existing_options['bottom_text'];
+            if (isset($input['display_mode']) && in_array($input['display_mode'], array('2', '3', '4', '5', '6'), true)) {
+                $sanitized['display_mode'] = $input['display_mode'];
+            }
 
-        for ($i = 1; $i <= 6; $i++) {
-            $sanitized["button_{$i}_enabled"] = isset($input["button_{$i}_enabled"]) ? 1 : 0;
-            $sanitized["button_{$i}_bg_color"] = isset($input["button_{$i}_bg_color"])
-                ? sanitize_hex_color($input["button_{$i}_bg_color"])
-                : $existing_options["button_{$i}_bg_color"];
-            $sanitized["button_{$i}_text_color"] = isset($input["button_{$i}_text_color"])
-                ? sanitize_hex_color($input["button_{$i}_text_color"])
-                : $existing_options["button_{$i}_text_color"];
-            $sanitized["button_{$i}_icon"] = isset($input["button_{$i}_icon"])
-                ? sanitize_text_field($input["button_{$i}_icon"])
-                : $existing_options["button_{$i}_icon"];
-            $sanitized["button_{$i}_label"] = isset($input["button_{$i}_label"])
-                ? sanitize_text_field($input["button_{$i}_label"])
-                : $existing_options["button_{$i}_label"];
-            $sanitized["button_{$i}_url"] = isset($input["button_{$i}_url"])
-                ? $this->andw_fixed_footer_sanitize_url($input["button_{$i}_url"])
-                : $existing_options["button_{$i}_url"];
+            if (isset($input['button_height'])) {
+                $sanitized['button_height'] = absint($input['button_height']);
+            }
+
+            if (isset($input['max_screen_width'])) {
+                $sanitized['max_screen_width'] = absint($input['max_screen_width']);
+            }
+
+            if (isset($input['button_width_right_2'])) {
+                $sanitized['button_width_right_2'] = max(1, min(99, absint($input['button_width_right_2'])));
+            }
+
+            if (isset($input['button_width_left_3'])) {
+                $sanitized['button_width_left_3'] = max(1, min(98, absint($input['button_width_left_3'])));
+            }
+
+            if (isset($input['button_width_right_3'])) {
+                $sanitized['button_width_right_3'] = max(1, min(98, absint($input['button_width_right_3'])));
+            }
+
+            $sanitized['show_close_button'] = isset($input['show_close_button']) ? 1 : 0;
+
+            if (isset($input['close_button_position']) && in_array($input['close_button_position'], array('left', 'right'), true)) {
+                $sanitized['close_button_position'] = $input['close_button_position'];
+            }
+        } elseif ($current_tab === 'buttons') {
+            $bottom_bg_color = isset($input['bottom_bg_color']) ? sanitize_hex_color($input['bottom_bg_color']) : null;
+            if ($bottom_bg_color !== null) {
+                $sanitized['bottom_bg_color'] = $bottom_bg_color;
+            }
+
+            $bottom_text_color = isset($input['bottom_text_color']) ? sanitize_hex_color($input['bottom_text_color']) : null;
+            if ($bottom_text_color !== null) {
+                $sanitized['bottom_text_color'] = $bottom_text_color;
+            }
+
+            if (isset($input['bottom_text'])) {
+                $sanitized['bottom_text'] = sanitize_textarea_field($input['bottom_text']);
+            }
+
+            for ($i = 1; $i <= 6; $i++) {
+                $sanitized["button_{$i}_enabled"] = isset($input["button_{$i}_enabled"]) ? 1 : 0;
+
+                $bg_color = isset($input["button_{$i}_bg_color"]) ? sanitize_hex_color($input["button_{$i}_bg_color"]) : null;
+                if ($bg_color !== null) {
+                    $sanitized["button_{$i}_bg_color"] = $bg_color;
+                }
+
+                $text_color = isset($input["button_{$i}_text_color"]) ? sanitize_hex_color($input["button_{$i}_text_color"]) : null;
+                if ($text_color !== null) {
+                    $sanitized["button_{$i}_text_color"] = $text_color;
+                }
+
+                if (isset($input["button_{$i}_icon"])) {
+                    $sanitized["button_{$i}_icon"] = sanitize_text_field($input["button_{$i}_icon"]);
+                }
+
+                if (isset($input["button_{$i}_label"])) {
+                    $sanitized["button_{$i}_label"] = sanitize_text_field($input["button_{$i}_label"]);
+                }
+
+                if (isset($input["button_{$i}_url"])) {
+                    $sanitized["button_{$i}_url"] = $this->andw_fixed_footer_sanitize_url($input["button_{$i}_url"]);
+                }
+            }
+        } elseif ($current_tab === 'pages') {
+            if (isset($input['exclusion_mode']) && in_array($input['exclusion_mode'], array('blacklist', 'whitelist'), true)) {
+                $sanitized['exclusion_mode'] = $input['exclusion_mode'];
+            }
+
+            $sanitized['exclude_home'] = isset($input['exclude_home']) ? 1 : 0;
+            $sanitized['exclude_pages'] = isset($input['exclude_pages']) ? 1 : 0;
+            $sanitized['exclude_posts'] = isset($input['exclude_posts']) ? 1 : 0;
+            $sanitized['exclude_categories'] = isset($input['exclude_categories']) ? 1 : 0;
+            $sanitized['exclude_search'] = isset($input['exclude_search']) ? 1 : 0;
+
+            if (isset($input['excluded_page_ids'])) {
+                $page_ids = sanitize_text_field($input['excluded_page_ids']);
+                if (!empty($page_ids)) {
+                    $ids = explode(',', $page_ids);
+                    $valid_ids = array();
+                    foreach ($ids as $id) {
+                        $id = trim($id);
+                        if (is_numeric($id) && intval($id) > 0) {
+                            $valid_ids[] = intval($id);
+                        }
+                    }
+                    $sanitized['excluded_page_ids'] = implode(',', $valid_ids);
+                } else {
+                    $sanitized['excluded_page_ids'] = '';
+                }
+            }
+
+            if (isset($input['excluded_url_patterns'])) {
+                $sanitized['excluded_url_patterns'] = sanitize_textarea_field($input['excluded_url_patterns']);
+            }
         }
 
         return $sanitized;
@@ -808,6 +831,7 @@ class ANDW_Fixed_Footer {
             <!-- タブコンテンツ -->
             <form action="options.php" method="post">
                 <?php settings_fields('andw_fixed_footer'); ?>
+                <input type="hidden" name="andw_fixed_footer_current_tab" value="<?php echo esc_attr($current_tab); ?>">
 
                 <div class="tab-content tab-content-<?php echo esc_attr($current_tab); ?>">
                     <?php
