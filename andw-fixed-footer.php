@@ -408,7 +408,7 @@ class ANDW_Fixed_Footer {
 
     public function andw_fixed_footer_fontawesome_section_callback() {
         // Font Awesomeの読み込み状況を検出
-        $fontawesome_detected = $this->detect_fontawesome();
+        $fontawesome_detected = $this->andw_fixed_footer_detect_fontawesome();
 
         if ($fontawesome_detected) {
             echo '<div class="notice notice-success inline">';
@@ -432,7 +432,7 @@ class ANDW_Fixed_Footer {
         }
     }
 
-    private function detect_fontawesome() {
+    private function andw_fixed_footer_detect_fontawesome() {
         global $wp_styles;
 
         if (!isset($wp_styles) || !is_object($wp_styles)) {
@@ -465,7 +465,7 @@ class ANDW_Fixed_Footer {
         return false;
     }
 
-    private function should_exclude_current_page($options) {
+    private function andw_fixed_footer_should_exclude_current_page($options) {
         $mode = isset($options['exclusion_mode']) ? $options['exclusion_mode'] : 'blacklist';
         $is_excluded = false;
 
@@ -907,7 +907,7 @@ class ANDW_Fixed_Footer {
         }
 
         // 除外ページ判定
-        if ($this->should_exclude_current_page($options)) {
+        if ($this->andw_fixed_footer_should_exclude_current_page($options)) {
             return;
         }
 
@@ -1074,7 +1074,7 @@ class ANDW_Fixed_Footer {
         }
 
         // 除外ページ判定
-        if ($this->should_exclude_current_page($options)) {
+        if ($this->andw_fixed_footer_should_exclude_current_page($options)) {
             return;
         }
 
