@@ -2,7 +2,7 @@
 /**
  * Plugin Name: andW Fixed Footer
  * Description: スマホ向けの固定フッターバーを表示・管理するプラグイン。スクロール方向に応じてスライド表示されます。
- * Version: 0.1.2
+ * Version: 0.1.3
  * Author: yasuo3o3
  * Author URI: https://yasuo-o.xyz/
  * License: GPLv2 or later
@@ -18,7 +18,7 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
-define('ANDW_FIXED_FOOTER_VERSION', '0.1.2');
+define('ANDW_FIXED_FOOTER_VERSION', '0.1.3');
 define('ANDW_FIXED_FOOTER_PLUGIN_URL', plugin_dir_url(__FILE__));
 define('ANDW_FIXED_FOOTER_PLUGIN_PATH', plugin_dir_path(__FILE__));
 
@@ -920,7 +920,6 @@ class ANDW_Fixed_Footer {
                 align-items: center !important;
                 justify-content: center !important;
                 text-decoration: none !important;
-                color: inherit !important;
                 padding: 8px 4px !important;
                 border: none !important;
                 cursor: pointer !important;
@@ -935,7 +934,6 @@ class ANDW_Fixed_Footer {
             .andw-footer-button:hover {
                 opacity: 0.8 !important;
                 text-decoration: none !important;
-                color: inherit !important;
             }
 
             /* スライド状態の制御 */
@@ -1070,10 +1068,10 @@ class ANDW_Fixed_Footer {
         if (!empty($options['bottom_text'])) {
             $bottom_style = '';
             if (!empty($options['bottom_bg_color'])) {
-                $bottom_style .= 'background-color: ' . esc_attr($options['bottom_bg_color']) . ';';
+                $bottom_style .= 'background-color: ' . esc_attr($options['bottom_bg_color']) . ' !important;';
             }
             if (!empty($options['bottom_text_color'])) {
-                $bottom_style .= 'color: ' . esc_attr($options['bottom_text_color']) . ';';
+                $bottom_style .= 'color: ' . esc_attr($options['bottom_text_color']) . ' !important;';
             }
 
             echo '<div class="andw-footer-bottom" style="' . esc_attr($bottom_style) . '">';
@@ -1135,10 +1133,10 @@ class ANDW_Fixed_Footer {
         $button_style = '';
         $button_style .= 'flex-basis: ' . esc_attr($width) . '%;';
         if (!empty($button['bg_color'])) {
-            $button_style .= 'background-color: ' . esc_attr($button['bg_color']) . ';';
+            $button_style .= 'background-color: ' . esc_attr($button['bg_color']) . ' !important;';
         }
         if (!empty($button['text_color'])) {
-            $button_style .= 'color: ' . esc_attr($button['text_color']) . ';';
+            $button_style .= 'color: ' . esc_attr($button['text_color']) . ' !important;';
         }
 
         $url = !empty($button['url']) ? $button['url'] : '#';
