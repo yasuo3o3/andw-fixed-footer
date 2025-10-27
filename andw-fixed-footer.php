@@ -835,7 +835,7 @@ class ANDW_Fixed_Footer {
         }
 
         // 現在のタブを取得（デフォルト: general）
-        $current_tab = isset($_GET['tab']) ? sanitize_text_field($_GET['tab']) : 'general'; // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- 管理画面タブ切替のみ
+        $current_tab = isset($_GET['tab']) ? sanitize_text_field(wp_unslash($_GET['tab'])) : 'general'; // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- 管理画面タブ切替のみ
         $valid_tabs = array('general', 'buttons', 'pages');
         if (!in_array($current_tab, $valid_tabs)) {
             $current_tab = 'general';
