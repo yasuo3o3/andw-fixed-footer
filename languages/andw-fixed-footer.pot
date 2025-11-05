@@ -1,0 +1,362 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: andW Fixed Footer 0.2.1\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-01-01 00:00+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: andw-fixed-footer.php:72
+msgid "Fixed Footer Settings"
+msgstr ""
+
+#: andw-fixed-footer.php:73
+msgid "Fixed Footer"
+msgstr ""
+
+#: andw-fixed-footer.php:93
+msgid "General Settings"
+msgstr ""
+
+#: andw-fixed-footer.php:100
+msgid "About Font Awesome"
+msgstr ""
+
+#: andw-fixed-footer.php:108
+msgid "Button Settings"
+msgstr ""
+
+#: andw-fixed-footer.php:115
+msgid "Bottom Bar Settings"
+msgstr ""
+
+#: andw-fixed-footer.php:123
+msgid "Display Page Settings"
+msgstr ""
+
+#: andw-fixed-footer.php:135
+msgid "Plugin Enable/Disable"
+msgstr ""
+
+#: andw-fixed-footer.php:139
+msgid "Display fixed footer"
+msgstr ""
+
+#: andw-fixed-footer.php:144
+msgid "Display Mode"
+msgstr ""
+
+#: andw-fixed-footer.php:151
+msgid "2 Columns"
+msgstr ""
+
+#: andw-fixed-footer.php:152
+msgid "3 Columns"
+msgstr ""
+
+#: andw-fixed-footer.php:153
+msgid "4 Columns"
+msgstr ""
+
+#: andw-fixed-footer.php:154
+msgid "5 Columns"
+msgstr ""
+
+#: andw-fixed-footer.php:155
+msgid "6 Columns"
+msgstr ""
+
+#: andw-fixed-footer.php:162
+msgid "Button Height (px)"
+msgstr ""
+
+#: andw-fixed-footer.php:171
+msgid "Display Screen Width (px)"
+msgstr ""
+
+#: andw-fixed-footer.php:175
+msgid "Display footer when screen width is at or below this value (default: 768px)"
+msgstr ""
+
+#: andw-fixed-footer.php:180
+msgid "2-Column Right Button Width (%)"
+msgstr ""
+
+#: andw-fixed-footer.php:188
+msgid "3-Column Left Button Width (%)"
+msgstr ""
+
+#: andw-fixed-footer.php:197
+msgid "3-Column Right Button Width (%)"
+msgstr ""
+
+#: andw-fixed-footer.php:207
+msgid "Show Close Button"
+msgstr ""
+
+#: andw-fixed-footer.php:211
+msgid "Display a close button for the footer"
+msgstr ""
+
+#: andw-fixed-footer.php:216
+msgid "Close Button Position"
+msgstr ""
+
+#: andw-fixed-footer.php:223
+#: andw-fixed-footer.php:224
+msgid "Left"
+msgstr ""
+
+#: andw-fixed-footer.php:224
+#: andw-fixed-footer.php:225
+msgid "Right"
+msgstr ""
+
+#: andw-fixed-footer.php:231
+msgid "Button Label Font Size (px)"
+msgstr ""
+
+#: andw-fixed-footer.php:235
+msgid "Font size for all button label text"
+msgstr ""
+
+#: andw-fixed-footer.php:240
+msgid "Bottom Text Font Size (px)"
+msgstr ""
+
+#: andw-fixed-footer.php:244
+msgid "Font size for bottom area text"
+msgstr ""
+
+#: andw-fixed-footer.php:250
+msgid "Exclusion Mode"
+msgstr ""
+
+#: andw-fixed-footer.php:257
+msgid "Hide on specified pages"
+msgstr ""
+
+#: andw-fixed-footer.php:258
+msgid "Show only on specified pages"
+msgstr ""
+
+#: andw-fixed-footer.php:265
+msgid "Hide on Home Page"
+msgstr ""
+
+#: andw-fixed-footer.php:269
+msgid "Hide the footer on home page (front page)"
+msgstr ""
+
+#: andw-fixed-footer.php:274
+msgid "Hide on Static Pages"
+msgstr ""
+
+#: andw-fixed-footer.php:278
+msgid "Hide the footer on all static pages"
+msgstr ""
+
+#: andw-fixed-footer.php:283
+msgid "Hide on Posts"
+msgstr ""
+
+#: andw-fixed-footer.php:287
+msgid "Hide the footer on all post pages"
+msgstr ""
+
+#: andw-fixed-footer.php:292
+msgid "Hide on Category Pages"
+msgstr ""
+
+#: andw-fixed-footer.php:296
+msgid "Hide the footer on all category pages"
+msgstr ""
+
+#: andw-fixed-footer.php:301
+msgid "Hide on Search Results"
+msgstr ""
+
+#: andw-fixed-footer.php:305
+msgid "Hide the footer on search results pages"
+msgstr ""
+
+#: andw-fixed-footer.php:310
+msgid "Excluded Page IDs"
+msgstr ""
+
+#: andw-fixed-footer.php:314
+msgid "Enter IDs of pages/posts to exclude, separated by commas (e.g., 1,5,12)"
+msgstr ""
+
+#: andw-fixed-footer.php:319
+msgid "Excluded URL Patterns"
+msgstr ""
+
+#: andw-fixed-footer.php:323
+msgid "Enter URL patterns to exclude, one per line (e.g., /contact/, /privacy/)"
+msgstr ""
+
+#: andw-fixed-footer.php:329
+msgid "Bottom Background Color"
+msgstr ""
+
+#: andw-fixed-footer.php:338
+msgid "Bottom Text Color"
+msgstr ""
+
+#: andw-fixed-footer.php:347
+msgid "Bottom Text"
+msgstr ""
+
+#: andw-fixed-footer.php:351
+msgid "Line breaks are automatically converted to &lt;br&gt;"
+msgstr ""
+
+#: andw-fixed-footer.php:362
+#, php-format
+msgid "Button %d"
+msgstr ""
+
+#: andw-fixed-footer.php:367
+#, php-format
+msgid "%s Enable/Disable"
+msgstr ""
+
+#: andw-fixed-footer.php:373
+#, php-format
+msgid "Display %s"
+msgstr ""
+
+#: andw-fixed-footer.php:379
+#, php-format
+msgid "%s Background Color"
+msgstr ""
+
+#: andw-fixed-footer.php:389
+#, php-format
+msgid "%s Text Color"
+msgstr ""
+
+#: andw-fixed-footer.php:399
+#, php-format
+msgid "%s Icon Code"
+msgstr ""
+
+#: andw-fixed-footer.php:403
+msgid "Example: \\f095"
+msgstr ""
+
+#: andw-fixed-footer.php:409
+#, php-format
+msgid "%s Label Text"
+msgstr ""
+
+#: andw-fixed-footer.php:419
+#, php-format
+msgid "%s Link URL"
+msgstr ""
+
+#: andw-fixed-footer.php:428
+msgid "Configure general settings for the fixed footer."
+msgstr ""
+
+#: andw-fixed-footer.php:432
+msgid "Configure settings for each button."
+msgstr ""
+
+#: andw-fixed-footer.php:441
+msgid "Font Awesome detected"
+msgstr ""
+
+#: andw-fixed-footer.php:442
+msgid "Font Awesome is loaded properly, so icons will be displayed."
+msgstr ""
+
+#: andw-fixed-footer.php:446
+msgid "Font Awesome not detected"
+msgstr ""
+
+#: andw-fixed-footer.php:447
+msgid "This plugin uses Font Awesome icons for buttons."
+msgstr ""
+
+#: andw-fixed-footer.php:448
+msgid "Please load Font Awesome using one of the following methods:"
+msgstr ""
+
+#: andw-fixed-footer.php:452
+#, php-format
+msgid "%s (Recommended)"
+msgstr ""
+
+#: andw-fixed-footer.php:453
+msgid "Font Awesome Official Plugin"
+msgstr ""
+
+#: andw-fixed-footer.php:455
+msgid "Not required if Font Awesome is already loaded by other themes or plugins"
+msgstr ""
+
+#: andw-fixed-footer.php:565
+msgid "Configure pages where the fixed footer is displayed or hidden."
+msgstr ""
+
+#: andw-fixed-footer.php:569
+msgid "Configure the bottom bar settings."
+msgstr ""
+
+#: andw-fixed-footer.php:634
+msgid "Security check failed."
+msgstr ""
+
+#: andw-fixed-footer.php:806
+#: andw-fixed-footer.php:812
+#: andw-fixed-footer.php:818
+#: andw-fixed-footer.php:824
+#: andw-fixed-footer.php:830
+#: andw-fixed-footer.php:836
+msgid "Phone"
+msgstr ""
+
+#: andw-fixed-footer.php:812
+msgid "Email"
+msgstr ""
+
+#: andw-fixed-footer.php:818
+msgid "Map"
+msgstr ""
+
+#: andw-fixed-footer.php:824
+msgid "Home"
+msgstr ""
+
+#: andw-fixed-footer.php:830
+msgid "Booking"
+msgstr ""
+
+#: andw-fixed-footer.php:836
+msgid "News"
+msgstr ""
+
+#: andw-fixed-footer.php:860
+msgid "You do not have permission to access this page."
+msgstr ""
+
+#: andw-fixed-footer.php:908
+msgid "Save Settings"
+msgstr ""
+
+#: andw-fixed-footer.php:1119
+msgid "Close"
+msgstr ""

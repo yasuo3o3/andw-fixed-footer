@@ -39,14 +39,14 @@
         }
 
         // 画面幅チェック（設定値以下でのみ動作）
-        var maxWidth = (typeof andwffSettings !== 'undefined' && andwffSettings.maxWidth) ? andwffSettings.maxWidth : 768;
+        var maxWidth = (typeof andwff_settings !== 'undefined' && andwff_settings.maxWidth) ? andwff_settings.maxWidth : 768;
         if (window.innerWidth > maxWidth) {
             return;
         }
 
         // スクロール設定値を読み込み
-        if (typeof andwffSettings !== 'undefined' && andwffSettings.scrollRevealThreshold) {
-            scrollRevealThreshold = parseInt(andwffSettings.scrollRevealThreshold, 10);
+        if (typeof andwff_settings !== 'undefined' && andwff_settings.scrollRevealThreshold) {
+            scrollRevealThreshold = parseInt(andwff_settings.scrollRevealThreshold, 10);
         }
 
         // CSS変数の動作確認とフォールバック適用
@@ -160,7 +160,7 @@
     function setupResizeEvent() {
         window.addEventListener('resize', debounce(function() {
             // 画面幅が設定値を超えた場合は非表示
-            var maxWidth = (typeof andwffSettings !== 'undefined' && andwffSettings.maxWidth) ? andwffSettings.maxWidth : 768;
+            var maxWidth = (typeof andwff_settings !== 'undefined' && andwff_settings.maxWidth) ? andwff_settings.maxWidth : 768;
             if (window.innerWidth > maxWidth) {
                 if (footerWrapper) {
                     footerWrapper.style.display = 'none';

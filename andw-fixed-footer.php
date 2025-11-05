@@ -40,6 +40,9 @@ class ANDWFF_Fixed_Footer {
     }
 
     private function __construct() {
+        // Load plugin text domain for translations
+        add_action('plugins_loaded', array($this, 'andwff_load_textdomain'));
+
         // Migrate legacy options on first load
         add_action('init', array($this, 'andwff_migrate_options'));
 
@@ -48,6 +51,14 @@ class ANDWFF_Fixed_Footer {
         add_action('admin_enqueue_scripts', array($this, 'andwff_admin_enqueue_scripts'));
         add_action('wp_footer', array($this, 'andwff_output'));
         add_action('wp_enqueue_scripts', array($this, 'andwff_enqueue_scripts'));
+    }
+
+    public function andwff_load_textdomain() {
+        load_plugin_textdomain(
+            'andw-fixed-footer',
+            false,
+            dirname(plugin_basename(__FILE__)) . '/languages/'
+        );
     }
 
     public function andwff_migrate_options() {
@@ -1077,7 +1088,7 @@ class ANDWFF_Fixed_Footer {
         );
 
         // JavaScriptに設定値を渡す
-        wp_localize_script('andwff-script', 'andwffSettings', array(
+        wp_localize_script('andwff-script', 'andwff_settings', array(
             'maxWidth' => !empty($options['max_screen_width']) ? absint($options['max_screen_width']) : 768,
             'scrollRevealThreshold' => !empty($options['scroll_reveal_threshold']) ? absint($options['scroll_reveal_threshold']) : 150
         ));

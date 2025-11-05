@@ -1,0 +1,362 @@
+# Japanese translation for andW Fixed Footer plugin
+# Copyright (C) 2025 yasuo3o3
+# This file is distributed under the same license as the andW Fixed Footer package.
+# yasuo3o3 <yasuo3o3@example.com>, 2025.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: andW Fixed Footer 0.2.1\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-01-01 00:00+0000\n"
+"PO-Revision-Date: 2025-01-01 00:00+0900\n"
+"Last-Translator: yasuo3o3 <yasuo3o3@example.com>\n"
+"Language-Team: Japanese\n"
+"Language: ja\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+#: andw-fixed-footer.php:72
+msgid "Fixed Footer Settings"
+msgstr "固定フッター設定"
+
+#: andw-fixed-footer.php:73
+msgid "Fixed Footer"
+msgstr "固定フッター"
+
+#: andw-fixed-footer.php:93
+msgid "General Settings"
+msgstr "一般設定"
+
+#: andw-fixed-footer.php:100
+msgid "About Font Awesome"
+msgstr "Font Awesomeについて"
+
+#: andw-fixed-footer.php:108
+msgid "Button Settings"
+msgstr "ボタン設定"
+
+#: andw-fixed-footer.php:115
+msgid "Bottom Bar Settings"
+msgstr "下段帯設定"
+
+#: andw-fixed-footer.php:123
+msgid "Display Page Settings"
+msgstr "表示ページ設定"
+
+#: andw-fixed-footer.php:135
+msgid "Plugin Enable/Disable"
+msgstr "プラグイン有効/無効"
+
+#: andw-fixed-footer.php:139
+msgid "Display fixed footer"
+msgstr "固定フッターを表示"
+
+#: andw-fixed-footer.php:144
+msgid "Display Mode"
+msgstr "表示モード"
+
+#: andw-fixed-footer.php:151
+msgid "2 Columns"
+msgstr "2分割"
+
+#: andw-fixed-footer.php:152
+msgid "3 Columns"
+msgstr "3分割"
+
+#: andw-fixed-footer.php:153
+msgid "4 Columns"
+msgstr "4分割"
+
+#: andw-fixed-footer.php:154
+msgid "5 Columns"
+msgstr "5分割"
+
+#: andw-fixed-footer.php:155
+msgid "6 Columns"
+msgstr "6分割"
+
+#: andw-fixed-footer.php:162
+msgid "Button Height (px)"
+msgstr "ボタン高さ (px)"
+
+#: andw-fixed-footer.php:171
+msgid "Display Screen Width (px)"
+msgstr "表示画面幅 (px)"
+
+#: andw-fixed-footer.php:175
+msgid "Display footer when screen width is at or below this value (default: 768px)"
+msgstr "画面幅がこの値以下の場合にフッターを表示 (デフォルト: 768px)"
+
+#: andw-fixed-footer.php:180
+msgid "2-Column Right Button Width (%)"
+msgstr "2分割右ボタン幅 (%)"
+
+#: andw-fixed-footer.php:188
+msgid "3-Column Left Button Width (%)"
+msgstr "3分割左ボタン幅 (%)"
+
+#: andw-fixed-footer.php:197
+msgid "3-Column Right Button Width (%)"
+msgstr "3分割右ボタン幅 (%)"
+
+#: andw-fixed-footer.php:207
+msgid "Show Close Button"
+msgstr "閉じるボタン表示"
+
+#: andw-fixed-footer.php:211
+msgid "Display a close button for the footer"
+msgstr "フッターに閉じるボタンを表示"
+
+#: andw-fixed-footer.php:216
+msgid "Close Button Position"
+msgstr "閉じるボタン位置"
+
+#: andw-fixed-footer.php:223
+#: andw-fixed-footer.php:224
+msgid "Left"
+msgstr "左"
+
+#: andw-fixed-footer.php:224
+#: andw-fixed-footer.php:225
+msgid "Right"
+msgstr "右"
+
+#: andw-fixed-footer.php:231
+msgid "Button Label Font Size (px)"
+msgstr "ボタンラベル文字サイズ (px)"
+
+#: andw-fixed-footer.php:235
+msgid "Font size for all button label text"
+msgstr "全ボタンラベルの文字サイズ"
+
+#: andw-fixed-footer.php:240
+msgid "Bottom Text Font Size (px)"
+msgstr "下段文字サイズ (px)"
+
+#: andw-fixed-footer.php:244
+msgid "Font size for bottom area text"
+msgstr "下段エリアの文字サイズ"
+
+#: andw-fixed-footer.php:250
+msgid "Exclusion Mode"
+msgstr "除外モード"
+
+#: andw-fixed-footer.php:257
+msgid "Hide on specified pages"
+msgstr "指定ページで非表示"
+
+#: andw-fixed-footer.php:258
+msgid "Show only on specified pages"
+msgstr "指定ページのみ表示"
+
+#: andw-fixed-footer.php:265
+msgid "Hide on Home Page"
+msgstr "ホームページで非表示"
+
+#: andw-fixed-footer.php:269
+msgid "Hide the footer on home page (front page)"
+msgstr "ホームページ（フロントページ）でフッターを非表示"
+
+#: andw-fixed-footer.php:274
+msgid "Hide on Static Pages"
+msgstr "固定ページで非表示"
+
+#: andw-fixed-footer.php:278
+msgid "Hide the footer on all static pages"
+msgstr "すべての固定ページでフッターを非表示"
+
+#: andw-fixed-footer.php:283
+msgid "Hide on Posts"
+msgstr "投稿ページで非表示"
+
+#: andw-fixed-footer.php:287
+msgid "Hide the footer on all post pages"
+msgstr "すべての投稿ページでフッターを非表示"
+
+#: andw-fixed-footer.php:292
+msgid "Hide on Category Pages"
+msgstr "カテゴリページで非表示"
+
+#: andw-fixed-footer.php:296
+msgid "Hide the footer on all category pages"
+msgstr "すべてのカテゴリページでフッターを非表示"
+
+#: andw-fixed-footer.php:301
+msgid "Hide on Search Results"
+msgstr "検索結果で非表示"
+
+#: andw-fixed-footer.php:305
+msgid "Hide the footer on search results pages"
+msgstr "検索結果ページでフッターを非表示"
+
+#: andw-fixed-footer.php:310
+msgid "Excluded Page IDs"
+msgstr "除外ページID"
+
+#: andw-fixed-footer.php:314
+msgid "Enter IDs of pages/posts to exclude, separated by commas (e.g., 1,5,12)"
+msgstr "除外するページ/投稿のIDをカンマ区切りで入力 (例: 1,5,12)"
+
+#: andw-fixed-footer.php:319
+msgid "Excluded URL Patterns"
+msgstr "除外URLパターン"
+
+#: andw-fixed-footer.php:323
+msgid "Enter URL patterns to exclude, one per line (e.g., /contact/, /privacy/)"
+msgstr "除外するURLパターンを1行ずつ入力 (例: /contact/, /privacy/)"
+
+#: andw-fixed-footer.php:329
+msgid "Bottom Background Color"
+msgstr "下段背景色"
+
+#: andw-fixed-footer.php:338
+msgid "Bottom Text Color"
+msgstr "下段文字色"
+
+#: andw-fixed-footer.php:347
+msgid "Bottom Text"
+msgstr "下段テキスト"
+
+#: andw-fixed-footer.php:351
+msgid "Line breaks are automatically converted to &lt;br&gt;"
+msgstr "改行は自動的に&lt;br&gt;に変換されます"
+
+#: andw-fixed-footer.php:362
+#, php-format
+msgid "Button %d"
+msgstr "ボタン %d"
+
+#: andw-fixed-footer.php:367
+#, php-format
+msgid "%s Enable/Disable"
+msgstr "%s 有効/無効"
+
+#: andw-fixed-footer.php:373
+#, php-format
+msgid "Display %s"
+msgstr "%s を表示"
+
+#: andw-fixed-footer.php:379
+#, php-format
+msgid "%s Background Color"
+msgstr "%s 背景色"
+
+#: andw-fixed-footer.php:389
+#, php-format
+msgid "%s Text Color"
+msgstr "%s 文字色"
+
+#: andw-fixed-footer.php:399
+#, php-format
+msgid "%s Icon Code"
+msgstr "%s アイコンコード"
+
+#: andw-fixed-footer.php:403
+msgid "Example: \\f095"
+msgstr "例: \\f095"
+
+#: andw-fixed-footer.php:409
+#, php-format
+msgid "%s Label Text"
+msgstr "%s ラベルテキスト"
+
+#: andw-fixed-footer.php:419
+#, php-format
+msgid "%s Link URL"
+msgstr "%s リンクURL"
+
+#: andw-fixed-footer.php:428
+msgid "Configure general settings for the fixed footer."
+msgstr "固定フッターの一般設定を行います。"
+
+#: andw-fixed-footer.php:432
+msgid "Configure settings for each button."
+msgstr "各ボタンの設定を行います。"
+
+#: andw-fixed-footer.php:441
+msgid "Font Awesome detected"
+msgstr "Font Awesome検出済み"
+
+#: andw-fixed-footer.php:442
+msgid "Font Awesome is loaded properly, so icons will be displayed."
+msgstr "Font Awesomeが正しく読み込まれているため、アイコンが表示されます。"
+
+#: andw-fixed-footer.php:446
+msgid "Font Awesome not detected"
+msgstr "Font Awesome未検出"
+
+#: andw-fixed-footer.php:447
+msgid "This plugin uses Font Awesome icons for buttons."
+msgstr "このプラグインはボタンにFont Awesomeアイコンを使用します。"
+
+#: andw-fixed-footer.php:448
+msgid "Please load Font Awesome using one of the following methods:"
+msgstr "以下のいずれかの方法でFont Awesomeを読み込んでください："
+
+#: andw-fixed-footer.php:452
+#, php-format
+msgid "%s (Recommended)"
+msgstr "%s（推奨）"
+
+#: andw-fixed-footer.php:453
+msgid "Font Awesome Official Plugin"
+msgstr "Font Awesome公式プラグイン"
+
+#: andw-fixed-footer.php:455
+msgid "Not required if Font Awesome is already loaded by other themes or plugins"
+msgstr "他のテーマやプラグインでFont Awesomeが既に読み込まれている場合は不要"
+
+#: andw-fixed-footer.php:565
+msgid "Configure pages where the fixed footer is displayed or hidden."
+msgstr "固定フッターを表示または非表示にするページを設定します。"
+
+#: andw-fixed-footer.php:569
+msgid "Configure the bottom bar settings."
+msgstr "下段帯の設定を行います。"
+
+#: andw-fixed-footer.php:634
+msgid "Security check failed."
+msgstr "セキュリティチェックに失敗しました。"
+
+#: andw-fixed-footer.php:806
+#: andw-fixed-footer.php:812
+#: andw-fixed-footer.php:818
+#: andw-fixed-footer.php:824
+#: andw-fixed-footer.php:830
+#: andw-fixed-footer.php:836
+msgid "Phone"
+msgstr "電話"
+
+#: andw-fixed-footer.php:812
+msgid "Email"
+msgstr "メール"
+
+#: andw-fixed-footer.php:818
+msgid "Map"
+msgstr "地図"
+
+#: andw-fixed-footer.php:824
+msgid "Home"
+msgstr "ホーム"
+
+#: andw-fixed-footer.php:830
+msgid "Booking"
+msgstr "予約"
+
+#: andw-fixed-footer.php:836
+msgid "News"
+msgstr "ニュース"
+
+#: andw-fixed-footer.php:860
+msgid "You do not have permission to access this page."
+msgstr "このページにアクセスする権限がありません。"
+
+#: andw-fixed-footer.php:908
+msgid "Save Settings"
+msgstr "設定を保存"
+
+#: andw-fixed-footer.php:1119
+msgid "Close"
+msgstr "閉じる"
