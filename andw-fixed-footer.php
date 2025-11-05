@@ -78,7 +78,7 @@ class ANDWFF_Fixed_Footer {
 
     public function andwff_settings_init() {
         register_setting(
-            'andw_fixed_footer',
+            'andwff_settings',
             $this->option_name,
             array(
                 'sanitize_callback' => array($this, 'andwff_sanitize_options'),
@@ -88,14 +88,14 @@ class ANDWFF_Fixed_Footer {
 
         // General settings tab sections
         add_settings_section(
-            'andw_fixed_footer_general_section',
+            'andwff_general_section',
             __('General Settings', 'andw-fixed-footer'),
             array($this, 'andwff_general_section_callback'),
             'andw_fixed_footer_general'
         );
 
         add_settings_section(
-            'andw_fixed_footer_fontawesome_section',
+            'andwff_fontawesome_section',
             __('About Font Awesome', 'andw-fixed-footer'),
             array($this, 'andwff_fontawesome_section_callback'),
             'andw_fixed_footer_general'
@@ -103,14 +103,14 @@ class ANDWFF_Fixed_Footer {
 
         // Button settings tab sections
         add_settings_section(
-            'andw_fixed_footer_buttons_section',
+            'andwff_buttons_section',
             __('Button Settings', 'andw-fixed-footer'),
             array($this, 'andwff_buttons_section_callback'),
             'andw_fixed_footer_buttons'
         );
 
         add_settings_section(
-            'andw_fixed_footer_bottom_section',
+            'andwff_bottom_section',
             __('Bottom Bar Settings', 'andw-fixed-footer'),
             array($this, 'andwff_bottom_section_callback'),
             'andw_fixed_footer_buttons'
@@ -118,7 +118,7 @@ class ANDWFF_Fixed_Footer {
 
         // Display page settings tab sections
         add_settings_section(
-            'andw_fixed_footer_exclusion_section',
+            'andwff_exclusion_section',
             __('Display Page Settings', 'andw-fixed-footer'),
             array($this, 'andwff_exclusion_section_callback'),
             'andw_fixed_footer_pages'
@@ -133,8 +133,8 @@ class ANDWFF_Fixed_Footer {
             'enabled',
             __('Plugin Enable/Disable', 'andw-fixed-footer'),
             array($this, 'andwff_checkbox_callback'),
-            'andw_fixed_footer_general',
-            'andw_fixed_footer_general_section',
+            'andwff_general',
+            'andwff_general_section',
             array('field' => 'enabled', 'description' => __('Display fixed footer', 'andw-fixed-footer'))
         );
 
@@ -142,8 +142,8 @@ class ANDWFF_Fixed_Footer {
             'display_mode',
             __('Display Mode', 'andw-fixed-footer'),
             array($this, 'andwff_radio_callback'),
-            'andw_fixed_footer_general',
-            'andw_fixed_footer_general_section',
+            'andwff_general',
+            'andwff_general_section',
             array(
                 'field' => 'display_mode',
                 'options' => array(
@@ -160,8 +160,8 @@ class ANDWFF_Fixed_Footer {
             'button_height',
             __('Button Height (px)', 'andw-fixed-footer'),
             array($this, 'andwff_number_callback'),
-            'andw_fixed_footer_general',
-            'andw_fixed_footer_general_section',
+            'andwff_general',
+            'andwff_general_section',
             array('field' => 'button_height', 'min' => 30, 'max' => 100)
         );
 
@@ -169,8 +169,8 @@ class ANDWFF_Fixed_Footer {
             'max_screen_width',
             __('Display Screen Width (px)', 'andw-fixed-footer'),
             array($this, 'andwff_number_callback'),
-            'andw_fixed_footer_general',
-            'andw_fixed_footer_general_section',
+            'andwff_general',
+            'andwff_general_section',
             array('field' => 'max_screen_width', 'min' => 200, 'max' => 2000, 'description' => __('Display footer when screen width is at or below this value (default: 768px)', 'andw-fixed-footer'))
         );
 
@@ -178,8 +178,8 @@ class ANDWFF_Fixed_Footer {
             'button_width_right_2',
             __('2-Column Right Button Width (%)', 'andw-fixed-footer'),
             array($this, 'andwff_number_callback'),
-            'andw_fixed_footer_general',
-            'andw_fixed_footer_general_section',
+            'andwff_general',
+            'andwff_general_section',
             array('field' => 'button_width_right_2', 'min' => 1, 'max' => 99)
         );
 
@@ -187,8 +187,8 @@ class ANDWFF_Fixed_Footer {
             'button_width_left_3',
             __('3-Column Left Button Width (%)', 'andw-fixed-footer'),
             array($this, 'andwff_number_callback'),
-            'andw_fixed_footer_general',
-            'andw_fixed_footer_general_section',
+            'andwff_general',
+            'andwff_general_section',
             array('field' => 'button_width_left_3', 'min' => 1, 'max' => 98)
         );
 
@@ -196,8 +196,8 @@ class ANDWFF_Fixed_Footer {
             'button_width_right_3',
             __('3-Column Right Button Width (%)', 'andw-fixed-footer'),
             array($this, 'andwff_number_callback'),
-            'andw_fixed_footer_general',
-            'andw_fixed_footer_general_section',
+            'andwff_general',
+            'andwff_general_section',
             array('field' => 'button_width_right_3', 'min' => 1, 'max' => 98)
         );
 
@@ -205,8 +205,8 @@ class ANDWFF_Fixed_Footer {
             'show_close_button',
             __('Show Close Button', 'andw-fixed-footer'),
             array($this, 'andwff_checkbox_callback'),
-            'andw_fixed_footer_general',
-            'andw_fixed_footer_general_section',
+            'andwff_general',
+            'andwff_general_section',
             array('field' => 'show_close_button', 'description' => __('Display a close button for the footer', 'andw-fixed-footer'))
         );
 
@@ -214,8 +214,8 @@ class ANDWFF_Fixed_Footer {
             'close_button_position',
             __('Close Button Position', 'andw-fixed-footer'),
             array($this, 'andwff_radio_callback'),
-            'andw_fixed_footer_general',
-            'andw_fixed_footer_general_section',
+            'andwff_general',
+            'andwff_general_section',
             array(
                 'field' => 'close_button_position',
                 'options' => array(
@@ -229,8 +229,8 @@ class ANDWFF_Fixed_Footer {
             'button_label_font_size',
             __('Button Label Font Size (px)', 'andw-fixed-footer'),
             array($this, 'andwff_number_callback'),
-            'andw_fixed_footer_general',
-            'andw_fixed_footer_general_section',
+            'andwff_general',
+            'andwff_general_section',
             array('field' => 'button_label_font_size', 'description' => __('Font size for all button label text', 'andw-fixed-footer'))
         );
 
@@ -238,8 +238,8 @@ class ANDWFF_Fixed_Footer {
             'bottom_text_font_size',
             __('Bottom Text Font Size (px)', 'andw-fixed-footer'),
             array($this, 'andwff_number_callback'),
-            'andw_fixed_footer_general',
-            'andw_fixed_footer_general_section',
+            'andwff_general',
+            'andwff_general_section',
             array('field' => 'bottom_text_font_size', 'description' => __('Font size for bottom area text', 'andw-fixed-footer'))
         );
 
@@ -248,8 +248,8 @@ class ANDWFF_Fixed_Footer {
             'exclusion_mode',
             __('Exclusion Mode', 'andw-fixed-footer'),
             array($this, 'andwff_radio_callback'),
-            'andw_fixed_footer_pages',
-            'andw_fixed_footer_exclusion_section',
+            'andwff_pages',
+            'andwff_exclusion_section',
             array(
                 'field' => 'exclusion_mode',
                 'options' => array(
@@ -263,8 +263,8 @@ class ANDWFF_Fixed_Footer {
             'exclude_home',
             __('Hide on Home Page', 'andw-fixed-footer'),
             array($this, 'andwff_checkbox_callback'),
-            'andw_fixed_footer_pages',
-            'andw_fixed_footer_exclusion_section',
+            'andwff_pages',
+            'andwff_exclusion_section',
             array('field' => 'exclude_home', 'description' => __('Hide the footer on home page (front page)', 'andw-fixed-footer'))
         );
 
@@ -272,8 +272,8 @@ class ANDWFF_Fixed_Footer {
             'exclude_pages',
             __('Hide on Static Pages', 'andw-fixed-footer'),
             array($this, 'andwff_checkbox_callback'),
-            'andw_fixed_footer_pages',
-            'andw_fixed_footer_exclusion_section',
+            'andwff_pages',
+            'andwff_exclusion_section',
             array('field' => 'exclude_pages', 'description' => __('Hide the footer on all static pages', 'andw-fixed-footer'))
         );
 
@@ -281,8 +281,8 @@ class ANDWFF_Fixed_Footer {
             'exclude_posts',
             __('Hide on Posts', 'andw-fixed-footer'),
             array($this, 'andwff_checkbox_callback'),
-            'andw_fixed_footer_pages',
-            'andw_fixed_footer_exclusion_section',
+            'andwff_pages',
+            'andwff_exclusion_section',
             array('field' => 'exclude_posts', 'description' => __('Hide the footer on all post pages', 'andw-fixed-footer'))
         );
 
@@ -290,8 +290,8 @@ class ANDWFF_Fixed_Footer {
             'exclude_categories',
             __('Hide on Category Pages', 'andw-fixed-footer'),
             array($this, 'andwff_checkbox_callback'),
-            'andw_fixed_footer_pages',
-            'andw_fixed_footer_exclusion_section',
+            'andwff_pages',
+            'andwff_exclusion_section',
             array('field' => 'exclude_categories', 'description' => __('Hide the footer on all category pages', 'andw-fixed-footer'))
         );
 
@@ -299,8 +299,8 @@ class ANDWFF_Fixed_Footer {
             'exclude_search',
             __('Hide on Search Results', 'andw-fixed-footer'),
             array($this, 'andwff_checkbox_callback'),
-            'andw_fixed_footer_pages',
-            'andw_fixed_footer_exclusion_section',
+            'andwff_pages',
+            'andwff_exclusion_section',
             array('field' => 'exclude_search', 'description' => __('Hide the footer on search results pages', 'andw-fixed-footer'))
         );
 
@@ -308,8 +308,8 @@ class ANDWFF_Fixed_Footer {
             'excluded_page_ids',
             __('Excluded Page IDs', 'andw-fixed-footer'),
             array($this, 'andwff_text_callback'),
-            'andw_fixed_footer_pages',
-            'andw_fixed_footer_exclusion_section',
+            'andwff_pages',
+            'andwff_exclusion_section',
             array('field' => 'excluded_page_ids', 'description' => __('Enter IDs of pages/posts to exclude, separated by commas (e.g., 1,5,12)', 'andw-fixed-footer'))
         );
 
@@ -317,8 +317,8 @@ class ANDWFF_Fixed_Footer {
             'excluded_url_patterns',
             __('Excluded URL Patterns', 'andw-fixed-footer'),
             array($this, 'andwff_textarea_callback'),
-            'andw_fixed_footer_pages',
-            'andw_fixed_footer_exclusion_section',
+            'andwff_pages',
+            'andwff_exclusion_section',
             array('field' => 'excluded_url_patterns', 'description' => __('Enter URL patterns to exclude, one per line (e.g., /contact/, /privacy/)', 'andw-fixed-footer'))
         );
 
@@ -327,8 +327,8 @@ class ANDWFF_Fixed_Footer {
             'bottom_bg_color',
             __('Bottom Background Color', 'andw-fixed-footer'),
             array($this, 'andwff_color_callback'),
-            'andw_fixed_footer_buttons',
-            'andw_fixed_footer_bottom_section',
+            'andwff_buttons',
+            'andwff_bottom_section',
             array('field' => 'bottom_bg_color')
         );
 
@@ -336,8 +336,8 @@ class ANDWFF_Fixed_Footer {
             'bottom_text_color',
             __('Bottom Text Color', 'andw-fixed-footer'),
             array($this, 'andwff_color_callback'),
-            'andw_fixed_footer_buttons',
-            'andw_fixed_footer_bottom_section',
+            'andwff_buttons',
+            'andwff_bottom_section',
             array('field' => 'bottom_text_color')
         );
 
@@ -345,8 +345,8 @@ class ANDWFF_Fixed_Footer {
             'bottom_text',
             __('Bottom Text', 'andw-fixed-footer'),
             array($this, 'andwff_textarea_callback'),
-            'andw_fixed_footer_buttons',
-            'andw_fixed_footer_bottom_section',
+            'andwff_buttons',
+            'andwff_bottom_section',
             array('field' => 'bottom_text', 'description' => __('Line breaks are automatically converted to &lt;br&gt;', 'andw-fixed-footer'))
         );
 
@@ -365,8 +365,8 @@ class ANDWFF_Fixed_Footer {
             /* translators: %s is button label */
             sprintf(__('%s Enable/Disable', 'andw-fixed-footer'), $button_label),
             array($this, 'andwff_checkbox_callback'),
-            'andw_fixed_footer_buttons',
-            'andw_fixed_footer_buttons_section',
+            'andwff_buttons',
+            'andwff_buttons_section',
             array('field' => "button_{$button_num}_enabled", 'description' =>
                 /* translators: %s is button label */
                 sprintf(__('Display %s', 'andw-fixed-footer'), $button_label))
@@ -377,8 +377,8 @@ class ANDWFF_Fixed_Footer {
             /* translators: %s is button label */
             sprintf(__('%s Background Color', 'andw-fixed-footer'), $button_label),
             array($this, 'andwff_color_callback'),
-            'andw_fixed_footer_buttons',
-            'andw_fixed_footer_buttons_section',
+            'andwff_buttons',
+            'andwff_buttons_section',
             array('field' => "button_{$button_num}_bg_color")
         );
 
@@ -387,8 +387,8 @@ class ANDWFF_Fixed_Footer {
             /* translators: %s is button label */
             sprintf(__('%s Text Color', 'andw-fixed-footer'), $button_label),
             array($this, 'andwff_color_callback'),
-            'andw_fixed_footer_buttons',
-            'andw_fixed_footer_buttons_section',
+            'andwff_buttons',
+            'andwff_buttons_section',
             array('field' => "button_{$button_num}_text_color")
         );
 
@@ -397,8 +397,8 @@ class ANDWFF_Fixed_Footer {
             /* translators: %s is button label */
             sprintf(__('%s Icon Code', 'andw-fixed-footer'), $button_label),
             array($this, 'andwff_text_callback'),
-            'andw_fixed_footer_buttons',
-            'andw_fixed_footer_buttons_section',
+            'andwff_buttons',
+            'andwff_buttons_section',
             array('field' => "button_{$button_num}_icon", 'description' => __('Example: \\f095', 'andw-fixed-footer'))
         );
 
@@ -407,8 +407,8 @@ class ANDWFF_Fixed_Footer {
             /* translators: %s is button label */
             sprintf(__('%s Label Text', 'andw-fixed-footer'), $button_label),
             array($this, 'andwff_text_callback'),
-            'andw_fixed_footer_buttons',
-            'andw_fixed_footer_buttons_section',
+            'andwff_buttons',
+            'andwff_buttons_section',
             array('field' => "button_{$button_num}_label")
         );
 
@@ -417,8 +417,8 @@ class ANDWFF_Fixed_Footer {
             /* translators: %s is button label */
             sprintf(__('%s Link URL', 'andw-fixed-footer'), $button_label),
             array($this, 'andwff_url_callback'),
-            'andw_fixed_footer_buttons',
-            'andw_fixed_footer_buttons_section',
+            'andwff_buttons',
+            'andwff_buttons_section',
             array('field' => "button_{$button_num}_url")
         );
     }
@@ -629,7 +629,7 @@ class ANDWFF_Fixed_Footer {
     public function andwff_sanitize_options($input) {
         // nonceチェック（CSRF対策）
         $nonce = isset($_POST['_wpnonce']) ? sanitize_text_field(wp_unslash($_POST['_wpnonce'])) : '';
-        if (empty($nonce) || !wp_verify_nonce($nonce, 'andw_fixed_footer-options')) {
+        if (empty($nonce) || !wp_verify_nonce($nonce, 'andwff_settings-options')) {
             wp_die(esc_html__('Security check failed.', 'andw-fixed-footer'));
         }
 
@@ -646,8 +646,8 @@ class ANDWFF_Fixed_Footer {
         $sanitized = $existing_options;
 
         // 送信元タブを判定
-        $current_tab = isset($_POST['andw_fixed_footer_current_tab'])
-            ? sanitize_key(wp_unslash($_POST['andw_fixed_footer_current_tab']))
+        $current_tab = isset($_POST['andwff_current_tab'])
+            ? sanitize_key(wp_unslash($_POST['andwff_current_tab']))
             : 'general';
         if (!in_array($current_tab, array('general', 'buttons', 'pages'), true)) {
             $current_tab = 'general';
@@ -885,20 +885,20 @@ class ANDWFF_Fixed_Footer {
 
             <!-- タブコンテンツ -->
             <form action="options.php" method="post">
-                <?php settings_fields('andw_fixed_footer'); ?>
-                <input type="hidden" name="andw_fixed_footer_current_tab" value="<?php echo esc_attr($current_tab); ?>">
+                <?php settings_fields('andwff_settings'); ?>
+                <input type="hidden" name="andwff_current_tab" value="<?php echo esc_attr($current_tab); ?>">
 
                 <div class="tab-content tab-content-<?php echo esc_attr($current_tab); ?>">
                     <?php
                     switch ($current_tab) {
                         case 'general':
-                            do_settings_sections('andw_fixed_footer_general');
+                            do_settings_sections('andwff_general');
                             break;
                         case 'buttons':
-                            do_settings_sections('andw_fixed_footer_buttons');
+                            do_settings_sections('andwff_buttons');
                             break;
                         case 'pages':
-                            do_settings_sections('andw_fixed_footer_pages');
+                            do_settings_sections('andwff_pages');
                             break;
                     }
                     ?>

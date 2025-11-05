@@ -39,14 +39,14 @@
         }
 
         // 画面幅チェック（設定値以下でのみ動作）
-        var maxWidth = (typeof andwFooterSettings !== 'undefined' && andwFooterSettings.maxWidth) ? andwFooterSettings.maxWidth : 768;
+        var maxWidth = (typeof andwffSettings !== 'undefined' && andwffSettings.maxWidth) ? andwffSettings.maxWidth : 768;
         if (window.innerWidth > maxWidth) {
             return;
         }
 
         // スクロール設定値を読み込み
-        if (typeof andwFooterSettings !== 'undefined' && andwFooterSettings.scrollRevealThreshold) {
-            scrollRevealThreshold = parseInt(andwFooterSettings.scrollRevealThreshold, 10);
+        if (typeof andwffSettings !== 'undefined' && andwffSettings.scrollRevealThreshold) {
+            scrollRevealThreshold = parseInt(andwffSettings.scrollRevealThreshold, 10);
         }
 
         // CSS変数の動作確認とフォールバック適用
@@ -162,7 +162,7 @@
     function setupResizeEvent() {
         window.addEventListener('resize', debounce(function() {
             // 画面幅が設定値を超えた場合は非表示
-            var maxWidth = (typeof andwFooterSettings !== 'undefined' && andwFooterSettings.maxWidth) ? andwFooterSettings.maxWidth : 768;
+            var maxWidth = (typeof andwffSettings !== 'undefined' && andwffSettings.maxWidth) ? andwffSettings.maxWidth : 768;
             if (window.innerWidth > maxWidth) {
                 if (footerWrapper) {
                     footerWrapper.style.display = 'none';
@@ -317,7 +317,7 @@
             const computedStyle = window.getComputedStyle(footerWrapper);
             const position = computedStyle.getPropertyValue('position');
             const display = computedStyle.getPropertyValue('display');
-            const maxWidth = (typeof andwFooterSettings !== 'undefined' && andwFooterSettings.maxWidth) ? andwFooterSettings.maxWidth : 768;
+            const maxWidth = (typeof andwffSettings !== 'undefined' && andwffSettings.maxWidth) ? andwffSettings.maxWidth : 768;
 
             console.log('andW Fixed Footer Debug Info:', {
                 'Window Width': window.innerWidth,
