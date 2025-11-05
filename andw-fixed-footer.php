@@ -7,6 +7,7 @@
  * Author URI: https://yasuo-o.xyz/
  * License: GPLv2 or later
  * Text Domain: andw-fixed-footer
+ * Domain Path: /languages
  * Requires at least: 5.0
  * Requires PHP: 7.4
  *
@@ -40,6 +41,9 @@ class ANDWFF_Fixed_Footer {
     }
 
     private function __construct() {
+        // Load plugin text domain for translations
+        add_action('plugins_loaded', array($this, 'andwff_load_textdomain'));
+
         // Migrate legacy options on first load
         add_action('init', array($this, 'andwff_migrate_options'));
 
@@ -48,6 +52,14 @@ class ANDWFF_Fixed_Footer {
         add_action('admin_enqueue_scripts', array($this, 'andwff_admin_enqueue_scripts'));
         add_action('wp_footer', array($this, 'andwff_output'));
         add_action('wp_enqueue_scripts', array($this, 'andwff_enqueue_scripts'));
+    }
+
+    public function andwff_load_textdomain() {
+        load_plugin_textdomain(
+            'andw-fixed-footer',
+            false,
+            basename(dirname(__FILE__)) . '/languages'
+        );
     }
 
     public function andwff_migrate_options() {
