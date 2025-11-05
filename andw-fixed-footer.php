@@ -91,14 +91,14 @@ class ANDWFF_Fixed_Footer {
             'andwff_general_section',
             __('General Settings', 'andw-fixed-footer'),
             array($this, 'andwff_general_section_callback'),
-            'andw_fixed_footer_general'
+            'andwff_general'
         );
 
         add_settings_section(
             'andwff_fontawesome_section',
             __('About Font Awesome', 'andw-fixed-footer'),
             array($this, 'andwff_fontawesome_section_callback'),
-            'andw_fixed_footer_general'
+            'andwff_general'
         );
 
         // Button settings tab sections
@@ -106,14 +106,14 @@ class ANDWFF_Fixed_Footer {
             'andwff_buttons_section',
             __('Button Settings', 'andw-fixed-footer'),
             array($this, 'andwff_buttons_section_callback'),
-            'andw_fixed_footer_buttons'
+            'andwff_buttons'
         );
 
         add_settings_section(
             'andwff_bottom_section',
             __('Bottom Bar Settings', 'andw-fixed-footer'),
             array($this, 'andwff_bottom_section_callback'),
-            'andw_fixed_footer_buttons'
+            'andwff_buttons'
         );
 
         // Display page settings tab sections
@@ -121,7 +121,7 @@ class ANDWFF_Fixed_Footer {
             'andwff_exclusion_section',
             __('Display Page Settings', 'andw-fixed-footer'),
             array($this, 'andwff_exclusion_section_callback'),
-            'andw_fixed_footer_pages'
+            'andwff_pages'
         );
 
         $this->andwff_add_settings_fields();
