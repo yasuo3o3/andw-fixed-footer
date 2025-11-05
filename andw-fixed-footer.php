@@ -41,8 +41,8 @@ class ANDWFF_Fixed_Footer {
     }
 
     private function __construct() {
-        // Load plugin text domain for translations
-        add_action('plugins_loaded', array($this, 'andwff_load_textdomain'));
+        // Load plugin text domain for translations (fallback for bundled .mo files)
+        add_action('plugins_loaded', array($this, 'andwff_maybe_load_textdomain'));
 
         // Migrate legacy options on first load
         add_action('init', array($this, 'andwff_migrate_options'));
@@ -54,12 +54,18 @@ class ANDWFF_Fixed_Footer {
         add_action('wp_enqueue_scripts', array($this, 'andwff_enqueue_scripts'));
     }
 
-    public function andwff_load_textdomain() {
-        load_plugin_textdomain(
-            'andw-fixed-footer',
-            false,
-            basename(dirname(__FILE__)) . '/languages'
-        );
+    public function andwff_maybe_load_textdomain() {
+        if (is_textdomain_loaded('andw-fixed-footer')) {
+            return; // WordPress.org language pack is already loaded
+        }
+
+        $locale = determine_locale();
+        $mofile = trailingslashit(ANDWFF_PLUGIN_PATH . 'languages')
+            . 'andw-fixed-footer-' . $locale . '.mo';
+
+        if (file_exists($mofile)) {
+            load_textdomain('andw-fixed-footer', $mofile);
+        }
     }
 
     public function andwff_migrate_options() {
