@@ -22,7 +22,7 @@ andW Fixed Footer is a responsive mobile-first fixed footer plugin for WordPress
 * **Customizable Styling**: Colors, icons, links, and text fully configurable
 * **Font Awesome Support**: Icon display with external Font Awesome plugin
 * **Close Button**: Temporary hide functionality for users
-* **Two-tier Structure**: Button area and address text area
+* **Two-tier Structure**: Button area and bottom text area
 
 = Configuration Options =
 
@@ -42,7 +42,7 @@ andW Fixed Footer is a responsive mobile-first fixed footer plugin for WordPress
 * Label text
 * Link URLs (tel:, mailto:, https:// supported)
 
-**Bottom Address Bar**
+**Bottom Bar**
 * Background and text colors
 * Multi-line text (automatic line break conversion)
 
@@ -60,94 +60,45 @@ andW Fixed Footer is a responsive mobile-first fixed footer plugin for WordPress
 * Nonce authentication for settings protection
 * Administrator permission checks
 
-= 主な機能（日本語） =
-
-andW Fixed Footerは、設定可能な画面幅以下で固定フッターバーを表示するプラグインです。デフォルトは768px以下で表示されます。
-
-= 主な機能 =
-
-* **レスポンシブ対応**: 自由に設定可能な画面幅以下で表示（デフォルト768px）
-* **スクロール連動**: 下スクロールで表示、上スクロールで非表示
-* **2段構成**: 上段ボタンエリア、下段住所テキストエリア
-* **柔軟なレイアウト**: 2〜6分割ボタンレイアウト
-* **カスタマイズ**: 色、アイコン、リンク先を自由に設定
-* **Font Awesome対応**: アイコン表示をサポート（別途Font Awesomeプラグインが必要）
-* **閉じるボタン**: ユーザーが一時的に非表示にできる機能
-
-= 設定項目 =
-
-**全体設定**
-* プラグインの有効/無効
-* 表示モード（2〜6分割）
-* ボタン高さ
-* 表示画面幅上限（320〜1200px、デフォルト768px）
-* ボタン幅配分
-* 閉じるボタンの表示・位置
-* Font Awesomeの検出状況表示
-
-**ボタン設定（最大6個）**
-* 有効/無効
-* 背景色・文字色
-* Font Awesomeアイコンコード
-* ラベルテキスト
-* リンク先URL（tel:、mailto:、https:// 対応）
-
-**下段住所帯**
-* 背景色・文字色
-* 複数行テキスト（改行自動変換）
-
-= 使用場面 =
-
-* コーポレートサイトの電話・メール連絡
-* ECサイトの問い合わせボタン
-* 店舗サイトの地図・予約リンク
-* サービスサイトの資料請求
-
-= セキュリティ =
-
-* 入力値の適切なサニタイズ
-* 出力時のエスケープ処理
-* nonce認証による設定保護
-* 管理者権限チェック
 
 == Installation ==
 
-1. Font Awesomeプラグインを先にインストールします（推奨）:
-   https://ja.wordpress.org/plugins/font-awesome/
-2. andW Fixed Footerプラグインをアップロードし、有効化してください
-3. 管理画面の「設定 > 固定フッター」から設定を行います
-4. Font Awesomeの検出状況を確認します
-5. 各ボタンの色、アイコン、リンク先を設定します
-6. モバイル端末で表示を確認してください
+1. Install Font Awesome plugin first (recommended):
+   https://wordpress.org/plugins/font-awesome/
+2. Upload and activate andW Fixed Footer plugin
+3. Go to Settings > Fixed Footer in the admin panel
+4. Check Font Awesome detection status
+5. Configure colors, icons, and links for each button
+6. Verify display on mobile devices
 
 == Frequently Asked Questions ==
 
-= どの画面サイズで表示されますか？ =
+= On which screen sizes is the footer displayed? =
 
-管理画面で設定した「表示画面幅上限」以下のデバイスで表示されます。デフォルトは768px以下で、320px〜1200pxの範囲で自由に設定できます。
+The footer is displayed on devices with screen width at or below the "Display Screen Width" setting configured in the admin panel. Default is 768px or below, and can be freely set in the range of 320px to 1200px.
 
-= Font Awesomeが必要ですか？ =
+= Is Font Awesome required? =
 
-はい。このプラグインはアイコン表示にFont Awesomeを使用します。以下の方法で導入してください：
-1. Font Awesome公式プラグイン（推奨）: https://ja.wordpress.org/plugins/font-awesome/
-2. 他のテーマやプラグインで既に読み込まれている場合は不要です
+Yes. This plugin uses Font Awesome for icon display. Please install it using one of the following methods:
+1. Font Awesome Official Plugin (recommended): https://wordpress.org/plugins/font-awesome/
+2. Not required if Font Awesome is already loaded by other themes or plugins
 
-管理画面でFont Awesomeの検出状況を確認できます。
+You can check Font Awesome detection status in the admin panel.
 
-= アイコンコードの形式は？ =
+= What format should icon codes be in? =
 
-Font Awesomeのunicodeを使用します。例：`\f095`（電話アイコン）
+Use Font Awesome unicode format. Example: `\f095` (phone icon)
 
-= スクロール動作を無効にできますか？ =
+= Can scroll behavior be disabled? =
 
-現在のバージョンでは固定機能はありません。閉じるボタンで一時的に非表示にできます。
+The current version does not have a fixed display feature. Users can temporarily hide it using the close button.
 
 == Screenshots ==
 
-1. 管理画面の設定ページ
-2. スマホでの表示例（2分割）
-3. スマホでの表示例（3分割）
-4. スマホでの表示例（6分割）
+1. Admin settings page
+2. Mobile display example (2 columns)
+3. Mobile display example (3 columns)
+4. Mobile display example (6 columns)
 
 == Changelog ==
 
@@ -220,22 +171,22 @@ WordPress.org Plugin Check対応版です。
 * http://example.com
 
 = CSS Class Names =
-* `.andw-fixed-footer-wrapper` - メインコンテナ
-* `.andw-footer-buttons` - ボタンエリア
-* `.andw-footer-button` - 個別ボタン
-* `.andw-footer-bottom` - 下段住所エリア
+* `.andw-fixed-footer-wrapper` - Main container
+* `.andw-footer-buttons` - Button area
+* `.andw-footer-button` - Individual button
+* `.andw-footer-bottom` - Bottom text area
 
 = JavaScript API =
 ```javascript
-// 表示
+// Show
 window.andwFixedFooter.show();
 
-// 非表示
+// Hide
 window.andwFixedFooter.hide();
 
-// 閉じる
+// Close
 window.andwFixedFooter.close();
 
-// 表示状態確認
+// Check visibility
 window.andwFixedFooter.isVisible();
 ```
