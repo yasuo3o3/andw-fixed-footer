@@ -61,9 +61,10 @@ class ANDWFF_Fixed_Footer {
         if ($legacy_options !== false) {
             // Copy to new option name
             update_option($this->option_name, $legacy_options);
-            // Mark migration as complete
-            update_option('andwff_migration_done', true);
         }
+
+        // Always mark migration as complete (whether legacy found or not)
+        update_option('andwff_migration_done', true);
     }
 
     public function andwff_add_admin_menu() {
