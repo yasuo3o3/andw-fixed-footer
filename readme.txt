@@ -4,7 +4,7 @@ Tags: footer, mobile, fixed, responsive, sticky
 Requires at least: 5.0
 Tested up to: 6.8
 Requires PHP: 7.4
-Stable tag: 0.2.0
+Stable tag: 0.2.1
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -101,6 +101,14 @@ The current version does not have a fixed display feature. Users can temporarily
 4. Mobile display example (6 columns)
 
 == Changelog ==
+
+= 0.2.1 =
+* Review and compliance fixes
+* Complete compliance with WordPress.org plugin review requirements
+* Migration to unified andwff prefix throughout codebase
+* Admin UI internationalization with English defaults
+* Proper asset enqueuing implementation
+* Removal of inline styles in admin interface
 
 = 0.2.0 =
 * Review and code quality improvements

@@ -176,8 +176,8 @@ find . -name "*.php" -exec php -l {} \;
    svn commit -m "Initial plugin submission"
 
    # Create release tag
-   svn copy trunk tags/0.2.0
-   svn commit -m "Tagging version 0.2.0"
+   svn copy trunk tags/0.2.1
+   svn commit -m "Tagging version 0.2.1"
    ```
 
 ## CI/CD Implementation Plan

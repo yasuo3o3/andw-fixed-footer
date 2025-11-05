@@ -2,7 +2,7 @@
 
 A responsive fixed footer plugin for WordPress with mobile-first design and scroll-based behavior.
 
-[![WordPress Plugin Version](https://img.shields.io/badge/version-0.2.0-blue.svg)](https://github.com/yasuo3o3/andw-fixed-footer)
+[![WordPress Plugin Version](https://img.shields.io/badge/version-0.2.1-blue.svg)](https://github.com/yasuo3o3/andw-fixed-footer)
 [![WordPress Compatibility](https://img.shields.io/badge/wordpress-5.0%2B-blue.svg)](https://wordpress.org/)
 [![PHP Compatibility](https://img.shields.io/badge/php-7.4%2B-blue.svg)](https://php.net/)
 [![License](https://img.shields.io/badge/license-GPLv2+-blue.svg)](https://www.gnu.org/licenses/gpl-2.0.html)
