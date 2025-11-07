@@ -124,5 +124,11 @@ LICENSE
 /docs/
 VERSION-UP.md
 
+/assets/banner-772x250.png
+/assets/banner-1544x500.png
+/assets/icon-128x128.png
+/assets/icon-256x256.png
+/assets/screenshot-*.png
+
 # ===== andW-Floating-Tools 専用 =====
 # （プラグイン固有のルールをここに追加）
